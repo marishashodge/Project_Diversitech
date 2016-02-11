@@ -1,8 +1,8 @@
 """Models and database functions for DiversiTech Poject."""
 
-from flask_sqlalchemy import SQL SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy
+db = SQLAlchemy()
 
 
 ##############################################################################
@@ -15,34 +15,34 @@ class Company(db.Model):
 
     company_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(64))
-    number_of_employees = db.Column(db.Integer, nullable=True)
-    report_date = db.Column(db.String(64), nullable=True)
+    # number_of_employees = db.Column(db.Integer, nullable=True)
+    report_date = db.Column(db.String(64))
+    female_overall = db.Column(db.Integer)
+    male_overall = db.Column(db.Integer)
 
     def __repr__(self):
         """Show info about company."""
 
-        return "<Company company_id=%s email=%s>" % (self.company_id, self.email)
+        return "<Company company_id=%s name=%s>" % (self.company_id, self.name)
 
 
-# class Users(db.Model):
-#     """Users who would like to rate a company."""
+class Category(db.Model):
+    """Diversity categories."""
 
-#     __tablename__ = "users"
+    __tablename__ = "categories"
 
-#     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     name = db.Column(db.Integer, nullable=True, default="Anonymous")
-#     email = db.Column(db.String(100), nullable=True)
-#     password = db.Column(db.String(64), nullable=True)
-#     company_id = db.Column(db.Integer, db.ForeignKey('companies.company_id'))
-#     employer_status = db.Column(db.String(64))
-#     rating = db.Column(db.Integer)
-#     pros = db.String(db.String(800))
-#     cons = db.String(db.String(800))
+    d_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    category = db.Column(db.String(64))
+    company_id = db.Column(db.Integer, db.ForeignKey('companies.company_id'), nullable=False)
+    percentage = db.Column(db.Integer)
 
-#     def __repr__(self):
-#         """Show info about user"""
+    def __repr__(self):
+        """Show info about categories."""
 
-#         return "<User user_id=%s email=%s>" % (self.user_id, self.email)
+        return "<Category category_id=%s category=%s>" % (self.category_id, self.category)
+
+
+
 
 ##############################################################################
 # Helper functions
@@ -52,7 +52,7 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///ratings'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///diversity'
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)
@@ -65,11 +65,3 @@ if __name__ == "__main__":
     from server import app
     connect_to_db(app)
     print "Connected to DB."
-
-
-
-
-
-
-
-
