@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2>{{ display_company.name }}</h2>
+    <p>Female: {{ display_company.female_overall}}%</p>
+    <p>Male: {{ display_company.male_overall}}%</p>
+
+    
+    <h3>Diversity Details</h3>
+    <ul>
+        {% for category in categories %}
+            <li>{{ category.category }}: {{ category.percentage }}%</li>
+        {% endfor %}
+    </ul>
+
+
+
+{% endblock %}

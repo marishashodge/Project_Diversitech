@@ -1,14 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<!-- <p>
-    {% for message in get_flashed_messages() %}
-        {{ message }} 
-    {% endfor %}
-</p> -->
+    <h1>DiversiTech</h1>
 
-<h1>DiversiTech</h1>
+    <p>Welcome to DiversiTech.</p>
 
-<p>Welcome to DiversiTech.</p>
+
+    <h3>Companies</h3>
+    <ul>
+        {% for company in companies %}
+            <li>
+                <a href="/company/{{ company.company_id }}">
+                {{ company.name }} 
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <h4><a href="/company/{{ us_population.company_id }}">U.S. Population</a></h3>
+    <h4><a href="/company/{{ average.company_id }}">Average</a></h3>
 
 {% endblock %}
