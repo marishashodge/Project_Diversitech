@@ -50,11 +50,15 @@ def load_categories():
     for index, row in data.iterrows():
         for i in range(len(row[5:21])):
 
-            category = categories[i + 4]
+            if row[i + 5] == "-":
 
-            percentage = row[i + 4]
+                continue
 
-            if type(percentage) == int:
+            else:
+
+                category = categories[i + 5]
+
+                percentage = row[i + 5]
 
                 company = Company.query.filter(Company.name == row[0]).first()
 
@@ -69,7 +73,6 @@ def load_categories():
     db.session.commit()
 
 
-
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
     # you in a state of being able to work with the database directly.
@@ -80,5 +83,4 @@ if __name__ == "__main__":
 
     # Import different types of data
     load_companies()
-    load_categories()
-   
+    load_categories()  

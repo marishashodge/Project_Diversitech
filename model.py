@@ -31,7 +31,7 @@ class Category(db.Model):
 
     __tablename__ = "categories"
 
-    d_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    diversity_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     category = db.Column(db.String(64))
     company_id = db.Column(db.Integer, db.ForeignKey('companies.company_id'), nullable=False)
     percentage = db.Column(db.Integer)
@@ -39,9 +39,9 @@ class Category(db.Model):
     def __repr__(self):
         """Show info about categories."""
 
-        return "<Category category_id=%s category=%s>" % (self.category_id, self.category)
+        return "<Category diversity_id=%s category=%s company_id=%s percentage=%s>" % (self.diversity_id, self.category, self.company_id, self.percentage)
 
-
+    company = db.relationship('Company', backref=db.backref("categories", order_by=diversity_id))
 
 
 ##############################################################################
