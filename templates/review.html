@@ -4,7 +4,7 @@
 <h3>Submit a Review</h3>
 
 <form action='/submitted/{{ company_id }}' method='POST'>
-    Company: <input type="text" name="company" placeholder="{{ company.name }}" required><br><br>
+    Company: <input type="text" name="company" value="{{ company.name }}" required><br><br>
     Rating: <input type="text" name="rating" required><br><br>
     Current or former employee: <br>
         <input type="radio" name="employee_status" value="current" checked required>Current Employee<br>

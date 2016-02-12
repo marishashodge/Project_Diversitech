@@ -39,7 +39,7 @@ def show_company(company_id):
 
     categories_for_company = company.categories
 
-    reviews = Review.query.all()
+    reviews = Review.query.filter(Review.company_id == company_id).all()
 
     return render_template("company-page.html", display_company=company, categories=categories_for_company, reviews=reviews)
 
@@ -57,17 +57,17 @@ def show_review_page(company_id):
 def add_user_comment(company_id):
     """Add new user comment to company page."""
 
-    # form_company = request.form.get("company")
+    form_company = request.form.get("company")
     form_rating = request.form.get("rating")
     form_emp_status = request.form.get("employee_status")
     form_title = request.form.get("title")
     form_pros = request.form.get("pros")
     form_cons = request.form.get("cons")
 
-    # company = Company.query.filter(Company.name == form_company).one()
-    # id_of_company = company.company_id
+    company = Company.query.filter(Company.name == form_company).one()
+    id_of_company = company.company_id
 
-    review = Review(company_id=company_id, rating=form_rating, employee_status=form_emp_status,
+    review = Review(company_id=id_of_company, rating=form_rating, employee_status=form_emp_status,
                     review_title=form_title, pros=form_pros, cons=form_cons)
 
     db.session.add(review)
@@ -76,7 +76,7 @@ def add_user_comment(company_id):
     # reviews = Review.query.all()
 
     flash("Your comment has been received!")
-    return redirect("/company/" + str(company_id))
+    return redirect("/company/" + str(id_of_company))
 
 
 
