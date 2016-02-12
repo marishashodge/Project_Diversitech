@@ -44,6 +44,29 @@ class Category(db.Model):
     company = db.relationship('Company', backref=db.backref("categories", order_by=diversity_id))
 
 
+class Review(db.Model):
+    """Company reviews table."""
+
+    __tablename__ = "reviews"
+
+    review_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    company_id = db.Column(db.Integer, db.ForeignKey('companies.company_id'), nullable=False)
+    rating = db.Column(db.Integer)
+    employee_status = db.Column(db.String(64))
+    review_title = db.Column(db.String(64))
+    pros = db.Column(db.String(500))
+    cons = db.Column(db.String(500))
+
+    def __repr__(self):
+        """Show info about comment."""
+
+        return "<Review review_id=%s company_id=%s rating=%s" % (self.review_id, self.company_id, self.rating)
+
+    company = db.relationship('Company', backref=db.backref("review", order_by=review_id))
+
+
+
+
 ##############################################################################
 # Helper functions
 

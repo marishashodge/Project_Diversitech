@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Submit a Review</h3>
+
+<form action='/submitted/{{ company_id }}' method='POST'>
+    Company: <input type="text" name="company" placeholder="{{ company.name }}" required><br><br>
+    Rating: <input type="text" name="rating" required><br><br>
+    Current or former employee: <br>
+        <input type="radio" name="employee_status" value="current" checked required>Current Employee<br>
+        <input type="radio" name="employee_status" value="former" required>Former Employee<br><br>
+    Review Title: <input type="text" name="title"><br><br>
+    Pros: <input type="text" name="pros"><br><br>
+    Cons: <input type="text" name="cons"><br><br>
+    <input type="submit">
+  </form>
+  <br>
+{% endblock %}

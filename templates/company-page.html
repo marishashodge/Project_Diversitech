@@ -13,6 +13,28 @@
         {% endfor %}
     </ul>
 
+    <a href="/review/{{ display_company.company_id }}"><h3>Write a review</h3><a>
 
+
+    <div>
+        <h3>Reviews</h3>
+        <table style="width:100%">
+            <tr>
+                <th>Employee Status</th>
+                <th>Rating</th>
+                <th>Review Title</th>
+                <th>Pros</th>
+                <th>Cons</th>
+            </tr>
+            {% for review in reviews %}
+            <tr>
+                <td>{{ review.employee_status }}</td>
+                <td>{{ review.rating }}</td> 
+                <td>{{ review.review_title }}</td>
+                <td>{{ review.pros }}</td>
+                <td>{{ review.cons }}</td>
+            </tr>
+            {% endfor %}
+        </table>
 
 {% endblock %}
