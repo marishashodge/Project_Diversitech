@@ -49,7 +49,6 @@ def show_company(company_id):
 def get_delivery_info():
     """Get diversity info for companies."""
 
-
     #How do I get the info for just one company???
 
     categories = Category.query.filter(Category.company_id == company_id)
