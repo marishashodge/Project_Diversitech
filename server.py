@@ -2,7 +2,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request, flash, session
+from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, Company, Category, Review
@@ -44,6 +44,27 @@ def show_company(company_id):
     return render_template("company-page.html", display_company=company, categories=categories_for_company, reviews=reviews)
 
 
+#########################################################################################################
+@app.route("/company-diversity.json")
+def get_delivery_info():
+    """Get diversity info for companies."""
+
+
+    #How do I get the info for just one company???
+
+    categories = Category.query.filter(Category.company_id == company_id)
+
+    categories_dict = {}
+
+    for category in categories:
+        categories_dict[category.category.encode('UTF-8')] = category.percentage
+
+    print categories_dict
+
+
+    # return jsonify(company-diversity)
+
+###########################################################################################################
 @app.route("/review/<int:company_id>")
 def show_review_page(company_id):
     """Allow user to write a review."""
@@ -77,6 +98,9 @@ def add_user_comment(company_id):
 
     flash("Your comment has been received!")
     return redirect("/company/" + str(id_of_company))
+
+
+
 
 
 

@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
+    <p>
+
+        {% for message in get_flashed_messages() %}
+            {{ message }} 
+        {% endfor %}
+        
+    </p>
+
     <h2>{{ display_company.name }}</h2>
     <p>Female: {{ display_company.female_overall}}%</p>
     <p>Male: {{ display_company.male_overall}}%</p>
@@ -13,7 +21,38 @@
         {% endfor %}
     </ul>
 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+
+    <div id="myfirstchart" style="height: 250px;"></div>
+
+    <script>
+
+    new Morris.Line({
+        element: 'myfirstchart',
+
+        data :[
+        { year: '2008', value: 20 },
+        { year: '2009', value: 10 },
+        { year: '2010', value: 5 },
+        { year: '2011', value: 5 },
+        { year: '2012', value: 20 }
+    ],
+
+    xkey: 'year',
+
+    ykeys:['value'],
+
+    labels:['Value']
+    });
+
+    </script>
+
     <a href="/review/{{ display_company.company_id }}"><h3>Write a review</h3><a>
+
 
 
     <div>
