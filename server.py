@@ -45,23 +45,64 @@ def show_company(company_id):
 
 
 #########################################################################################################
-@app.route("/company-diversity.json")
-def get_delivery_info():
-    """Get diversity info for companies."""
+
+@app.route("/company-diversity/<int:company_id>.json")
+def get_delivery_info(company_id):
+    """Get diversity info for companies from database and return json."""
 
     #How do I get the info for just one company???
 
-    categories = Category.query.filter(Category.company_id == company_id)
+    company = Company.query.get(company_id)
 
-    categories_dict = {}
+    categories_for_company = Category.query.filter(Category.company_id == company_id)
 
-    for category in categories:
-        categories_dict[category.category.encode('UTF-8')] = category.percentage
+    data_list_of_dicts = {}
+    data_list_of_dicts[company.name.encode('UTF-8')] = []
 
-    print categories_dict
+    for category in categories_for_company:
+
+        #White section
+        if category.category == 'White':      
+            [data_list_of_dicts[company.name.encode('UTF-8')].append(
+                                        {
+                                            "value": category.percentage,
+                                            "color": "#F7464A", 
+                                            "highlight": "#FF5A5E", 
+                                            "label": 'White'
+                        
+                                        })
+        #Asian section
+        if category.category == 'Asian':      
+            [data_list_of_dicts[company.name.encode('UTF-8')].append(
+                                        {
+                                            "value": category.percentage,
+                                            "color": "#F7464A", 
+                                            "highlight": "#FF5A5E", 
+                                            "label": 'White'
+                        
+                                            })
+
+
+    print data_list_of_dicts
 
 
     # return jsonify(company-diversity)
+
+# @app.route("/company-diversity/<int:company_id>.json")
+# def get_delivery_info(company_id):
+#     """Get diversity info for companies from database and return json."""
+
+#     #How do I get the info for just one company???
+
+#     categories = Category.query.filter(Category.company_id == company_id)
+
+#     categories_dict = {}
+
+#     for category in categories:
+#         categories_dict[category.category.encode('UTF-8')] = category.percentage
+
+#     print categories_dict
+
 
 ###########################################################################################################
 @app.route("/review/<int:company_id>")
