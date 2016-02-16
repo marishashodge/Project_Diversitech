@@ -46,6 +46,33 @@ def show_company(company_id):
 
 #########################################################################################################
 
+@app.route("/company-gender/<int:company_id>.json")
+def get_gender_info(company_id):
+
+    company = Company.query.get(company_id)
+
+    gender_list_of_dicts = {}
+    gender_list_of_dicts[company.name.encode('UTF-8')] = [
+
+                                        {
+                                            "value": company.female_overall,
+                                            "color": "#ffff00",
+                                            "highlight": "#FF5A5E",
+                                            "label": 'Female'
+                                            },
+
+                                        {
+                                            "value": company.male_overall,
+                                            "color": "#009933",
+                                            "highlight": "#FF5A5E",
+                                            "label": 'Male'
+                                        }
+                                        ]
+
+    return jsonify(gender_list_of_dicts)
+
+
+
 @app.route("/company-diversity-extra/<int:company_id>.json")
 def get_extra_ethnicity_info(company_id):
 
@@ -119,7 +146,7 @@ def get_extra_ethnicity_info(company_id):
                                             "label": 'Other Tech'
                                         })
 
-    return jsonify(extra_ethnic_list_of_dicts)
+    return jsonify(extra_ethnic_list_of_dicts) 
 
 
 
@@ -204,7 +231,7 @@ def get_ethnicity_info(company_id):
                                             "label": 'Other'
                                         })
 
-
+    
     return jsonify(ethnic_list_of_dicts)
 
 

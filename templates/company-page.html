@@ -28,16 +28,42 @@
       <canvas id="donutChart"></canvas>
       <div id="donutLegend" class="chart-legend"></div>
 
+    <div class="ethnic-chart">
+      <canvas id="donutChart2"></canvas>
+      <div id="donutLegend2" class="chart-legend"></div>
+
+    <div class="ethnic-chart">
+      <canvas id="donutChart3"></canvas>
+      <div id="donutLegend3" class="chart-legend"></div>
+
+
     <script>
     var options = { responsive: true };
 
-    var ctx_donut = $("#donutChart").get(0).getContext("2d");
+    // Make donut chart of percent of basic ethnic data
+    var ctx_donut_ethnic = $("#donutChart").get(0).getContext("2d");
 
     $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
-        var myDonutChart = new Chart(ctx_donut).Doughnut(data.{{ display_company.name }},
-                                                         options);
+        var myDonutChart = new Chart(ctx_donut_ethnic).Doughnut(data.{{ display_company.name }}, options);
         $('#donutLegend').html(myDonutChart.generateLegend());
     });
+
+    // Make donut chart of percent of extra ethnic data
+    var ctx_donut_extra_ethnic = $("#donutChart2").get(0).getContext("2d");
+
+    $.get("/company-diversity-extra/{{ display_company.company_id }}.json", function (data) {
+        var myDonutChart2 = new Chart(ctx_donut_extra_ethnic).Doughnut(data.{{ display_company.name }}, options);
+        $('#donutLegend2').html(myDonutChart2.generateLegend());
+    });
+
+    // Make donut chart of percent of men and women
+    var ctx_donut_gender = $("#donutChart3").get(0).getContext("2d");
+
+    $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
+        var myDonutChart3 = new Chart(ctx_donut_gender).Doughnut(data.{{ display_company.name }}, options);
+        $('#donutLegend3').html(myDonutChart3.generateLegend());
+    });
+
 
 
   // (function() {
