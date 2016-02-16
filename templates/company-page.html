@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
     <p>
 
         {% for message in get_flashed_messages() %}
@@ -21,32 +22,21 @@
         {% endfor %}
     </ul>
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-
-    <div id="myfirstchart" style="height: 250px;"></div>
+  
+    <div class="ethnic-chart">
+      <canvas id="donutChart"></canvas>
+      <div id="donutLegend" class="chart-legend"></div>
 
     <script>
+    var options = { responsive: true };
 
-    new Morris.Line({
-        element: 'myfirstchart',
+    var ctx_donut = $("#donutChart").get(0).getContext("2d");
 
-        data :[
-        { year: '2008', value: 20 },
-        { year: '2009', value: 10 },
-        { year: '2010', value: 5 },
-        { year: '2011', value: 5 },
-        { year: '2012', value: 20 }
-    ],
-
-    xkey: 'year',
-
-    ykeys:['value'],
-
-    labels:['Value']
+    $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
+        var myDonutChart = new Chart(ctx_donut).Doughnut(data.{{ display_company.name }},
+                                                         options);
+        $('#donutLegend').html(myDonutChart.generateLegend());
     });
 
 
