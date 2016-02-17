@@ -50,24 +50,48 @@ def show_company(company_id):
 def get_gender_info(company_id):
 
     company = Company.query.get(company_id)
+    label_for_female = 'Female - ' + str(company.female_overall) + '%'
+    label_for_male = 'Male - ' + str(company.male_overall) + '%'
 
-    gender_list_of_dicts = {}
-    gender_list_of_dicts[company.name.encode('UTF-8')] = [
+    average = Company.query.get(28)
+    label_for_avg_female = 'Female - ' + str(average.female_overall) + '%'
+    label_for_avg_male = 'Male - ' + str(average.male_overall) + '%'
 
+
+    gender_list_of_dicts = {'company':[
                                         {
                                             "value": company.female_overall,
                                             "color": "#ffff00",
                                             "highlight": "#FF5A5E",
-                                            "label": 'Female'
-                                            },
+                                            "label": label_for_female
+                                        },
 
                                         {
                                             "value": company.male_overall,
                                             "color": "#009933",
                                             "highlight": "#FF5A5E",
-                                            "label": 'Male'
+                                            "label": label_for_male
+                                        }
+                                        ],
+                            'us':[
+
+                                        {
+                                            "value": average.female_overall,
+                                            "color": "#0066ff",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_avg_female
+                                        },
+
+                                        {
+                                            "value": average.male_overall,
+                                            "color": "#cc00cc",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_avg_male
                                         }
                                         ]
+                            }
+
+
 
     return jsonify(gender_list_of_dicts)
 
@@ -158,13 +182,41 @@ def get_ethnicity_info(company_id):
 
     company = Company.query.get(company_id)
 
+
     categories_for_company = Category.query.filter(Category.company_id == company_id)
+    categories_for_average = Category.query.filter(Category.company_id == 28)
+    categories_for_us_population = Category.query.filter(Category.company_id == 1)
 
     #Initialize dictionary for basic ethnicity data 
-    ethnic_list_of_dicts = {}
-    ethnic_list_of_dicts[company.name.encode('UTF-8')] = []
+    ethnic_list_of_dicts = {
+                        "labels": [],
+                        "datasets": [
+                                {
+                                    "label": "Company Ethnicity (%)",
+                                    "fillColor": "rgba(218,165,117,0.5)",
+                                    "strokeColor": "rgba(218,165,117,0.8)",
+                                    "highlightFill": "rgba(218,165,117,0.75)",
+                                    "highlightStroke": "rgba(218,165,117,1)",
+                                    "data": []
+                                },
+                                {
+                                    "label": "Average Ethnicity for Companies (%) ",
+                                    "fillColor": "rgba(151,187,205,0.5)",
+                                    "strokeColor": "rgba(151,187,205,0.8)",
+                                    "highlightFill": "rgba(151,187,205,0.75)",
+                                    "highlightStroke": "rgba(151,187,205,1)",
+                                    "data": []
+                                },
+                                {
+                                    "label": "US Ethnicity (%)",
+                                    "fillColor": "rgba(220,220,220,0.5)",
+                                    "strokeColor": "rgba(220,220,220,0.8)",
+                                    "highlightFill": "rgba(220,220,220,0.75)",
+                                    "highlightStroke": "rgba(220,220,220,1)",
+                                    "data": []
+                                },
+                            ]}
 
-    
 
     #Initialize dictionary for gender data
     # gender_dict = {}
@@ -174,64 +226,82 @@ def get_ethnicity_info(company_id):
     # extra_gender_dict = {}
     # extra_gender_dict[company.name.encode('UTF-8')] = []
 
+    for category in categories_for_us_population:
+        if category.category in ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']:
+            ethnic_list_of_dicts['datasets'][2]['data'].append(category.percentage)
+
+    for category in categories_for_average:
+        if category.category in ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']:
+            ethnic_list_of_dicts['datasets'][1]['data'].append(category.percentage)
+
     for category in categories_for_company:
 
         #Basic Ethnicity Data
-        if category.category == 'White':     
-            ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#F7464A",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'White'
-                                        })
+        if category.category in ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']:
+            ethnic_list_of_dicts['labels'].append(category.category.encode('UTF-8'))
+            ethnic_list_of_dicts['datasets'][0]['data'].append(category.percentage)
 
-        elif category.category == 'Asian':
-            ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#9999ff",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Asian'
-                                        })
 
-        elif category.category == 'Latino':
-            ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#66ff99",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Latino'
-                                        })
 
-        elif category.category == 'Black':
-            ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#ffff66",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Black'
-                                        })
 
-        elif category.category == 'Two+ races':
-            ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#333399",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Two+Races'
-                                        })
+        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
+        #                                 {
+        #                                     "value": category.percentage,
+        #                                     "color": "#F7464A",
+        #                                     "highlight": "#FF5A5E",
+        #                                     "label": 'White'
+        #                                 })
 
-        elif category.category == 'Other':
-            ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#66ff33",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Other'
-                                        })
+        # elif category.category == 'Asian':
+        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
+        #                                 {
+        #                                     "value": category.percentage,
+        #                                     "color": "#9999ff",
+        #                                     "highlight": "#FF5A5E",
+        #                                     "label": 'Asian'
+        #                                 })
 
-    
+        # elif category.category == 'Latino':
+        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
+        #                                 {
+        #                                     "value": category.percentage,
+        #                                     "color": "#66ff99",
+        #                                     "highlight": "#FF5A5E",
+        #                                     "label": 'Latino'
+        #                                 })
+
+        # elif category.category == 'Black':
+        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
+        #                                 {
+        #                                     "value": category.percentage,
+        #                                     "color": "#ffff66",
+        #                                     "highlight": "#FF5A5E",
+        #                                     "label": 'Black'
+        #                                 })
+
+        # elif category.category == 'Two+ races':
+        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
+        #                                 {
+        #                                     "value": category.percentage,
+        #                                     "color": "#333399",
+        #                                     "highlight": "#FF5A5E",
+        #                                     "label": 'Two+Races'
+        #                                 })
+
+        # elif category.category == 'Other':
+        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
+        #                                 {
+        #                                     "value": category.percentage,
+        #                                     "color": "#66ff33",
+        #                                     "highlight": "#FF5A5E",
+        #                                     "label": 'Other'
+        #                                 })
+   
+    # return jsonify(ethnic_list_of_dicts)
+
+   
+
+    # print ethnic_list_of_dicts
     return jsonify(ethnic_list_of_dicts)
 
 

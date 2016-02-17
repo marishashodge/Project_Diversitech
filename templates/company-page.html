@@ -11,57 +11,80 @@
     </p>
 
     <h2>{{ display_company.name }}</h2>
-    <p>Female: {{ display_company.female_overall}}%</p>
-    <p>Male: {{ display_company.male_overall}}%</p>
+   <!--  <p>Female: {{ display_company.female_overall}}%</p>
+    <p>Male: {{ display_company.male_overall}}%</p> -->
 
     
     <h3>Diversity Details</h3>
-    <ul>
+    <!-- <ul>
         {% for category in categories %}
             <li>{{ category.category }}: {{ category.percentage }}%</li>
         {% endfor %}
-    </ul>
+    </ul> -->
 
 
   
-    <div class="ethnic-chart">
+    <!-- <div class="ethnic-chart">
       <canvas id="donutChart"></canvas>
-      <div id="donutLegend" class="chart-legend"></div>
+      <div id="donutLegend" class="chart-legend"></div> -->
 
-    <div class="ethnic-chart">
+    <!-- <div class="ethnic-chart">
       <canvas id="donutChart2"></canvas>
       <div id="donutLegend2" class="chart-legend"></div>
-
+ -->
     <div class="ethnic-chart">
       <canvas id="donutChart3"></canvas>
       <div id="donutLegend3" class="chart-legend"></div>
+
+    <div class="ethnic-chart2">
+      <canvas id="donutChart4"></canvas>
+      <div id="donutLegend4" class="chart-legend"></div>
+
+
+    <div class="ethnic-bar-graph">
+      <canvas id="barGraph1"></canvas>
+      <div id="barLegend" class="chart-legend"></div>
 
 
     <script>
     var options = { responsive: true };
 
-    // Make donut chart of percent of basic ethnic data
-    var ctx_donut_ethnic = $("#donutChart").get(0).getContext("2d");
+    // // Make donut chart of percent of basic ethnic data
+    // var ctx_donut_ethnic = $("#donutChart").get(0).getContext("2d");
 
-    $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
-        var myDonutChart = new Chart(ctx_donut_ethnic).Doughnut(data.{{ display_company.name }}, options);
-        $('#donutLegend').html(myDonutChart.generateLegend());
-    });
+    // $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
+    //     var myDonutChart = new Chart(ctx_donut_ethnic).Doughnut(data.{{ display_company.name }}, options);
+    //     $('#donutLegend').html(myDonutChart.generateLegend());
+    // });
 
-    // Make donut chart of percent of extra ethnic data
-    var ctx_donut_extra_ethnic = $("#donutChart2").get(0).getContext("2d");
+    // // Make donut chart of percent of extra ethnic data
+    // var ctx_donut_extra_ethnic = $("#donutChart2").get(0).getContext("2d");
 
-    $.get("/company-diversity-extra/{{ display_company.company_id }}.json", function (data) {
-        var myDonutChart2 = new Chart(ctx_donut_extra_ethnic).Doughnut(data.{{ display_company.name }}, options);
-        $('#donutLegend2').html(myDonutChart2.generateLegend());
-    });
+    // $.get("/company-diversity-extra/{{ display_company.company_id }}.json", function (data) {
+    //     var myDonutChart2 = new Chart(ctx_donut_extra_ethnic).Doughnut(data.{{ display_company.name }}, options);
+    //     $('#donutLegend2').html(myDonutChart2.generateLegend());
+    // });
 
     // Make donut chart of percent of men and women
     var ctx_donut_gender = $("#donutChart3").get(0).getContext("2d");
 
     $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
-        var myDonutChart3 = new Chart(ctx_donut_gender).Doughnut(data.{{ display_company.name }}, options);
+        var myDonutChart3 = new Chart(ctx_donut_gender).Doughnut(data.company, options);
         $('#donutLegend3').html(myDonutChart3.generateLegend());
+    });
+
+    var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
+
+    $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
+        var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.us, options);
+        $('#donutLegend4').html(myDonutChart4.generateLegend());
+    });
+
+    var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
+
+    $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
+        var myBarChart = new Chart(ctx_bar_ethnic).Bar(data, options);
+        $('#barLegend').html(myBarChart.generateLegend());
     });
 
 

@@ -1,5 +1,17 @@
 .ethnic-chart {
-    width: 70%;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ethnic-chart2 {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ethnic-bar-graph {
+    width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
