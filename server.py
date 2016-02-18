@@ -31,6 +31,30 @@ def index():
     return render_template("home.html", companies=companies, us_population=us_population, average=average)
 
 
+@app.route('/search', methods=["POST"])
+def search_companies():
+    """Return dictionary of companies."""
+
+    company_searched = request.form.get("search")
+
+    print "Company searched:", company_searched
+
+
+    company = Company.query.filter(Company.name == company_searched).first()
+
+    print "Company:", company
+
+
+    if company:
+        id_of_company = company.company_id
+        return redirect("/company/" + str(id_of_company))
+
+    else:
+        return redirect('/')
+
+
+
+
 @app.route('/company/<int:company_id>')
 def show_company(company_id):
     """Company page with diversity details."""
@@ -192,7 +216,7 @@ def get_ethnicity_info(company_id):
                         "labels": [],
                         "datasets": [
                                 {
-                                    "label": "Company Ethnicity (%)",
+                                    "label": "Company",
                                     "fillColor": "rgba(218,165,117,0.5)",
                                     "strokeColor": "rgba(218,165,117,0.8)",
                                     "highlightFill": "rgba(218,165,117,0.75)",
@@ -200,7 +224,7 @@ def get_ethnicity_info(company_id):
                                     "data": []
                                 },
                                 {
-                                    "label": "Average Ethnicity for Companies (%) ",
+                                    "label": "Average for Tech Companies",
                                     "fillColor": "rgba(151,187,205,0.5)",
                                     "strokeColor": "rgba(151,187,205,0.8)",
                                     "highlightFill": "rgba(151,187,205,0.75)",
@@ -208,12 +232,12 @@ def get_ethnicity_info(company_id):
                                     "data": []
                                 },
                                 {
-                                    "label": "US Ethnicity (%)",
+                                    "label": "US Population",
                                     "fillColor": "rgba(220,220,220,0.5)",
                                     "strokeColor": "rgba(220,220,220,0.8)",
                                     "highlightFill": "rgba(220,220,220,0.75)",
                                     "highlightStroke": "rgba(220,220,220,1)",
-                                    "data": []
+                                    "data": [],
                                 },
                             ]}
 
@@ -301,7 +325,6 @@ def get_ethnicity_info(company_id):
 
    
 
-    # print ethnic_list_of_dicts
     return jsonify(ethnic_list_of_dicts)
 
 

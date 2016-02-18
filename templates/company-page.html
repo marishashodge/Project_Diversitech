@@ -11,59 +11,38 @@
     </p>
 
     <h2>{{ display_company.name }}</h2>
-   <!--  <p>Female: {{ display_company.female_overall}}%</p>
-    <p>Male: {{ display_company.male_overall}}%</p> -->
+
 
     
     <h3>Diversity Details</h3>
-    <!-- <ul>
-        {% for category in categories %}
-            <li>{{ category.category }}: {{ category.percentage }}%</li>
-        {% endfor %}
-    </ul> -->
 
-
-  
-    <!-- <div class="ethnic-chart">
-      <canvas id="donutChart"></canvas>
-      <div id="donutLegend" class="chart-legend"></div> -->
-
-    <!-- <div class="ethnic-chart">
-      <canvas id="donutChart2"></canvas>
-      <div id="donutLegend2" class="chart-legend"></div>
- -->
     <div class="ethnic-chart">
-      <canvas id="donutChart3"></canvas>
-      <div id="donutLegend3" class="chart-legend"></div>
+        <h4>Company Gender</h4>
+        <canvas id="donutChart3"></canvas>
+        <div id="donutLegend3" class="chart-legend"></div>
 
     <div class="ethnic-chart2">
-      <canvas id="donutChart4"></canvas>
-      <div id="donutLegend4" class="chart-legend"></div>
+        <h4>Average Gender for Tech Companies</h4>
+        <canvas id="donutChart4"></canvas>
+        <div id="donutLegend4" class="chart-legend"></div>
 
 
     <div class="ethnic-bar-graph">
-      <canvas id="barGraph1"></canvas>
-      <div id="barLegend" class="chart-legend"></div>
+        <canvas id="barGraph1"></canvas>
+        <div id="barLegend" class="chart-legend"></div>
+
 
 
     <script>
-    var options = { responsive: true };
 
-    // // Make donut chart of percent of basic ethnic data
-    // var ctx_donut_ethnic = $("#donutChart").get(0).getContext("2d");
 
-    // $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
-    //     var myDonutChart = new Chart(ctx_donut_ethnic).Doughnut(data.{{ display_company.name }}, options);
-    //     $('#donutLegend').html(myDonutChart.generateLegend());
-    // });
 
-    // // Make donut chart of percent of extra ethnic data
-    // var ctx_donut_extra_ethnic = $("#donutChart2").get(0).getContext("2d");
+    var options = { responsive: true,
+                    tooltipTemplate: "<%= value %>%",
+                    multiTooltipTemplate: "<%= value %>%",
+                    percentageInnerCutout : 65,
+                };
 
-    // $.get("/company-diversity-extra/{{ display_company.company_id }}.json", function (data) {
-    //     var myDonutChart2 = new Chart(ctx_donut_extra_ethnic).Doughnut(data.{{ display_company.name }}, options);
-    //     $('#donutLegend2').html(myDonutChart2.generateLegend());
-    // });
 
     // Make donut chart of percent of men and women
     var ctx_donut_gender = $("#donutChart3").get(0).getContext("2d");
@@ -87,28 +66,82 @@
         $('#barLegend').html(myBarChart.generateLegend());
     });
 
+ 
 
 
-  // (function() {
-  //   var cx = '002676415119425181905:myqqnwwksnw';
-  //   var gcse = document.createElement('script');
-  //   gcse.type = 'text/javascript';
-  //   gcse.async = true;
-  //   gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-  //       '//cse.google.com/cse.js?cx=' + cx;
-  //   var s = document.getElementsByTagName('script')[0];
-  //   s.parentNode.insertBefore(gcse, s);
-  // })();
+ google.load("search", "1");
+
+    var newsSearch;
+
+      function searchComplete() {
+
+        // Check that we got results
+        document.getElementById('content').innerHTML = '';
+        if (newsSearch.results && newsSearch.results.length > 0) {
+          for (var i = 0; i < newsSearch.results.length; i++) {
+
+            // Create HTML elements for search results
+            var p = document.createElement('p');
+            p.classList.add("news-title");
+            var a = document.createElement('a');
+            var publNameDate = document.createElement('p');
+            publNameDate.classList.add("publ-name-date");
+            var content = document.createElement('p');
+            content.classList.add("news-para");
+            
+
+
+
+            a.href="/news-search/v1/newsSearch.results[i].url;"
+            a.innerHTML = newsSearch.results[i].title;
+            publDate = newsSearch.results[i].publishedDate;
+            publDate2 = publDate.slice(0,25);
+            publName = newsSearch.results[i].publisher + ": ";
+            publNameDate.innerHTML = publName.concat(publDate2);
+            content.innerHTML = newsSearch.results[i].content;
+            
+
+
+
+            // Append search results to the HTML nodes
+            p.appendChild(a);
+            p.appendChild(publNameDate);
+            p.appendChild(content);
+           
+            document.body.appendChild(p);
+
+          }
+        }
+      }
+
+      function onLoad() {
+
+        // Create a News Search instance.
+        newsSearch = new google.search.NewsSearch();
+  
+        // Set searchComplete as the callback function when a search is 
+        // complete.  The newsSearch object will have results in it.
+        newsSearch.setSearchCompleteCallback(this, searchComplete, null);
+
+        // Specify search quer(ies)
+        newsSearch.execute('{{ display_company.name }} Tech Diversity');
+
+        // Include the required Google branding
+        google.search.Search.getBranding('branding');
+      }
+
+      // Set a callback to call your code when the page loads
+      google.setOnLoadCallback(onLoad);
+   
 
     </script>
 
-    <!-- <gcse:searchresults-only resultsUrl="http://www.google.com?search=google+diversity"></gcse:searchresults-only>
- -->
+    
     <a href="/review/{{ display_company.company_id }}"><h3>Write a review</h3><a>
 
 
 
-    <div>
+    <div id="reviews">
         <h3>Reviews</h3>
         <table style="width:100%">
             <tr>
@@ -128,5 +161,19 @@
             </tr>
             {% endfor %}
         </table>
+    </div>
+
+    <br>
+    <br>
+
+    <div id="news">
+        <h1>News</h1>
+        <p id="content">Loading...<p>
+    </div>
+</div>
+
+
+   <!--  <div id="branding"  style="float: left;"></div><br/> -->
+
 
 {% endblock %}
