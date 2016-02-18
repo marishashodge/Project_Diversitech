@@ -7,6 +7,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, Company, Category, Review
 
+import requests
+
 app = Flask(__name__)
 
 app.secret_key = "54312"
@@ -33,24 +35,18 @@ def index():
 
 @app.route('/search', methods=["POST"])
 def search_companies():
-    """Return dictionary of companies."""
+    """Send user to company page or 'company-not-found.html' based on search query."""
 
     company_searched = request.form.get("search")
 
-    print "Company searched:", company_searched
-
-
     company = Company.query.filter(Company.name == company_searched).first()
-
-    print "Company:", company
-
 
     if company:
         id_of_company = company.company_id
         return redirect("/company/" + str(id_of_company))
 
     else:
-        return redirect('/')
+        return render_template("company-not-found.html", company=company_searched)
 
 
 
@@ -70,12 +66,51 @@ def show_company(company_id):
 
 #########################################################################################################
 
+
+@app.route("/company-tech/<int:company_id>.json")
+def get_tech_info(company_id):
+
+    categories_for_company = Category.query.filter(Category.company_id == company_id)
+
+    tech_list_of_dicts = {'tech': []}
+
+    for category in categories_for_company:
+
+        if category.category == 'Female Tech':
+            company_female_tech = category.percentage
+            label_for_tech_female = 'Female - ' + str(company_female_tech) + '%'
+            tech_list_of_dicts['tech'].append({
+                                            "value": company_female_tech,
+                                            "color": "#ffff00",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_tech_female
+                                        })
+
+        if category.category == 'Male Tech':
+            company_male_tech = category.percentage
+            label_for_tech_male = 'Male - ' + str(company_male_tech) + '%'
+            tech_list_of_dicts['tech'].append({
+                                            "value": company_male_tech,
+                                            "color": "#009933",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_tech_male
+                                        })
+    for category in categories_for_company:
+        if category.category == 'Female Tech':
+
+            return jsonify(tech_list_of_dicts)
+
+    return "False"
+
+
 @app.route("/company-gender/<int:company_id>.json")
 def get_gender_info(company_id):
 
     company = Company.query.get(company_id)
     label_for_female = 'Female - ' + str(company.female_overall) + '%'
     label_for_male = 'Male - ' + str(company.male_overall) + '%'
+
+
 
     average = Company.query.get(28)
     label_for_avg_female = 'Female - ' + str(average.female_overall) + '%'
@@ -112,11 +147,12 @@ def get_gender_info(company_id):
                                             "highlight": "#FF5A5E",
                                             "label": label_for_avg_male
                                         }
-                                        ]
-                            }
+                                        ]}
+
+    
 
 
-
+    # print gender_list_of_dicts
     return jsonify(gender_list_of_dicts)
 
 
@@ -326,6 +362,7 @@ def get_ethnicity_info(company_id):
    
 
     return jsonify(ethnic_list_of_dicts)
+
 
 
 

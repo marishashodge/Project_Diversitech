@@ -16,20 +16,29 @@
     
     <h3>Diversity Details</h3>
 
-    <div class="ethnic-chart">
+    <div class="gender-chart">
         <h4>Company Gender</h4>
         <canvas id="donutChart3"></canvas>
         <div id="donutLegend3" class="chart-legend"></div>
+    </div>
 
-    <div class="ethnic-chart2">
+    <div class="gender-chart3">
+        <h4>Company Tech Gender</h4>
+        <canvas id="donutChart5"></canvas>
+        <div id="donutLegend5" class="chart-legend"></div>
+    </div>
+
+    <div class="gender-chart2">
         <h4>Average Gender for Tech Companies</h4>
         <canvas id="donutChart4"></canvas>
         <div id="donutLegend4" class="chart-legend"></div>
+    </div>
 
 
     <div class="ethnic-bar-graph">
         <canvas id="barGraph1"></canvas>
         <div id="barLegend" class="chart-legend"></div>
+    </div>
 
 
 
@@ -52,6 +61,26 @@
         $('#donutLegend3').html(myDonutChart3.generateLegend());
     });
 
+    // Make donut chart of percent of men and women in tech
+   
+   $.get("/company-tech/{{ display_company.company_id }}.json", function (data) {
+        console.log(data);
+        if (data == "False") {
+            console.log(data);
+            $(".gender-chart3").remove();
+            console.log("NO DATA!");
+
+        } else {
+            var ctx_donut_gender_tech = $("#donutChart5").get(0).getContext("2d");
+    
+            var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
+            $('#donutLegend5').html(myDonutChart5.generateLegend());
+
+        }
+    });
+
+
+    // Make donut chart of average percent of men and women
     var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
 
     $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
@@ -118,16 +147,21 @@
 
         // Create a News Search instance.
         newsSearch = new google.search.NewsSearch();
+
   
         // Set searchComplete as the callback function when a search is 
         // complete.  The newsSearch object will have results in it.
         newsSearch.setSearchCompleteCallback(this, searchComplete, null);
 
+
+
         // Specify search quer(ies)
-        newsSearch.execute('{{ display_company.name }} Tech Diversity');
+        newsSearch.execute('{{ display_company.name }} tech diversity');
+
 
         // Include the required Google branding
         google.search.Search.getBranding('branding');
+
       }
 
       // Set a callback to call your code when the page loads
