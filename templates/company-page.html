@@ -16,7 +16,7 @@
     
     <h3>Diversity Details</h3>
 
-    <div class="gender-chart">
+    <div class="gender-chart1">
         <h4>Company Gender</h4>
         <canvas id="donutChart3"></canvas>
         <div id="donutLegend3" class="chart-legend"></div>
@@ -36,14 +36,21 @@
 
 
     <div class="ethnic-bar-graph">
+        <h4 id="heading"></h4>
         <canvas id="barGraph1"></canvas>
         <div id="barLegend" class="chart-legend"></div>
     </div>
 
+    <div class="overall-button">
+    </div>
+
+    <div class="tech-button">
+    </div>
+
+
 
 
     <script>
-
 
 
     var options = { responsive: true,
@@ -53,7 +60,7 @@
                 };
 
 
-    // Make donut chart of percent of men and women
+    // Make donut chart of percent of men and women OVERALL
     var ctx_donut_gender = $("#donutChart3").get(0).getContext("2d");
 
     $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
@@ -61,24 +68,18 @@
         $('#donutLegend3').html(myDonutChart3.generateLegend());
     });
 
-    // Make donut chart of percent of men and women in tech
-   
-   $.get("/company-tech/{{ display_company.company_id }}.json", function (data) {
-        console.log(data);
+    // Make donut chart of percent of men and women in TECH roles
+   $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
         if (data == "False") {
-            console.log(data);
             $(".gender-chart3").remove();
             console.log("NO DATA!");
-
         } else {
             var ctx_donut_gender_tech = $("#donutChart5").get(0).getContext("2d");
     
             var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
             $('#donutLegend5').html(myDonutChart5.generateLegend());
-
         }
     });
-
 
     // Make donut chart of average percent of men and women
     var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
@@ -88,15 +89,53 @@
         $('#donutLegend4').html(myDonutChart4.generateLegend());
     });
 
+    // Make bar chart of average percent of men and women in Company, Average and US
+    
     var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
+    $("#heading").html("Company Ethnicity - Overall");
 
     $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
         var myBarChart = new Chart(ctx_bar_ethnic).Bar(data, options);
         $('#barLegend').html(myBarChart.generateLegend());
     });
 
+    // Make bar chart of average percent of men and women in Company tech, Average tech and US
+    function generateTechBarGraph(evt) { 
+        console.log("function here")
+        var ctx_bar_ethnic_tech = $("#barGraph1").get(0).getContext("2d");
+        $("#heading").html("Company Ethnicity - Tech");
+        $.get("/company-ethnicity-tech/{{ display_company.company_id }}.json", function (data) { 
+            var myBarChart = new Chart(ctx_bar_ethnic_tech).Bar(data, options);
+            $('#barLegend2').html(myBarChart.generateLegend());
+        })};
+
+    function generateOverallBarGraph(evt) {
+        var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
+        $("#heading").html("Company Ethnicity - Overall");
+        $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
+            var myBarChart = new Chart(ctx_bar_ethnic).Bar(data, options);
+            $('#barLegend').html(myBarChart.generateLegend());
+        })};
+
+    $.get("/company-ethnicity-tech/{{ display_company.company_id }}.json", function (data) {
+        if (data == "False") {
+            $(".ethnic-bar-graph2").remove();
+            console.log("NO DATA!");
+        } else {
+
+            $(".tech-button").append("<button id='tech-button' type='button'>Ethnicity Tech</button>");
+            $(".overall-button").append("<button id='overall-button' type='button'>Ethnicity Overall</button>");
+
+            $('#tech-button').click(generateTechBarGraph);
+            $('#overall-button').click(generateOverallBarGraph);
+        }    
+    });
+
+
+
  
 
+// Google News Feed
 
  google.load("search", "1");
 
@@ -120,22 +159,21 @@
             
 
 
-
-            a.href="/news-search/v1/newsSearch.results[i].url;"
+            a.href= newsSearch.results[i].unescapedUrl;
+            a.target = "_blank";
             a.innerHTML = newsSearch.results[i].title;
             publDate = newsSearch.results[i].publishedDate;
             publDate2 = publDate.slice(0,25);
             publName = newsSearch.results[i].publisher + ": ";
             publNameDate.innerHTML = publName.concat(publDate2);
             content.innerHTML = newsSearch.results[i].content;
-            
-
-
+    
 
             // Append search results to the HTML nodes
             p.appendChild(a);
             p.appendChild(publNameDate);
             p.appendChild(content);
+            
            
             document.body.appendChild(p);
 

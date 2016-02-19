@@ -67,8 +67,9 @@ def show_company(company_id):
 #########################################################################################################
 
 
-@app.route("/company-tech/<int:company_id>.json")
-def get_tech_info(company_id):
+@app.route("/company-gender-tech/<int:company_id>.json")
+def return_gender_tech_info(company_id):
+    """Return gender diversity in tech roles."""
 
     categories_for_company = Category.query.filter(Category.company_id == company_id)
 
@@ -95,12 +96,75 @@ def get_tech_info(company_id):
                                             "highlight": "#FF5A5E",
                                             "label": label_for_tech_male
                                         })
+
     for category in categories_for_company:
         if category.category == 'Female Tech':
 
             return jsonify(tech_list_of_dicts)
 
+
     return "False"
+
+@app.route("/company-ethnicity-tech/<int:company_id>.json")
+def return_ethnicity_tech_info(company_id):
+    """Return ethnic diversity in technical roles."""
+
+    categories_for_company = Category.query.filter(Category.company_id == company_id)
+    categories_for_average = Category.query.filter(Category.company_id == 28)
+    categories_for_us_population = Category.query.filter(Category.company_id == 1)
+
+    tech_dicts = {
+                        "labels": ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other'],
+                        "datasets": [
+                                {
+                                    "label": "Company - Tech Roles",
+                                    "fillColor": "rgba(218,165,117,0.5)",
+                                    "strokeColor": "rgba(218,165,117,0.8)",
+                                    "highlightFill": "rgba(218,165,117,0.75)",
+                                    "highlightStroke": "rgba(218,165,117,1)",
+                                    "data": []
+                                },
+                                {
+                                    "label": "Average for Tech Companies",
+                                    "fillColor": "rgba(151,187,205,0.5)",
+                                    "strokeColor": "rgba(151,187,205,0.8)",
+                                    "highlightFill": "rgba(151,187,205,0.75)",
+                                    "highlightStroke": "rgba(151,187,205,1)",
+                                    "data": []
+                                },
+                                {
+                                    "label": "US Population",
+                                    "fillColor": "rgba(220,220,220,0.5)",
+                                    "strokeColor": "rgba(220,220,220,0.8)",
+                                    "highlightFill": "rgba(220,220,220,0.75)",
+                                    "highlightStroke": "rgba(220,220,220,1)",
+                                    "data": [],
+                                },
+                            ]}
+
+
+    for category in categories_for_us_population:
+        if category.category in ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']:
+            tech_dicts['datasets'][2]['data'].append(category.percentage)
+
+    for category in categories_for_average:
+        if category.category in ['White Tech', 'Asian Tech', 'Latino Tech', 'Black Tech', 'Two+ races Tech', 'Other Tech']:
+            tech_dicts['datasets'][1]['data'].append(category.percentage)
+
+    for category in categories_for_company:
+
+        #Extra Ethnicity Data
+        if category.category in ['White Tech', 'Asian Tech', 'Latino Tech', 'Black Tech', 'Two+ races Tech', 'Other Tech']:
+            tech_dicts['datasets'][0]['data'].append(category.percentage)
+
+
+    for category in categories_for_company:
+
+        if category.category == 'White Tech':
+            return jsonify(tech_dicts)
+
+    return "False"
+
 
 
 @app.route("/company-gender/<int:company_id>.json")
@@ -278,14 +342,6 @@ def get_ethnicity_info(company_id):
                             ]}
 
 
-    #Initialize dictionary for gender data
-    # gender_dict = {}
-    # gender_dict[company.name.encode('UTF-8')] = []
-
-    # #Initialize dictionary for extra gender data
-    # extra_gender_dict = {}
-    # extra_gender_dict[company.name.encode('UTF-8')] = []
-
     for category in categories_for_us_population:
         if category.category in ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']:
             ethnic_list_of_dicts['datasets'][2]['data'].append(category.percentage)
@@ -363,6 +419,18 @@ def get_ethnicity_info(company_id):
 
     return jsonify(ethnic_list_of_dicts)
 
+
+########################################### NEWS SECTION ####################################################
+
+@app.route("/news-results.json")
+def return_news_results():
+    """Returns a dictionary of news results for company."""
+
+    url = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=barack%20obama'
+
+    results = requests.get(url)
+
+    print results.json()
 
 
 

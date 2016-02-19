@@ -1,4 +1,4 @@
-.gender-chart {
+.gender-chart1 {
     width: 400px;
     margin-left: auto;
     margin-right: auto;
@@ -17,6 +17,12 @@
 }
 
 .ethnic-bar-graph {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ethnic-bar-graph2 {
     width: 600px;
     margin-left: auto;
     margin-right: auto;
