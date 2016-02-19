@@ -167,6 +167,9 @@ def return_ethnicity_tech_info(company_id):
 
 
 
+
+
+
 @app.route("/company-gender/<int:company_id>.json")
 def get_gender_info(company_id):
 
@@ -428,7 +431,13 @@ def return_news_results():
 
     url = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=barack%20obama'
 
-    results = requests.get(url)
+    request = requests.get(url)
+
+    results = request.json()
+
+    results 
+
+
 
     print results.json()
 
