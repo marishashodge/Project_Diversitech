@@ -5,14 +5,24 @@
 
 <form action='/submitted/{{ company_id }}' method='POST'>
     Company: <input type="text" name="company" value="{{ company.name }}" required><br><br>
-    Rating: <input type="text" name="rating" required><br><br>
+    Rating:<br>
+        <input type="radio" name="rating" value="1" required>  1
+        <input type="radio" name="rating" value="2" required>  2
+        <input type="radio" name="rating" value="3" required>  3
+        <input type="radio" name="rating" value="4" required>  4
+        <input type="radio" name="rating" value="5" required>  5<br><br>
     Current or former employee: <br>
-        <input type="radio" name="employee_status" value="current" checked required>Current Employee<br>
+        <input type="radio" name="employee_status" value="current" required>Current Employee<br>
         <input type="radio" name="employee_status" value="former" required>Former Employee<br><br>
     Review Title: <input type="text" name="title"><br><br>
     Pros: <input type="text" name="pros"><br><br>
     Cons: <input type="text" name="cons"><br><br>
+    Do you recommend this company?
+    <input type="radio" name="recommend" value="yes" required>  YES
+    <input type="radio" name="recommend" value="no" required> NO 
+    <br>
+
     <input type="submit">
   </form>
   <br>
-{% endblock %}
+{% endblock %}category.percentage + "%"

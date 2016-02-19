@@ -320,7 +320,7 @@ def get_ethnicity_info(company_id):
                         "datasets": [
                                 {
                                     "label": "Company",
-                                    "fillColor": "rgba(218,165,117,0.5)",
+                                    "fillColor": "rgba(218,165,117,1)",
                                     "strokeColor": "rgba(218,165,117,0.8)",
                                     "highlightFill": "rgba(218,165,117,0.75)",
                                     "highlightStroke": "rgba(218,165,117,1)",
@@ -425,25 +425,23 @@ def get_ethnicity_info(company_id):
 
 ########################################### NEWS SECTION ####################################################
 
-@app.route("/news-results.json")
-def return_news_results():
-    """Returns a dictionary of news results for company."""
+# @app.route("/news-results.json")
+# def return_news_results():
+#     """Returns a dictionary of news results for company."""
 
-    url = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=barack%20obama'
+#     url = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=barack%20obama'
 
-    request = requests.get(url)
+#     request = requests.get(url)
 
-    results = request.json()
+#     results = request.json()
 
-    results 
+#     results 
 
-
-
-    print results.json()
+#     print results.json()
 
 
+############################################# REVIEW #####################################################
 
-###########################################################################################################
 @app.route("/review/<int:company_id>")
 def show_review_page(company_id):
     """Allow user to write a review."""
