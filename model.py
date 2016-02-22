@@ -52,10 +52,13 @@ class Review(db.Model):
     review_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     company_id = db.Column(db.Integer, db.ForeignKey('companies.company_id'), nullable=False)
     rating = db.Column(db.Integer)
+    gender = db.Column(db.String(64))
+    ethnicity = db.Column(db.String(64))
     employee_status = db.Column(db.String(64))
     review_title = db.Column(db.String(64))
     pros = db.Column(db.String(500))
     cons = db.Column(db.String(500))
+    recommended = db.Column(db.String(64))
 
     def __repr__(self):
         """Show info about comment."""

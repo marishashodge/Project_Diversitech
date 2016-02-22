@@ -31,7 +31,7 @@
             </div>
             <div class="col-xs-6 col-md-4">
                 <div class="gender-chart2">
-                    <h4>Average Gender for Tech Companies</h4>
+                    <h4 id="heading-gender-tech"></h4>
                      <canvas id="donutChart4"></canvas>
                     <div id="donutLegend4" class="chart-legend">
                     </div>
@@ -76,22 +76,48 @@
     });
 
 
+    // Make donut chart of average percent of men and women
+    var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
+    $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
+        var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.average, options);
+        $("#heading-gender-tech").html("Average Gender for Companies");
+        $('#donutLegend4').html(myDonutChart4.generateLegend());
+    });
+
+
     function generateOverallDonutChart(evt) {
         var ctx_donut_gender = $("#donutChart3").get(0).getContext("2d");
         $("#gender-heading").html("Company Gender - Overall");
         $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
             var myDonutChart3 = new Chart(ctx_donut_gender).Doughnut(data.company, options);
             $('#donutLegend3').html(myDonutChart3.generateLegend());
-        }
-        )};
+        });
+
+        var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
+
+        $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
+            var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.average, options);
+            $("#heading-gender-tech").html("Average Gender for Companies");
+            $('#donutLegend4').html(myDonutChart4.generateLegend());
+        });
+    };
 
     function generateTechDonutChart(evt) {
         var ctx_donut_gender_tech = $("#donutChart3").get(0).getContext("2d");
-        $("#heading-gender").html("Company Gender - Tech");
+        $("#gender-heading").html("Company Gender - Tech");
         $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
             var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
             $('#donutLegend3').html(myDonutChart5.generateLegend());
+        });
+
+        var ctx_donut_gender_average_tech = $('#donutChart4').get(0).getContext("2d");
+
+        $("#heading-gender-tech").html("Average Gender for Companies - Tech");
+        $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
+            var myDonutChart6 = new Chart(ctx_donut_gender_average_tech).Doughnut(data.average,options);
+            $('#donutLegend4').html(myDonutChart6.generateLegend());
         }
+
         )};
 
     // Make donut chart of percent of men and women in TECH roles
@@ -115,13 +141,6 @@
         }
     });
 
-    // Make donut chart of average percent of men and women
-    var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
-
-    $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
-        var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.us, options);
-        $('#donutLegend4').html(myDonutChart4.generateLegend());
-    });
 
     // Make bar chart of average percent of men and women in Company, Average and US
     
@@ -140,7 +159,7 @@
         $("#heading").html("Company Ethnicity - Tech");
         $.get("/company-ethnicity-tech/{{ display_company.company_id }}.json", function (data) { 
             var myBarChart2 = new Chart(ctx_bar_ethnic_tech).Bar(data, options);
-            $('#barLegend2').html(myBarChart2.generateLegend());
+            $('#barLegend').html(myBarChart2.generateLegend());
         })};
 
     function generateOverallBarGraph(evt) {
@@ -148,7 +167,7 @@
         $("#heading").html("Company Ethnicity - Overall");
         $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
             var myBarChart = new Chart(ctx_bar_ethnic).Bar(data, options);
-            $('#barLegend2').html(myBarChart.generateLegend());
+            $('#barLegend').html(myBarChart.generateLegend());
         })};
 
     $.get("/company-ethnicity-tech/{{ display_company.company_id }}.json", function (data) {
@@ -256,6 +275,10 @@
                 <th>Review Title</th>
                 <th>Pros</th>
                 <th>Cons</th>
+                <th>Gender</th>
+                <th>Ethnicity</th>
+                <th>Recommended</th>
+
             </tr>
             {% for review in reviews %}
             <tr>
@@ -264,6 +287,10 @@
                 <td>{{ review.review_title }}</td>
                 <td>{{ review.pros }}</td>
                 <td>{{ review.cons }}</td>
+                <td>{{ review.gender }}</td>
+                <td>{{ review.ethnicity }}</td>
+                <td>{{ review.recommended }}</td>
+
             </tr>
             {% endfor %}
         </table>

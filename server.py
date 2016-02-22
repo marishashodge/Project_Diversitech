@@ -73,13 +73,42 @@ def return_gender_tech_info(company_id):
 
     categories_for_company = Category.query.filter(Category.company_id == company_id)
 
-    tech_list_of_dicts = {'tech': []}
+    categories_for_average = Category.query.filter(Category.company_id == 28)
+
+    for category in categories_for_average:
+
+        if category.category == 'Female Tech':
+            female_tech_percentage = category.percentage
+            label_for_avg_female = 'Female - Tech: ' + str(female_tech_percentage) + '%'
+
+        if category.category == 'Male Tech':
+            male_tech_percentage = category.percentage
+            label_for_avg_male = 'Male - Tech: ' + str(male_tech_percentage) + '%'
+
+
+    tech_list_of_dicts = {'tech': [],
+                        'average': [
+                                        {
+                                            "value": female_tech_percentage,
+                                            "color": "#0066ff",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_avg_female
+                                        },
+
+                                        {
+                                            "value": male_tech_percentage,
+                                            "color": "#cc00cc",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_avg_male
+                                        }
+                                    ]}
+
 
     for category in categories_for_company:
 
         if category.category == 'Female Tech':
             company_female_tech = category.percentage
-            label_for_tech_female = 'Female - ' + str(company_female_tech) + '%'
+            label_for_tech_female = 'Female - Tech: ' + str(company_female_tech) + '%'
             tech_list_of_dicts['tech'].append({
                                             "value": company_female_tech,
                                             "color": "#ffff00",
@@ -89,7 +118,7 @@ def return_gender_tech_info(company_id):
 
         if category.category == 'Male Tech':
             company_male_tech = category.percentage
-            label_for_tech_male = 'Male - ' + str(company_male_tech) + '%'
+            label_for_tech_male = 'Male - Tech: ' + str(company_male_tech) + '%'
             tech_list_of_dicts['tech'].append({
                                             "value": company_male_tech,
                                             "color": "#009933",
@@ -118,14 +147,14 @@ def return_ethnicity_tech_info(company_id):
                         "datasets": [
                                 {
                                     "label": "Company - Tech Roles",
-                                    "fillColor": "rgba(218,165,117,0.5)",
+                                    "fillColor": "rgba(218,165,117,1)",
                                     "strokeColor": "rgba(218,165,117,0.8)",
                                     "highlightFill": "rgba(218,165,117,0.75)",
                                     "highlightStroke": "rgba(218,165,117,1)",
                                     "data": []
                                 },
                                 {
-                                    "label": "Average for Tech Companies",
+                                    "label": "Average for Tech Companies - Tech Roles",
                                     "fillColor": "rgba(151,187,205,0.5)",
                                     "strokeColor": "rgba(151,187,205,0.8)",
                                     "highlightFill": "rgba(151,187,205,0.75)",
@@ -174,14 +203,14 @@ def return_ethnicity_tech_info(company_id):
 def get_gender_info(company_id):
 
     company = Company.query.get(company_id)
-    label_for_female = 'Female - ' + str(company.female_overall) + '%'
-    label_for_male = 'Male - ' + str(company.male_overall) + '%'
+    label_for_female = 'Female: ' + str(company.female_overall) + '%'
+    label_for_male = 'Male: ' + str(company.male_overall) + '%'
 
 
 
     average = Company.query.get(28)
-    label_for_avg_female = 'Female - ' + str(average.female_overall) + '%'
-    label_for_avg_male = 'Male - ' + str(average.male_overall) + '%'
+    label_for_avg_female = 'Female: ' + str(average.female_overall) + '%'
+    label_for_avg_male = 'Male: ' + str(average.male_overall) + '%'
 
 
     gender_list_of_dicts = {'company':[
@@ -199,7 +228,7 @@ def get_gender_info(company_id):
                                             "label": label_for_male
                                         }
                                         ],
-                            'us':[
+                            'average':[
 
                                         {
                                             "value": average.female_overall,
@@ -461,12 +490,16 @@ def add_user_comment(company_id):
     form_title = request.form.get("title")
     form_pros = request.form.get("pros")
     form_cons = request.form.get("cons")
+    form_gender = request.form.get("gender")
+    form_ethnicity = request.form.get("ethnicity")
+    form_recommend = request.form.get("recommend")
 
     company = Company.query.filter(Company.name == form_company).one()
     id_of_company = company.company_id
 
-    review = Review(company_id=id_of_company, rating=form_rating, employee_status=form_emp_status,
-                    review_title=form_title, pros=form_pros, cons=form_cons)
+    review = Review(company_id=id_of_company, rating=form_rating, gender=form_gender,
+                    ethnicity=form_ethnicity, employee_status=form_emp_status,
+                    review_title=form_title, pros=form_pros, cons=form_cons, recommended=form_recommend)
 
     db.session.add(review)
     db.session.commit()
