@@ -50,7 +50,6 @@ def search_companies():
 
 
 
-
 @app.route('/company/<int:company_id>')
 def show_company(company_id):
     """Company page with diversity details."""
@@ -64,16 +63,17 @@ def show_company(company_id):
     return render_template("company-page.html", display_company=company, categories=categories_for_company, reviews=reviews)
 
 
-#########################################################################################################
+################################### JSON ROUTES #######################################################
 
 
 @app.route("/company-gender-tech/<int:company_id>.json")
 def return_gender_tech_info(company_id):
-    """Return gender diversity in tech roles."""
+    """Return gender diversity in technical roles."""
 
     categories_for_company = Category.query.filter(Category.company_id == company_id)
 
-    categories_for_average = Category.query.filter(Category.company_id == 28)
+    average = Company.query.filter(Company.name == 'average from our sample').one()
+    categories_for_average = average.categories
 
     for category in categories_for_average:
 
@@ -139,8 +139,10 @@ def return_ethnicity_tech_info(company_id):
     """Return ethnic diversity in technical roles."""
 
     categories_for_company = Category.query.filter(Category.company_id == company_id)
-    categories_for_average = Category.query.filter(Category.company_id == 28)
-    categories_for_us_population = Category.query.filter(Category.company_id == 1)
+    average = Company.query.filter(Company.name == 'average from our sample').one()
+    categories_for_average = average.categories
+    us_population = Company.query.filter(Company.name == 'U.S. Population').one()
+    categories_for_us_population = us_population.categories
 
     tech_dicts = {
                         "labels": ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other'],
@@ -201,6 +203,7 @@ def return_ethnicity_tech_info(company_id):
 
 @app.route("/company-gender/<int:company_id>.json")
 def get_gender_info(company_id):
+    """Returns gender diversity info for company."""
 
     company = Company.query.get(company_id)
     label_for_female = 'Female: ' + str(company.female_overall) + '%'
@@ -208,7 +211,7 @@ def get_gender_info(company_id):
 
 
 
-    average = Company.query.get(28)
+    average = Company.query.filter(Company.name == 'average from our sample').one()
     label_for_avg_female = 'Female: ' + str(average.female_overall) + '%'
     label_for_avg_male = 'Male: ' + str(average.male_overall) + '%'
 
@@ -253,95 +256,18 @@ def get_gender_info(company_id):
 
 
 
-@app.route("/company-diversity-extra/<int:company_id>.json")
-def get_extra_ethnicity_info(company_id):
-
-    company = Company.query.get(company_id)
-
-    categories_for_company = Category.query.filter(Category.company_id == company_id)
-
-    #Initialize dictionary for extra ethnicity data 
-    extra_ethnic_list_of_dicts = {}
-    extra_ethnic_list_of_dicts[company.name.encode('UTF-8')] = []
-
-    for category in categories_for_company:
-
-        #Extra ethnicity data  
-        if category.category == 'White Tech':
-            extra_ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#F7464A",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'White Tech'
-                                        })
-
-
-        elif category.category == 'Asian Tech':
-            extra_ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#9999ff",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Asian Tech'
-                                        })
-
-
-        elif category.category == 'Latino Tech':
-            extra_ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#66ff99",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Latino Tech'
-                                        })
-
-
-        elif category.category == 'Black Tech':
-            extra_ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#ffff66",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Black Tech'
-                                        })
-
-
-        elif category.category == 'Two+ races Tech':
-            extra_ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#333399",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Two+ races Tech'
-                                        })
-
-
-        elif category.category == 'Other Tech':
-            extra_ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-                                        {
-                                            "value": category.percentage,
-                                            "color": "#66ff33",
-                                            "highlight": "#FF5A5E",
-                                            "label": 'Other Tech'
-                                        })
-
-    return jsonify(extra_ethnic_list_of_dicts) 
-
-
-
-@app.route("/company-diversity/<int:company_id>.json")
+@app.route("/company-ethnicity/<int:company_id>.json")
 def get_ethnicity_info(company_id):
-    """Get diversity info for companies from database and return json."""
-
-    #How do I get the info for just one company???
+    """Returns ethnic diversity info for companies."""
 
     company = Company.query.get(company_id)
 
 
     categories_for_company = Category.query.filter(Category.company_id == company_id)
-    categories_for_average = Category.query.filter(Category.company_id == 28)
-    categories_for_us_population = Category.query.filter(Category.company_id == 1)
+    average = Company.query.filter(Company.name == 'average from our sample').one()
+    categories_for_average = average.categories
+    us_population = Company.query.filter(Company.name == 'U.S. Population').one()
+    categories_for_us_population = us_population.categories
 
     #Initialize dictionary for basic ethnicity data 
     ethnic_list_of_dicts = {
@@ -373,7 +299,6 @@ def get_ethnicity_info(company_id):
                                 },
                             ]}
 
-
     for category in categories_for_us_population:
         if category.category in ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']:
             ethnic_list_of_dicts['datasets'][2]['data'].append(category.percentage)
@@ -389,84 +314,30 @@ def get_ethnicity_info(company_id):
             ethnic_list_of_dicts['labels'].append(category.category.encode('UTF-8'))
             ethnic_list_of_dicts['datasets'][0]['data'].append(category.percentage)
 
-
-
-
-        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-        #                                 {
-        #                                     "value": category.percentage,
-        #                                     "color": "#F7464A",
-        #                                     "highlight": "#FF5A5E",
-        #                                     "label": 'White'
-        #                                 })
-
-        # elif category.category == 'Asian':
-        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-        #                                 {
-        #                                     "value": category.percentage,
-        #                                     "color": "#9999ff",
-        #                                     "highlight": "#FF5A5E",
-        #                                     "label": 'Asian'
-        #                                 })
-
-        # elif category.category == 'Latino':
-        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-        #                                 {
-        #                                     "value": category.percentage,
-        #                                     "color": "#66ff99",
-        #                                     "highlight": "#FF5A5E",
-        #                                     "label": 'Latino'
-        #                                 })
-
-        # elif category.category == 'Black':
-        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-        #                                 {
-        #                                     "value": category.percentage,
-        #                                     "color": "#ffff66",
-        #                                     "highlight": "#FF5A5E",
-        #                                     "label": 'Black'
-        #                                 })
-
-        # elif category.category == 'Two+ races':
-        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-        #                                 {
-        #                                     "value": category.percentage,
-        #                                     "color": "#333399",
-        #                                     "highlight": "#FF5A5E",
-        #                                     "label": 'Two+Races'
-        #                                 })
-
-        # elif category.category == 'Other':
-        #     ethnic_list_of_dicts[company.name.encode('UTF-8')].append(
-        #                                 {
-        #                                     "value": category.percentage,
-        #                                     "color": "#66ff33",
-        #                                     "highlight": "#FF5A5E",
-        #                                     "label": 'Other'
-        #                                 })
-   
-    # return jsonify(ethnic_list_of_dicts)
-
-   
-
     return jsonify(ethnic_list_of_dicts)
 
 
-########################################### NEWS SECTION ####################################################
+@app.route("/glassdoor-results/<int:company_id>.json")
+def return_review_results(company_id):
+    """Returns a Glassdoor overall review for company."""
 
-# @app.route("/news-results.json")
-# def return_news_results():
-#     """Returns a dictionary of news results for company."""
+    company = Company.query.get(company_id)
+    company_name = company.name
 
-#     url = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=barack%20obama'
+    url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=55828&t.k=fhcJ0ZT1E89&action=employers&q=" + str(company_name)
 
-#     request = requests.get(url)
+    # Need to set the User-Agent in the header of http request to be able to access Glassdoor API
+    resp = requests.get(url, headers={'User-Agent': 'curl/7.30.0'})
 
-#     results = request.json()
+    results = resp.json()
 
-#     results 
+    company_glassdoor = {}
 
-#     print results.json()
+    overall_rating = results["response"]["employers"][0]["overallRating"]
+
+    company_glassdoor["overallRating"] = overall_rating
+
+    return jsonify(company_glassdoor)
 
 
 ############################################# REVIEW #####################################################
@@ -508,8 +379,6 @@ def add_user_comment(company_id):
 
     flash("Your comment has been received!")
     return redirect("/company/" + str(id_of_company))
-
-
 
 
 

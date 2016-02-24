@@ -80,7 +80,7 @@
     var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
     $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
         var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.average, options);
-        $("#heading-gender-tech").html("Average Gender for Companies");
+        $("#heading-gender-tech").html("Average Gender for Tech Companies - Overall");
         $('#donutLegend4').html(myDonutChart4.generateLegend());
     });
 
@@ -97,7 +97,7 @@
 
         $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
             var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.average, options);
-            $("#heading-gender-tech").html("Average Gender for Companies");
+            $("#heading-gender-tech").html("Average Gender for Tech Companies - Overall");
             $('#donutLegend4').html(myDonutChart4.generateLegend());
         });
     };
@@ -147,7 +147,7 @@
     var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
     $("#heading").html("Company Ethnicity - Overall");
 
-    $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
+    $.get("/company-ethnicity/{{ display_company.company_id }}.json", function (data) {
         var myBarChart = new Chart(ctx_bar_ethnic).Bar(data, options);
         $('#barLegend').html(myBarChart.generateLegend());
     });
@@ -165,7 +165,7 @@
     function generateOverallBarGraph(evt) {
         var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
         $("#heading").html("Company Ethnicity - Overall");
-        $.get("/company-diversity/{{ display_company.company_id }}.json", function (data) {
+        $.get("/company-ethnicity/{{ display_company.company_id }}.json", function (data) {
             var myBarChart = new Chart(ctx_bar_ethnic).Bar(data, options);
             $('#barLegend').html(myBarChart.generateLegend());
         })};
