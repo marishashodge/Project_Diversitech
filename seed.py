@@ -10,9 +10,9 @@ from server import app
 import pandas as pd
 import os
 
-os.getcwd()
+# os.getcwd()
 
-os.chdir("/Users/Mandela/Documents/Project")
+# os.chdir("/Users/Mandela/Documents/Project")
 
 
 def load_companies():
