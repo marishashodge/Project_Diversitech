@@ -1,7 +1,16 @@
+
+
 .navbar-default {
     background-color: #0066ff;
     border-color: #E7E7E7;
 }
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 
 .gender-chart1 {
@@ -66,12 +75,12 @@ h2 {
 
 .jumbotron {
     margin-bottom: 0px;
-    background-image: url(/static/img/home2.jpg);
+    background-image: url(/static/img/home6.jpg);
     background-position: 0% 25%;
     background-size: cover;
     background-repeat: no-repeat;
     color: white;
-    text-shadow: black 0.3em 0.3em 0.3em;
+    text-shadow: black 0.4em 0.4em 0.4em;
 }
 
 }

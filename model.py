@@ -56,8 +56,8 @@ class Review(db.Model):
     ethnicity = db.Column(db.String(64))
     employee_status = db.Column(db.String(64))
     review_title = db.Column(db.String(64))
-    pros = db.Column(db.String(500))
-    cons = db.Column(db.String(500))
+    pros = db.Column(db.String(1000))
+    cons = db.Column(db.String(1000))
     recommended = db.Column(db.String(64))
 
     def __repr__(self):

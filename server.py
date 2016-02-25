@@ -39,7 +39,7 @@ def search_companies():
 
     company_searched = request.form.get("search")
 
-    company = Company.query.filter(Company.name == company_searched).first()
+    company = Company.query.filter(Company.name == company_searched).one()
 
     if company:
         id_of_company = company.company_id
