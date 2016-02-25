@@ -11,6 +11,14 @@
   margin-right: auto;
 }
 
+a.glassdoor-button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
 
 
 .gender-chart1 {

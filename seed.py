@@ -74,7 +74,8 @@ def load_categories():
 
     db.session.commit()
 
-def load_categories():
+
+def load_reviews():
     """Load dummy data into reviews table."""
 
     reviews_list = ["""Bandwidth low hanging fruit mass market iPad bootstrapping facebook ramen equity termsheet long tail first mover advantage marketing.
@@ -161,4 +162,5 @@ if __name__ == "__main__":
 
     # Import different types of data
     load_companies()
-    load_categories()  
+    load_categories()
+    load_reviews()

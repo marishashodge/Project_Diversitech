@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<script src="myScript.js"></script>
 
 
     <p>
@@ -119,6 +118,29 @@
             </tr>
             {% endfor %}
         </table>
+
+        <h3>Glassdoor Rating</h3>
+        <p id="overall-rating"></p>
+
+
+    <table style="width:100%">
+            <tr>
+                <th>Rating</th>
+                <th>Headline</th>
+                <th>Pros</th>
+                <th>Cons</th>
+
+            </tr>
+            <tr>
+                <td id="rating"></td>
+                <td id="headline"></td>
+                <td id="pros"></td>
+                <td id="cons"></td>
+
+            </tr>
+        </table>
+        <a class="glassdoor-button" href="" class="btn btn-default" target="_blank">Go to Glassdoor</a>
+
     </div>
         </div>
         <div class="tab-pane fade in" id="tab3">
@@ -266,9 +288,37 @@
         }    
     });
 
+// Glassdoor Reviews
 
+function generateGlassdoorDetails(evt) {
 
- 
+    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+        $('#rating').html(data.reviewRating);
+    });
+
+    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+        $('#headline').html(data.reviewHeadline);
+     });
+
+    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+        $('#pros').html(data.reviewPros);
+
+     });
+
+    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+        $('#cons').html(data.reviewCons);
+
+     });
+
+    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+        $('.glassdoor-button').attr("href", data.reviewsURL);
+
+     });
+   
+}
+
+$("#reviews").click(generateGlassdoorDetails);
+
 
 // Google News Feed
 

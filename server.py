@@ -318,8 +318,8 @@ def get_ethnicity_info(company_id):
 
 
 @app.route("/glassdoor-results/<int:company_id>.json")
-def return_review_results(company_id):
-    """Returns a Glassdoor overall review for company."""
+def return_glassdoor_results(company_id):
+    """Returns a Glassdoor api results for company."""
 
     company = Company.query.get(company_id)
     company_name = company.name
@@ -333,9 +333,35 @@ def return_review_results(company_id):
 
     company_glassdoor = {}
 
+    reviews_url = results["response"]["attributionURL"]
+    # print reviews_url
+
     overall_rating = results["response"]["employers"][0]["overallRating"]
+    # print overall_rating
+
+    featured_review_headline = results["response"]["employers"][0]["featuredReview"]["headline"]
+    # print featured_review_headline
+
+    featured_review_pros = results["response"]["employers"][0]["featuredReview"]["pros"]
+    # print featured_review_pros
+
+    featured_review_cons = results["response"]["employers"][0]["featuredReview"]["cons"]
+    # print featured_review_cons
+
+    featured_review_rating = results["response"]["employers"][0]["featuredReview"]["overall"]
+    # print featured_review_rating
 
     company_glassdoor["overallRating"] = overall_rating
+
+    company_glassdoor["reviewsURL"] = reviews_url
+
+    company_glassdoor["reviewHeadline"] = featured_review_headline
+
+    company_glassdoor["reviewPros"] = featured_review_pros
+
+    company_glassdoor["reviewCons"] = featured_review_cons
+
+    company_glassdoor["reviewRating"] = featured_review_rating
 
     return jsonify(company_glassdoor)
 
