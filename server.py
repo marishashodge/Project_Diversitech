@@ -65,6 +65,131 @@ def show_company(company_id):
 
 ################################### JSON ROUTES #######################################################
 
+@app.route("/company-comparison.json")
+def return_diversity_rating():
+    """Return top 5 companies in gender diversity and ethnic diversity."""
+
+    diversity_ratings = {}
+
+    #for each company get the diversity numbers
+    companies = Company.query.all()
+
+    us_population = Company.query.filter(Company.name == 'U.S. Population').one()
+
+    f_us = us_population.female_overall
+    m_us = us_population.male_overall
+
+    categories_for_us_population = us_population.categories
+
+    ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']
+
+    for category in categories_for_us_population:
+
+        if category.category == 'White':
+            white_us_percentage = category.percentage
+
+        if category.category == 'Asian':
+            asian_us_percentage = category.percentage
+
+        if category.category == 'Latino':
+            latino_us_percentage = category.percentage
+
+        if category.category == 'Black':
+            black_us_percentage = category.percentage
+
+        if category.category == 'Two+ races':
+            two_us_percentage = category.percentage
+
+        if category.category == 'Other':
+            other_us_percentage = category.percentage
+
+    gender_rating_dict = {}
+    ethnic_rating_dict = {}
+
+    for company in companies:
+        if company.name == 'U.S. Population' or company.name == 'average from our sample':
+            continue
+
+        else:
+
+            categories = company.categories
+            ethnic_count = 0
+
+            #find the absolute difference between company gender (female only) percentage and US gender percentage
+            f_diff_from_us = abs(company.female_overall - f_us)
+            gender_rating_dict[company.company_id] = f_diff_from_us
+
+            #set the variables for company ethnicity categories
+            #find the absolute difference between company ethicity percentages and US ethnicity percentage
+            for category in categories:
+
+                if category.category == 'White':
+                    white_percentage = category.percentage
+                    white_diff_from_us = abs(white_percentage - white_us_percentage)
+                    ethnic_count += white_diff_from_us
+
+                if category.category == 'Asian':
+                    asian_percentage = category.percentage
+                    asian_diff_from_us = abs(asian_percentage - asian_us_percentage)
+                    ethnic_count += asian_diff_from_us
+
+                if category.category == 'Latino':
+                    latino_percentage = category.percentage
+                    latino_diff_from_us = abs(latino_percentage - latino_us_percentage)
+                    ethnic_count += latino_diff_from_us
+
+                if category.category == 'Black':
+                    black_percentage = category.percentage
+                    black_diff_from_us = abs(black_percentage - black_us_percentage)
+                    ethnic_count += black_diff_from_us
+
+                if category.category == 'Two+ races':
+                    two_percentage = category.percentage
+                    two_diff_from_us = abs(two_percentage - two_us_percentage)
+                    ethnic_count += two_diff_from_us
+
+                if category.category == 'Other':
+                    other_percentage = category.percentage
+                    other_diff_from_us = abs(other_percentage - other_us_percentage)
+                    ethnic_count += other_diff_from_us
+
+            # Add total ethnic count for each company to ethnic_rating_dictionary
+            ethnic_rating_dict[company.company_id] = ethnic_count
+
+        # print gender_rating_dict
+        # print ethnic_rating_dict
+
+
+
+    # Calculate top 5 companies in gender diversity
+    gender_top_5 = sorted(ethnic_rating_dict, key=ethnic_rating_dict.get)[:5]
+
+    print ethnic_rating_dict
+    return gender_top_5
+
+
+
+
+
+
+
+        #find the absolute difference between company ethicity percentage and US ethnicity percentage
+
+
+
+
+
+
+
+
+        #get gender percentage
+
+
+
+
+
+
+
 
 @app.route("/company-gender-tech/<int:company_id>.json")
 def return_gender_tech_info(company_id):
@@ -79,11 +204,11 @@ def return_gender_tech_info(company_id):
 
         if category.category == 'Female Tech':
             female_tech_percentage = category.percentage
-            label_for_avg_female = 'Female - Tech: ' + str(female_tech_percentage) + '%'
+            label_for_us_female = 'Female - Tech: ' + str(female_tech_percentage) + '%'
 
         if category.category == 'Male Tech':
             male_tech_percentage = category.percentage
-            label_for_avg_male = 'Male - Tech: ' + str(male_tech_percentage) + '%'
+            label_for_us_male = 'Male - Tech: ' + str(male_tech_percentage) + '%'
 
 
     tech_list_of_dicts = {'tech': [],
@@ -92,14 +217,14 @@ def return_gender_tech_info(company_id):
                                             "value": female_tech_percentage,
                                             "color": "#0066ff",
                                             "highlight": "#FF5A5E",
-                                            "label": label_for_avg_female
+                                            "label": label_for_us_female
                                         },
 
                                         {
                                             "value": male_tech_percentage,
                                             "color": "#cc00cc",
                                             "highlight": "#FF5A5E",
-                                            "label": label_for_avg_male
+                                            "label": label_for_us_male
                                         }
                                     ]}
 
@@ -212,8 +337,8 @@ def get_gender_info(company_id):
 
 
     average = Company.query.filter(Company.name == 'average from our sample').one()
-    label_for_avg_female = 'Female: ' + str(average.female_overall) + '%'
-    label_for_avg_male = 'Male: ' + str(average.male_overall) + '%'
+    label_for_us_female = 'Female: ' + str(average.female_overall) + '%'
+    label_for_us_male = 'Male: ' + str(average.male_overall) + '%'
 
 
     gender_list_of_dicts = {'company':[
@@ -237,18 +362,18 @@ def get_gender_info(company_id):
                                             "value": average.female_overall,
                                             "color": "#0066ff",
                                             "highlight": "#FF5A5E",
-                                            "label": label_for_avg_female
+                                            "label": label_for_us_female
                                         },
 
                                         {
                                             "value": average.male_overall,
                                             "color": "#cc00cc",
                                             "highlight": "#FF5A5E",
-                                            "label": label_for_avg_male
+                                            "label": label_for_us_male
                                         }
                                         ]}
 
-    
+
 
 
     # print gender_list_of_dicts
@@ -269,7 +394,7 @@ def get_ethnicity_info(company_id):
     us_population = Company.query.filter(Company.name == 'U.S. Population').one()
     categories_for_us_population = us_population.categories
 
-    #Initialize dictionary for basic ethnicity data 
+    #Initialize dictionary for basic ethnicity data
     ethnic_list_of_dicts = {
                         "labels": [],
                         "datasets": [
