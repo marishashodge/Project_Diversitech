@@ -6,18 +6,18 @@
     <p>
 
         {% for message in get_flashed_messages() %}
-            {{ message }} 
+            {{ message }}
         {% endfor %}
-        
+
     </p>
 
     <h2>{{ display_company.name }}</h2>
 
 
-    
-    
 
-    
+
+
+
 
    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
         <div class="btn-group" role="group">
@@ -63,7 +63,7 @@
                     <div id="donutLegend4" class="chart-legend">
                     </div>
                 </div>
-            </div>                
+            </div>
         </div>
 
     </div>
@@ -107,7 +107,7 @@
             {% for review in reviews %}
             <tr>
                 <td>{{ review.employee_status }}</td>
-                <td>{{ review.rating }}</td> 
+                <td>{{ review.rating }}</td>
                 <td>{{ review.review_title }}</td>
                 <td>{{ review.pros }}</td>
                 <td>{{ review.cons }}</td>
@@ -150,7 +150,7 @@
         </div>
       </div>
     </div>
-    
+
 
     <br>
     <br>
@@ -162,6 +162,8 @@
 </div>
 
 <script>
+
+
 
 
     var options = { responsive: true,
@@ -239,7 +241,7 @@
 
 
             // var ctx_donut_gender_tech = $("#donutChart5").get(0).getContext("2d");
-    
+
             // var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
             // $('#donutLegend5').html(myDonutChart5.generateLegend());
         }
@@ -247,7 +249,7 @@
 
 
     // Make bar chart of average percent of men and women in Company, Average and US
-    
+
     var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
     $("#heading").html("Company Ethnicity - Overall");
 
@@ -257,11 +259,11 @@
     });
 
     // Make bar chart of average percent of men and women in Company tech, Average tech and US
-    function generateTechBarGraph(evt) { 
+    function generateTechBarGraph(evt) {
         console.log("function here")
         var ctx_bar_ethnic_tech = $("#barGraph1").get(0).getContext("2d");
         $("#heading").html("Company Ethnicity - Tech");
-        $.get("/company-ethnicity-tech/{{ display_company.company_id }}.json", function (data) { 
+        $.get("/company-ethnicity-tech/{{ display_company.company_id }}.json", function (data) {
             var myBarChart2 = new Chart(ctx_bar_ethnic_tech).Bar(data, options);
             $('#barLegend').html(myBarChart2.generateLegend());
         })};
@@ -285,7 +287,7 @@
 
             $('#tech-button').click(generateTechBarGraph);
             $('#overall-button').click(generateOverallBarGraph);
-        }    
+        }
     });
 
 // Glassdoor Reviews
@@ -314,7 +316,7 @@ function generateGlassdoorDetails(evt) {
         $('.glassdoor-button').attr("href", data.reviewsURL);
 
      });
-   
+
 }
 
 $("#reviews").click(generateGlassdoorDetails);
@@ -341,7 +343,7 @@ $("#reviews").click(generateGlassdoorDetails);
             publNameDate.classList.add("publ-name-date");
             var content = document.createElement('p');
             content.classList.add("news-para");
-            
+
 
 
             a.href= newsSearch.results[i].unescapedUrl;
@@ -352,14 +354,14 @@ $("#reviews").click(generateGlassdoorDetails);
             publName = newsSearch.results[i].publisher + ": ";
             publNameDate.innerHTML = publName.concat(publDate2);
             content.innerHTML = newsSearch.results[i].content;
-    
+
 
             // Append search results to the HTML nodes
             p.appendChild(a);
             p.appendChild(publNameDate);
             p.appendChild(content);
-            
-           
+
+
             document.body.appendChild(p);
 
           }
@@ -371,8 +373,8 @@ $("#reviews").click(generateGlassdoorDetails);
         // Create a News Search instance.
         newsSearch = new google.search.NewsSearch();
 
-  
-        // Set searchComplete as the callback function when a search is 
+
+        // Set searchComplete as the callback function when a search is
         // complete.  The newsSearch object will have results in it.
         newsSearch.setSearchCompleteCallback(this, searchComplete, null);
 
@@ -393,11 +395,11 @@ $("#reviews").click(generateGlassdoorDetails);
     $(document).ready(function() {
     $(".btn-pref .btn").click(function () {
     $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
-    // $(".tab").addClass("active"); // instead of this do the below 
-    $(this).removeClass("btn-default").addClass("btn-primary");   
+    // $(".tab").addClass("active"); // instead of this do the below
+    $(this).removeClass("btn-default").addClass("btn-primary");
     });
     });
-   
+
 
     </script>
 

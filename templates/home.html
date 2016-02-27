@@ -1,21 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<!-- 
-    <h1>DiversiTech</h1>
 
-    <p>Welcome to DiversiTech.</p>
- -->
-<!-- 
-    <h3>Companies</h3>
-    <ul>
-        {% for company in companies %}
-            <li>
-                <a href="/company/{{ company.company_id }}">
-                {{ company.name }} 
-                </a>
-            </li>
-        {% endfor %}
-    </ul> -->
+
 <div class="jumbotron">
     <div class="container">
         <br>
@@ -31,28 +17,51 @@
           <br>
         <div class="search-box">
           <form action="/search" method='POST'>
-            <div id="imaginary_container"> 
+            <div id="imaginary_container">
                 <div class="input-group stylish-input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search for a company...">
                                         <span class="input-group-addon">
                         <button type="submit">
                             <span class="glyphicon glyphicon-search"></span>
-                        </button>  
+                        </button>
                     </span>
                 </div>
             </div>
           </form>
         </div>
-        
+
     </div>
     </div>
 
+  <div class="container">
+    <div class = "row">
+      <div class="col-md-6">
+        <h2>Top 5 for Gender Diversity</h2>
+        <ul>
+            {% for company in genderTop5 %}
+                <li>
+                    <a href="/company/{{ company.company_id }}">
+                    {{ company.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h2>Top 5 for Ethnic Diversity</h2>
+        <ul>
+            {% for company in ethnicTop5 %}
+                <li>
+                    <a href="/company/{{ company.company_id }}">
+                    {{ company.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+      </div>
+      </div>
+    </div>
+  </div>
 
-
-
-
-
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 {% endblock %}

@@ -21,55 +21,9 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage."""
 
-    companies = Company.query.filter(Company.name != 'U.S. Population',
-                                     Company.name != 'average from our sample').order_by('name').all()
+    genderTop5 = []
 
-    us_population = Company.query.filter(Company.name == 'U.S. Population').one()
-
-    average = Company.query.filter(Company.name == 'average from our sample').one()
-
-    print us_population
-
-    return render_template("home.html", companies=companies, us_population=us_population, average=average)
-
-
-@app.route('/search', methods=["POST"])
-def search_companies():
-    """Send user to company page or 'company-not-found.html' based on search query."""
-
-    company_searched = request.form.get("search")
-
-    company = Company.query.filter(Company.name == company_searched).one()
-
-    if company:
-        id_of_company = company.company_id
-        return redirect("/company/" + str(id_of_company))
-
-    else:
-        return render_template("company-not-found.html", company=company_searched)
-
-
-
-@app.route('/company/<int:company_id>')
-def show_company(company_id):
-    """Company page with diversity details."""
-
-    company = Company.query.get(company_id)
-
-    categories_for_company = company.categories
-
-    reviews = Review.query.filter(Review.company_id == company_id).all()
-
-    return render_template("company-page.html", display_company=company, categories=categories_for_company, reviews=reviews)
-
-
-################################### JSON ROUTES #######################################################
-
-@app.route("/company-comparison.json")
-def return_diversity_rating():
-    """Return top 5 companies in gender diversity and ethnic diversity."""
-
-    diversity_ratings = {}
+    ethnicTop5 = []
 
     #for each company get the diversity numbers
     companies = Company.query.all()
@@ -153,41 +107,64 @@ def return_diversity_rating():
                     other_diff_from_us = abs(other_percentage - other_us_percentage)
                     ethnic_count += other_diff_from_us
 
+
+            # Take the average of the ethnic_count
+            ethnic_num = ethnic_count / 6
             # Add total ethnic count for each company to ethnic_rating_dictionary
-            ethnic_rating_dict[company.company_id] = ethnic_count
-
-        # print gender_rating_dict
-        # print ethnic_rating_dict
-
-
+            ethnic_rating_dict[company.company_id] = ethnic_num
 
     # Calculate top 5 companies in gender diversity
-    gender_top_5 = sorted(ethnic_rating_dict, key=ethnic_rating_dict.get)[:5]
+    gender_top_5 = sorted(gender_rating_dict, key=gender_rating_dict.get)[:5]
 
-    print ethnic_rating_dict
-    return gender_top_5
+    # Calculate top 5 companies in ethnic diversity
+    ethnic_top_5 = sorted(ethnic_rating_dict, key=ethnic_rating_dict.get)[:5]
 
+    print gender_top_5
+    print ethnic_top_5
 
+    for x in gender_top_5:
+        company = Company.query.filter(Company.company_id == x).first()
+        genderTop5.append(company)
 
-
-
-
-
-        #find the absolute difference between company ethicity percentage and US ethnicity percentage
-
-
-
-
-
+    for y in ethnic_top_5:
+        company = Company.query.filter(Company.company_id == y).first()
+        ethnicTop5.append(company)
 
 
-
-        #get gender percentage
-
+    return render_template("home.html", genderTop5=genderTop5, ethnicTop5=ethnicTop5)
 
 
+@app.route('/search', methods=["POST"])
+def search_companies():
+    """Send user to company page or 'company-not-found.html' based on search query."""
+
+    company_searched = request.form.get("search")
+
+    company = Company.query.filter(Company.name == company_searched).first()
+
+    if company:
+        id_of_company = company.company_id
+        return redirect("/company/" + str(id_of_company))
+
+    else:
+        return render_template("company-not-found.html", company=company_searched)
 
 
+
+@app.route('/company/<int:company_id>')
+def show_company(company_id):
+    """Company page with diversity details."""
+
+    company = Company.query.get(company_id)
+
+    categories_for_company = company.categories
+
+    reviews = Review.query.filter(Review.company_id == company_id).all()
+
+    return render_template("company-page.html", display_company=company, categories=categories_for_company, reviews=reviews)
+
+
+################################### JSON ROUTES #######################################################
 
 
 
@@ -530,7 +507,6 @@ def add_user_comment(company_id):
 
     flash("Your comment has been received!")
     return redirect("/company/" + str(id_of_company))
-
 
 
 
