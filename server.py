@@ -421,7 +421,7 @@ def get_ethnicity_info(company_id):
 
 @app.route("/glassdoor-results/<int:company_id>.json")
 def return_glassdoor_results(company_id):
-    """Returns a Glassdoor api results for company."""
+    """Returns Glassdoor api results for company."""
 
     company = Company.query.get(company_id)
     company_name = company.name
@@ -436,36 +436,63 @@ def return_glassdoor_results(company_id):
     company_glassdoor = {}
 
     reviews_url = results["response"]["attributionURL"]
-    # print reviews_url
-
     overall_rating = results["response"]["employers"][0]["overallRating"]
-    # print overall_rating
-
     featured_review_headline = results["response"]["employers"][0]["featuredReview"]["headline"]
-    # print featured_review_headline
-
     featured_review_pros = results["response"]["employers"][0]["featuredReview"]["pros"]
-    # print featured_review_pros
-
     featured_review_cons = results["response"]["employers"][0]["featuredReview"]["cons"]
-    # print featured_review_cons
-
     featured_review_rating = results["response"]["employers"][0]["featuredReview"]["overall"]
-    # print featured_review_rating
 
     company_glassdoor["overallRating"] = overall_rating
-
     company_glassdoor["reviewsURL"] = reviews_url
-
     company_glassdoor["reviewHeadline"] = featured_review_headline
-
     company_glassdoor["reviewPros"] = featured_review_pros
-
     company_glassdoor["reviewCons"] = featured_review_cons
-
     company_glassdoor["reviewRating"] = featured_review_rating
 
     return jsonify(company_glassdoor)
+
+@app.route("/news/<int:company_id>.json")
+def return_news_search(company_id):
+    """Returns Google news search for company news in diversity."""
+
+    company = Company.query.get(company_id)
+    company_name = company.name
+
+    company_news = { "results": []}
+
+    # url = "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=" + str(company_name) + "%20diversity"
+
+    url = ('https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + str(company_name) + '%20diversity&userip=50.148.158.131')
+
+    resp = requests.get(url)
+
+    results = resp.json()
+
+    all_results = results["responseData"]
+
+    ind_results = all_results["results"]
+
+    for i in range(len(ind_results)):
+
+
+        news_url = ind_results[i]["unescapedUrl"]
+        news_title = ind_results[i]["title"]
+        news_publisher = ind_results[i]["publisher"]
+        news_publ_date = ind_results[i]["publishedDate"][:-15]
+        news_content = ind_results[i]["content"]
+
+        one_result = {}
+
+        one_result["unescapedUrl"] = news_url
+        one_result["title"] = news_title
+        one_result["publisher"] = news_publisher
+        one_result["publishedDate"] = news_publ_date
+        one_result["content"] = news_content
+
+        company_news["results"].append(one_result)
+
+    return jsonify(company_news)
+
 
 
 ############################################# REVIEW #####################################################
