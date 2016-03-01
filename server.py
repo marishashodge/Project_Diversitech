@@ -22,7 +22,6 @@ def index():
     """Homepage."""
 
     genderTop5 = []
-
     ethnicTop5 = []
 
     #for each company get the diversity numbers
@@ -35,37 +34,20 @@ def index():
 
     categories_for_us_population = us_population.categories
 
-    ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']
+    us_numbers = {}
 
     for category in categories_for_us_population:
-
-        if category.category == 'White':
-            white_us_percentage = category.percentage
-
-        if category.category == 'Asian':
-            asian_us_percentage = category.percentage
-
-        if category.category == 'Latino':
-            latino_us_percentage = category.percentage
-
-        if category.category == 'Black':
-            black_us_percentage = category.percentage
-
-        if category.category == 'Two+ races':
-            two_us_percentage = category.percentage
-
-        if category.category == 'Other':
-            other_us_percentage = category.percentage
+        us_numbers[category.category] = category.percentage
 
     gender_rating_dict = {}
     ethnic_rating_dict = {}
 
     for company in companies:
+
         if company.name == 'U.S. Population' or company.name == 'average from our sample':
             continue
 
         else:
-
             categories = company.categories
             ethnic_count = 0
 
@@ -73,42 +55,14 @@ def index():
             f_diff_from_us = abs(company.female_overall - f_us)
             gender_rating_dict[company.company_id] = f_diff_from_us
 
-            #set the variables for company ethnicity categories
             #find the absolute difference between company ethicity percentages and US ethnicity percentage
             for category in categories:
+                # Check to see if category is in this list: ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']
+                if category.category in ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other']:
+                    diff_from_us = abs(us_numbers[category.category] - category.percentage)
+                    ethnic_count += diff_from_us
 
-                if category.category == 'White':
-                    white_percentage = category.percentage
-                    white_diff_from_us = abs(white_percentage - white_us_percentage)
-                    ethnic_count += white_diff_from_us
-
-                if category.category == 'Asian':
-                    asian_percentage = category.percentage
-                    asian_diff_from_us = abs(asian_percentage - asian_us_percentage)
-                    ethnic_count += asian_diff_from_us
-
-                if category.category == 'Latino':
-                    latino_percentage = category.percentage
-                    latino_diff_from_us = abs(latino_percentage - latino_us_percentage)
-                    ethnic_count += latino_diff_from_us
-
-                if category.category == 'Black':
-                    black_percentage = category.percentage
-                    black_diff_from_us = abs(black_percentage - black_us_percentage)
-                    ethnic_count += black_diff_from_us
-
-                if category.category == 'Two+ races':
-                    two_percentage = category.percentage
-                    two_diff_from_us = abs(two_percentage - two_us_percentage)
-                    ethnic_count += two_diff_from_us
-
-                if category.category == 'Other':
-                    other_percentage = category.percentage
-                    other_diff_from_us = abs(other_percentage - other_us_percentage)
-                    ethnic_count += other_diff_from_us
-
-
-            # Take the average of the ethnic_count
+            # Divide ethnic count by the number of categories to get an average
             ethnic_num = ethnic_count / 6
             # Add total ethnic count for each company to ethnic_rating_dictionary
             ethnic_rating_dict[company.company_id] = ethnic_num
@@ -119,9 +73,6 @@ def index():
     # Calculate top 5 companies in ethnic diversity
     ethnic_top_5 = sorted(ethnic_rating_dict, key=ethnic_rating_dict.get)[:5]
 
-    print gender_top_5
-    print ethnic_top_5
-
     for x in gender_top_5:
         company = Company.query.filter(Company.company_id == x).first()
         genderTop5.append(company)
@@ -130,8 +81,8 @@ def index():
         company = Company.query.filter(Company.company_id == y).first()
         ethnicTop5.append(company)
 
-
     return render_template("home.html", genderTop5=genderTop5, ethnicTop5=ethnicTop5)
+
 
 
 @app.route('/search', methods=["POST"])
@@ -419,37 +370,37 @@ def get_ethnicity_info(company_id):
     return jsonify(ethnic_list_of_dicts)
 
 
-@app.route("/glassdoor-results/<int:company_id>.json")
-def return_glassdoor_results(company_id):
-    """Returns Glassdoor api results for company."""
-
-    company = Company.query.get(company_id)
-    company_name = company.name
-
-    url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=55828&t.k=fhcJ0ZT1E89&action=employers&q=" + str(company_name)
-
-    # Need to set the User-Agent in the header of http request to be able to access Glassdoor API
-    resp = requests.get(url, headers={'User-Agent': 'curl/7.30.0'})
-
-    results = resp.json()
-
-    company_glassdoor = {}
-
-    reviews_url = results["response"]["attributionURL"]
-    overall_rating = results["response"]["employers"][0]["overallRating"]
-    featured_review_headline = results["response"]["employers"][0]["featuredReview"]["headline"]
-    featured_review_pros = results["response"]["employers"][0]["featuredReview"]["pros"]
-    featured_review_cons = results["response"]["employers"][0]["featuredReview"]["cons"]
-    featured_review_rating = results["response"]["employers"][0]["featuredReview"]["overall"]
-
-    company_glassdoor["overallRating"] = overall_rating
-    company_glassdoor["reviewsURL"] = reviews_url
-    company_glassdoor["reviewHeadline"] = featured_review_headline
-    company_glassdoor["reviewPros"] = featured_review_pros
-    company_glassdoor["reviewCons"] = featured_review_cons
-    company_glassdoor["reviewRating"] = featured_review_rating
-
-    return jsonify(company_glassdoor)
+# @app.route("/glassdoor-results/<int:company_id>.json")
+# def return_glassdoor_results(company_id):
+#     """Returns Glassdoor api results for company."""
+#
+#     company = Company.query.get(company_id)
+#     company_name = company.name
+#
+#     url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=55828&t.k=fhcJ0ZT1E89&action=employers&q=" + str(company_name)
+#
+#     # Need to set the User-Agent in the header of http request to be able to access Glassdoor API
+#     resp = requests.get(url, headers={'User-Agent': 'curl/7.30.0'})
+#
+#     results = resp.json()
+#
+#     company_glassdoor = {}
+#
+#     reviews_url = results["response"]["attributionURL"]
+#     overall_rating = results["response"]["employers"][0]["overallRating"]
+#     featured_review_headline = results["response"]["employers"][0]["featuredReview"]["headline"]
+#     featured_review_pros = results["response"]["employers"][0]["featuredReview"]["pros"]
+#     featured_review_cons = results["response"]["employers"][0]["featuredReview"]["cons"]
+#     featured_review_rating = results["response"]["employers"][0]["featuredReview"]["overall"]
+#
+#     company_glassdoor["overallRating"] = overall_rating
+#     company_glassdoor["reviewsURL"] = reviews_url
+#     company_glassdoor["reviewHeadline"] = featured_review_headline
+#     company_glassdoor["reviewPros"] = featured_review_pros
+#     company_glassdoor["reviewCons"] = featured_review_cons
+#     company_glassdoor["reviewRating"] = featured_review_rating
+#
+#     return jsonify(company_glassdoor)
 
 @app.route("/news/<int:company_id>.json")
 def return_news_search(company_id):
@@ -490,6 +441,7 @@ def return_news_search(company_id):
         one_result["content"] = news_content
 
         company_news["results"].append(one_result)
+
 
     return jsonify(company_news)
 
