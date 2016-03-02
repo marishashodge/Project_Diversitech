@@ -11,14 +11,37 @@
 
     </p>
 
-    <h2>{{ display_company.name }}</h2>
+
+<div class="container">
+  <div class="row">
+    <p style="background:#FFFFFF;font-size:2.5em;color:#000000;height:116px;">
+
+        <span id="company-logo"></span>
+
+        <span style="display:inline-block; vertical-align: bottom; font-family: Ubuntu; padding-bottom: 0.3em; font-variant: small-caps;">
+            <strong>{{ display_company.name }}</strong>
+            <br>
+        </span>
+    </p>
+  </div>
 
 
+  <!-- <div class="container-fluid">
+    <div class="row inline-block-row">
+      <div class="col-md-4">
+        <span id="company-logo"></span>
+      </div>
+      <div class="col-md-4">
+        <span style="vertical-align: bottom">{{ display_company.name }}</span>
+      </div>
+    </div>
+  </div> -->
 
 
+    <!-- <div id=company-logo></div> -->
+    <!-- <img id="company-logo" src="url" alt="some_text"> -->
 
-
-
+  <div class ="row">
    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
         <div class="btn-group" role="group">
             <button type="button" id="data" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
@@ -62,6 +85,7 @@
                      <canvas id="donutChart4"></canvas>
                     <div id="donutLegend4" class="chart-legend">
                     </div>
+
                 </div>
             </div>
         </div>
@@ -147,15 +171,15 @@
           <h3>This is tab 3</h3>
           <div id="news">
               <h1>News</h1>
-              <p id="newsResults"></p>
+              <p id="newsResults">Loading...</p>
 
 
           </div>
         </div>
         </div>
       </div>
-
-
+</div>
+</div>
 
     <br>
     <br>
@@ -163,13 +187,18 @@
 
 <script>
 
+$.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+    $('#company-logo').html("<img src=" + data.squareLogo + " alt='some_text' width='116' height='116' style='margin-right:10px; vertical-align:bottom'>");
+ });
 
-
-
+  // Set options for chart.js
     var options = { responsive: true,
                     tooltipTemplate: "<%= value %>%",
                     multiTooltipTemplate: "<%= value %>%",
                     percentageInnerCutout : 65,
+                    animationEasing: "easeOutCubic",
+                    showScale: true,
+
                 };
 
 
@@ -325,7 +354,6 @@ $("#reviews").click(generateGlassdoorDetails);
 // Google News Feed - From JSON
 
 function generateGoogleNews(evt) {
-
 
 
     $.get("/news/{{ display_company.company_id }}.json", function(data) {

@@ -69,11 +69,11 @@ h2 {
 }
 
 .stylish-input-group .input-group-addon{
-    background: white !important; 
+    background: white !important;
 }
 .stylish-input-group .form-control{
-    border-right:0; 
-    box-shadow:0 0 0; 
+    border-right:0;
+    box-shadow:0 0 0;
     border-color:#ccc;
 }
 .stylish-input-group button{
@@ -95,6 +95,3 @@ h2 {
 .btn-pref .btn {
     -webkit-border-radius:0 !important;
 }
-
-
-
