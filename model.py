@@ -1,6 +1,7 @@
 """Models and database functions for DiversiTech Poject."""
 
 from flask_sqlalchemy import SQLAlchemy
+import pandas as pd
 
 db = SQLAlchemy()
 
@@ -67,6 +68,33 @@ class Review(db.Model):
 
     company = db.relationship('Company', backref=db.backref("review", order_by=review_id))
 
+def example_data():
+    """Create some sample data."""
+
+    # Empty out existing data in the case that it is run more than once
+    Company.query.delete()
+
+    data = pd.read_csv("Diversitech-Table.csv")
+    print "Companies"
+
+    # Company.query.delete()
+
+    for index, row in data.iterrows():
+        name = row[0]
+        # number_of_employees = row[28]
+        report_date = row[2]
+        female_overall = row[3]
+        male_overall = row[4]
+
+        company = Company(name=name,
+                          # number_of_employees=number_of_employees,
+                          report_date=report_date,
+                          female_overall=female_overall,
+                          male_overall=male_overall)
+
+        db.session.add(company)
+
+    db.session.commit()
 
 
 
@@ -74,11 +102,11 @@ class Review(db.Model):
 # Helper functions
 
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri="postgresql:///diversity"):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///diversity'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)

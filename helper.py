@@ -1,6 +1,5 @@
 from model import connect_to_db, db, Company, Category, Review
 
-
 def get_us_ethnic_percentages():
     """Return a dictionary of percentages for each ethnic category in the U.S. Population."""
 
@@ -50,8 +49,8 @@ def get_gender_top5():
     return genderTop5
 
 
-def get_ethnic_top5():
-    """Return a list of the top 5 companies in ethnic diversity."""
+def get_ethnic_count():
+    """Return a dictionary of companies and their ethnic diversity numbers."""
 
     us_numbers = get_us_ethnic_percentages()
 
@@ -75,13 +74,28 @@ def get_ethnic_top5():
                     diff_from_us = abs(us_numbers[category.category] - category.percentage)
                     ethnic_count += diff_from_us
 
-            # Divide ethnic count by the number of categories to get an average
-            ethnic_num = ethnic_count / 6
-            # Add total ethnic count for each company to ethnic_rating_dictionary
-            ethnic_rating_dict[company.company_id] = ethnic_num
+                # Divide ethnic count by the number of categories to get an average
+                ethnic_num = ethnic_count / 6
+                # Add total ethnic count for each company to ethnic_rating_dictionary
+                ethnic_rating_dict[company.company_id] = ethnic_num
 
-        # Calculate top 5 companies in ethnic diversity
-        ethnic_top_5 = sorted(ethnic_rating_dict, key=ethnic_rating_dict.get)[:5]
+    return ethnic_rating_dict
+
+
+def get_ethnic_dict_sorted():
+    """Return a list of the top 5 companies in ethnic diversity."""
+
+    ethnic_rating_dict = get_ethnic_count()
+    # Calculate top 5 companies in ethnic diversity
+    ethnic_top_5 = sorted(ethnic_rating_dict, key=ethnic_rating_dict.get)[:5]
+
+    return ethnic_top_5
+
+
+def get_ethnic_top5():
+    """Return a list of the top 5 companies."""
+
+    ethnic_top_5 = get_ethnic_dict_sorted()
 
     ethnicTop5 = []
 
@@ -270,8 +284,8 @@ def generate_ethnicity_info(company_id):
                         "datasets": [
                                 {
                                     "label": "Company",
-                                    "fillColor": "rgba(218,165,117,1)",
-                                    "strokeColor": "rgba(218,165,117,0.8)",
+                                    "fillColor": "rgba(221, 72, 20, 0.8)",
+                                    "strokeColor": "rgba(221, 72, 20, 0.8)",
                                     "highlightFill": "rgba(218,165,117,0.75)",
                                     "highlightStroke": "rgba(218,165,117,1)",
                                     "data": []
