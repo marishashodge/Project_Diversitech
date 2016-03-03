@@ -68,16 +68,14 @@ class Review(db.Model):
 
     company = db.relationship('Company', backref=db.backref("review", order_by=review_id))
 
-def example_data():
+def example_data_companies():
     """Create some sample data."""
 
     # Empty out existing data in the case that it is run more than once
     Company.query.delete()
+    Review.query.delete()
 
     data = pd.read_csv("Diversitech-Table.csv")
-    print "Companies"
-
-    # Company.query.delete()
 
     for index, row in data.iterrows():
         name = row[0]
@@ -93,6 +91,34 @@ def example_data():
                           male_overall=male_overall)
 
         db.session.add(company)
+
+    db.session.commit()
+
+def example_data_categories():
+
+    Category.query.delete()
+
+    data = pd.read_csv("Diversitech-Table.csv")
+
+    categories = data.columns.values
+
+    for index, row in data.iterrows():
+        for i in range(len(row[5:21])):
+
+            if row[i + 5] == "-":
+                continue
+
+            else:
+
+                category = categories[i + 5]
+                percentage = row[i + 5]
+                company = Company.query.filter(Company.name == row[0]).first()
+                id_of_company = company.company_id
+                detail = Category(category=category,
+                                  percentage=percentage,
+                                  company_id=id_of_company)
+
+                db.session.add(detail)
 
     db.session.commit()
 

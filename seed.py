@@ -53,19 +53,14 @@ def load_categories():
         for i in range(len(row[5:21])):
 
             if row[i + 5] == "-":
-
                 continue
 
             else:
 
                 category = categories[i + 5]
-
                 percentage = row[i + 5]
-
                 company = Company.query.filter(Company.name == row[0]).first()
-
                 id_of_company = company.company_id
-
                 detail = Category(category=category,
                                   percentage=percentage,
                                   company_id=id_of_company)
