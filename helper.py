@@ -182,8 +182,8 @@ def generate_ethnicity_tech_dict(company_id):
                         "datasets": [
                                 {
                                     "label": "Company - Tech Roles",
-                                    "fillColor": "rgba(218,165,117,1)",
-                                    "strokeColor": "rgba(218,165,117,0.8)",
+                                    "fillColor": "rgba(221, 72, 20, 0.8)",
+                                    "strokeColor": "rgba(221, 72, 20, 0.8)",
                                     "highlightFill": "rgba(218,165,117,0.75)",
                                     "highlightStroke": "rgba(218,165,117,1)",
                                     "data": []
@@ -324,6 +324,32 @@ def generate_ethnicity_info(company_id):
             ethnic_list_of_dicts['datasets'][0]['data'].append(category.percentage)
 
     return ethnic_list_of_dicts
+
+
+def get_company_overall_rating(company_id):
+
+    reviews = Review.query.filter(Review.company_id == company_id).all()
+
+    count = 0
+
+    for review in reviews:
+        count += review.rating
+
+    overall_rating = average = count / len(reviews)
+
+    return overall_rating
+
+
+def get_company_reviews(company_id):
+
+    reviews = Review.query.filter(Review.company_id == company_id).order_by(Review.review_id).all()
+
+    # Only show the most recent two reviews and reverse them so the newest one is first
+    two_recent_reviews = reviews[-2:]
+
+    two_recent_reviews.reverse()
+
+    return two_recent_reviews
 
 
 

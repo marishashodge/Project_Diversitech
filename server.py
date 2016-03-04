@@ -53,9 +53,12 @@ def show_company(company_id):
 
     categories_for_company = company.categories
 
-    reviews = Review.query.filter(Review.company_id == company_id).all()
+    reviews = get_company_reviews(company_id)
 
-    return render_template("company-page.html", display_company=company, categories=categories_for_company, reviews=reviews)
+    overall_rating = get_company_overall_rating(company_id)
+
+    return render_template("company-page.html", display_company=company, categories=categories_for_company,
+                                                reviews=reviews, overallRating=overall_rating)
 
 
 ################################### JSON ROUTES #######################################################
@@ -214,7 +217,7 @@ def add_user_comment(company_id):
 
     # reviews = Review.query.all()
 
-    flash("Your comment has been received!")
+    flash("Your review has been received!")
     return redirect("/company/" + str(id_of_company))
 
 

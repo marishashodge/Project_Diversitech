@@ -10,11 +10,7 @@ from model import connect_to_db, db
 
 from server import app
 import pandas as pd
-import os
 
-# os.getcwd()
-
-# os.chdir("/Users/Mandela/Documents/Project")
 
 
 def load_companies():

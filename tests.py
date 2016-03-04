@@ -8,6 +8,7 @@ from model import connect_to_db, db, Company, Category, Review, example_data_com
 from helper import *
 
 
+
 class FlaskTests(TestCase):
     def setUp(self):
         """What you need to do before every test."""
@@ -93,6 +94,12 @@ class FlaskTests(TestCase):
 
         cat1 = Category.query.filter(Category.company_id == 4, Category.category == 'White').first()
         self.assertEqual(cat1.percentage, 60)
+
+    # def test_find_review(self):
+    #     """Find a review in the sample data."""
+    #
+    #     r1 = Review.query.filter(Review.review_id == 1).first()
+    #     self.assertEqual(r1.rating, 1)
 
     # def test_categories_for_company(self):
     #     """Find categories for a given company."""

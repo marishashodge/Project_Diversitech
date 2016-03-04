@@ -95,3 +95,18 @@ h2 {
 .btn-pref .btn {
     -webkit-border-radius:0 !important;
 }
+
+hr {
+  border-width: 1px;
+  border-color: #aea79f;
+
+}
+
+.review-title {
+  color: #6e675e;
+}
+
+#review-block {
+
+
+}

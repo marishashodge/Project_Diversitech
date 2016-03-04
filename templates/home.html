@@ -37,7 +37,7 @@
     <div class = "row">
       <div class="col-md-6">
         <h2>Top 5 for Gender Diversity</h2>
-        <ul>
+        <ol>
             {% for company in genderTop5 %}
                 <li>
                     <a href="/company/{{ company.company_id }}">
@@ -45,11 +45,11 @@
                     </a>
                 </li>
             {% endfor %}
-        </ul>
+        </ol>
       </div>
       <div class="col-md-6">
         <h2>Top 5 for Ethnic Diversity</h2>
-        <ul>
+        <ol>
             {% for company in ethnicTop5 %}
                 <li>
                     <a href="/company/{{ company.company_id }}">
@@ -57,7 +57,7 @@
                     </a>
                 </li>
             {% endfor %}
-        </ul>
+        </ol>
       </div>
       </div>
     </div>

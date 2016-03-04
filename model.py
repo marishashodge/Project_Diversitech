@@ -68,12 +68,12 @@ class Review(db.Model):
 
     company = db.relationship('Company', backref=db.backref("review", order_by=review_id))
 
+
 def example_data_companies():
     """Create some sample data."""
 
     # Empty out existing data in the case that it is run more than once
     Company.query.delete()
-    Review.query.delete()
 
     data = pd.read_csv("Diversitech-Table.csv")
 
@@ -95,7 +95,7 @@ def example_data_companies():
     db.session.commit()
 
 def example_data_categories():
-
+    """Create some sample data of categories."""
     Category.query.delete()
 
     data = pd.read_csv("Diversitech-Table.csv")
@@ -121,6 +121,7 @@ def example_data_categories():
                 db.session.add(detail)
 
     db.session.commit()
+
 
 
 
