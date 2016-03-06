@@ -381,7 +381,7 @@ function generateGlassdoorDetails(evt) {
     });
 
     $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
-        $('#headline').html(data.reviewHeadline);
+        $('#headline').html("'" + data.reviewHeadline);
      });
 
     $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {

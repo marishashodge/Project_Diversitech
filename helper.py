@@ -105,6 +105,60 @@ def get_ethnic_top5():
 
     return ethnicTop5
 
+def get_gender_company_percentages(company_id):
+
+    categories_for_company = Category.query.filter(Category.company_id == company_id)
+
+    company_list = []
+
+    # Add overall company numbers
+    company = Company.query.get(company_id)
+
+    c_f =  company.female_overall
+    company_list.append(c_f)
+
+    c_m = company.male_overall
+    company_list.append(c_m)
+
+    # Add tech company numbers
+    for category in categories_for_company:
+
+        if category.category == 'Female Tech':
+            company_female_tech = category.percentage
+            company_list.append(company_female_tech)
+
+        if category.category == 'Male Tech':
+            company_male_tech = category.percentage
+            company_list.append(company_male_tech)
+
+    return company_list
+
+def get_gender_avg_percentages():
+
+    average_list = []
+
+    # Add average overall numbers
+    average = Company.query.filter(Company.name == 'average from our sample').one()
+    categories_for_average = average.categories
+
+    a_f =  average.female_overall
+    average_list.append(a_f)
+
+    a_m = average.male_overall
+    average_list.append(a_m)
+
+    # Add average tech numbers
+    for category in categories_for_average:
+
+        if category.category == 'Female Tech':
+            female_tech_percentage = category.percentage
+            average_list.append(category.percentage)
+
+        if category.category == 'Male Tech':
+            male_tech_percentage = category.percentage
+            average_list.append(category.percentage)
+
+    return average_list
 
 def generate_gender_tech_dict(company_id):
     """Return dictionary of gender diversity in technical roles."""
@@ -123,6 +177,10 @@ def generate_gender_tech_dict(company_id):
         if category.category == 'Male Tech':
             male_tech_percentage = category.percentage
             label_for_us_male = 'Male - Tech: ' + str(male_tech_percentage) + '%'
+
+
+
+
 
 
     tech_list_of_dicts = {'tech': [],
@@ -165,7 +223,79 @@ def generate_gender_tech_dict(company_id):
                                             "label": label_for_tech_male
                                         })
 
+
+
     return tech_list_of_dicts
+
+def get_gender_manager_dict(company_id):
+    """Return dictionary of gender diversity in management."""
+
+
+    categories_for_company = Category.query.filter(Category.company_id == company_id)
+
+    average = Company.query.filter(Company.name == 'average from our sample').one()
+    categories_for_average = average.categories
+
+    for category in categories_for_average:
+
+        if category.category == 'Female Managers':
+            female_m_percentage = category.percentage
+            label_for_avg_female = 'Female - Managers ' + str(female_m_percentage) + '%'
+
+        if category.category == 'Male Managers':
+            male_m_percentage = category.percentage
+            label_for_avg_male = 'Male - Managers: ' + str(male_m_percentage) + '%'
+
+
+
+
+
+
+    managers_list_of_dicts = {'tech': [],
+                        'average': [
+                                        {
+                                            "value": female_m_percentage,
+                                            "color": "#0066ff",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_avg_female
+                                        },
+
+                                        {
+                                            "value": male_m_percentage,
+                                            "color": "#cc00cc",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_avg_male
+                                        }
+                                    ]}
+
+
+    for category in categories_for_company:
+
+        if category.category == 'Female Managers':
+            company_female_m = category.percentage
+            label_for_m_female = 'Female - Managers: ' + str(company_female_m) + '%'
+            managers_list_of_dicts['tech'].append({
+                                            "value": company_female_m,
+                                            "color": "#ffff00",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_m_female
+                                        })
+
+        if category.category == 'Male Managers':
+            company_male_m = category.percentage
+            label_for_m_male = 'Male - Managers: ' + str(company_male_m) + '%'
+            managers_list_of_dicts['tech'].append({
+                                            "value": company_male_m,
+                                            "color": "#009933",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_m_male
+                                        })
+
+
+
+    return managers_list_of_dicts
+
+
 
 
 def generate_ethnicity_tech_dict(company_id):
@@ -176,6 +306,11 @@ def generate_ethnicity_tech_dict(company_id):
     categories_for_average = average.categories
     us_population = Company.query.filter(Company.name == 'U.S. Population').one()
     categories_for_us_population = us_population.categories
+
+    tech_dicts = {      "data1": [],
+                        "data2": []
+
+                        }
 
     tech_dicts = {
                         "labels": ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other'],

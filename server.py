@@ -15,6 +15,69 @@ app.secret_key = "54312"
 # StructUndefined allows for Jinja2 to raise an error when there is an undefined variable
 app.jinja_env.undefined = StrictUndefined
 
+@app.route('/test_chart.json')
+def test_chart():
+
+   datos = {
+               {"female": 4},
+               {"male": 2}
+           }
+
+   return jsonify(data=datos)
+
+@app.route('/test_chart2.json')
+def test_chart2():
+
+   datos = {
+               "female": 5,
+               "male": 1
+           }
+
+   return jsonify(data=datos)
+
+@app.route('/d3Chart/<int:company_id>')
+def chart(company_id):
+
+    company_list = get_gender_company_percentages(company_id)
+    average_list = get_gender_avg_percentages()
+
+    # company females
+    data1 = company_list[0]
+    # company males
+    data2 = company_list[1]
+
+    # average females
+    data5 = average_list[0]
+    # average males
+    data6 = average_list[1]
+
+    if len(company_list) > 2:
+
+        data3 = company_list[2]
+        # company tech males
+        data4 = company_list[3]
+
+        # average tech females
+        data7 = average_list[2]
+        # average tech males
+        data8 = average_list[3]
+
+    else:
+
+        data3 = 0
+        # company tech males
+        data4 = 0
+        # average tech females
+        data7 = 0
+        # average tech males
+        data8 = 0
+
+
+    return render_template("d3-3.html", data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, data7=data7, data8=data8)
+
+
+
+
 
 @app.route('/')
 def index():
@@ -87,9 +150,23 @@ def return_gender_tech_json(company_id):
 
     tech_list_of_dicts = generate_gender_tech_dict(company_id)
 
+
+
     if tech_list_of_dicts["tech"]:
 
         return jsonify(tech_list_of_dicts)
+
+    return "False"
+
+@app.route("/company-gender-managers/<int:company_id>.json")
+def return_gender_managers_json(company_id):
+    """Return gender diversity in management roles."""
+
+    managers_list_of_dicts = get_gender_manager_dict(company_id)
+
+    if managers_list_of_dicts["tech"]:
+
+        return jsonify(managers_list_of_dicts)
 
     return "False"
 
