@@ -131,9 +131,18 @@ def get_gender_company_percentages(company_id):
             company_male_tech = category.percentage
             company_list.append(company_male_tech)
 
+        if category.category == 'Female Managers':
+            female_manager_percentage = category.percentage
+            company_list.append(female_manager_percentage)
+
+        if category.category == 'Male Managers':
+            male_manager_percentage = category.percentage
+            company_list.append(male_manager_percentage)
+
     return company_list
 
 def get_gender_avg_percentages():
+    """Return a list of average gender diversity."""
 
     average_list = []
 
@@ -158,7 +167,86 @@ def get_gender_avg_percentages():
             male_tech_percentage = category.percentage
             average_list.append(category.percentage)
 
+        if category.category == 'Female Managers':
+            female_manager_percentage = category.percentage
+            average_list.append(female_manager_percentage)
+
+        if category.category == 'Male Managers':
+            male_manager_percentage = category.percentage
+            average_list.append(male_manager_percentage)
+
     return average_list
+
+def get_gender_manager_percentages(company_id):
+    """Return list of gender diversity in management."""
+
+    manager_list = []
+
+    categories_for_company = Category.query.filter(Category.company_id == company_id)
+
+    average = Company.query.filter(Company.name == 'average from our sample').one()
+    categories_for_average = average.categories
+
+    for category in categories_for_average:
+
+        if category.category == 'Female Managers':
+            female_m_percentage = category.percentage
+            label_for_avg_female = 'Female - Managers ' + str(female_m_percentage) + '%'
+
+        if category.category == 'Male Managers':
+            male_m_percentage = category.percentage
+            label_for_avg_male = 'Male - Managers: ' + str(male_m_percentage) + '%'
+
+
+
+
+
+
+    managers_list_of_dicts = {'tech': [],
+                        'average': [
+                                        {
+                                            "value": female_m_percentage,
+                                            "color": "#0066ff",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_avg_female
+                                        },
+
+                                        {
+                                            "value": male_m_percentage,
+                                            "color": "#cc00cc",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_avg_male
+                                        }
+                                    ]}
+
+
+    for category in categories_for_company:
+
+        if category.category == 'Female Managers':
+            company_female_m = category.percentage
+            label_for_m_female = 'Female - Managers: ' + str(company_female_m) + '%'
+            managers_list_of_dicts['tech'].append({
+                                            "value": company_female_m,
+                                            "color": "#ffff00",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_m_female
+                                        })
+
+        if category.category == 'Male Managers':
+            company_male_m = category.percentage
+            label_for_m_male = 'Male - Managers: ' + str(company_male_m) + '%'
+            managers_list_of_dicts['tech'].append({
+                                            "value": company_male_m,
+                                            "color": "#009933",
+                                            "highlight": "#FF5A5E",
+                                            "label": label_for_m_male
+                                        })
+
+
+
+    return managers_list_of_dicts
+
+
 
 def generate_gender_tech_dict(company_id):
     """Return dictionary of gender diversity in technical roles."""
@@ -227,74 +315,6 @@ def generate_gender_tech_dict(company_id):
 
     return tech_list_of_dicts
 
-def get_gender_manager_dict(company_id):
-    """Return dictionary of gender diversity in management."""
-
-
-    categories_for_company = Category.query.filter(Category.company_id == company_id)
-
-    average = Company.query.filter(Company.name == 'average from our sample').one()
-    categories_for_average = average.categories
-
-    for category in categories_for_average:
-
-        if category.category == 'Female Managers':
-            female_m_percentage = category.percentage
-            label_for_avg_female = 'Female - Managers ' + str(female_m_percentage) + '%'
-
-        if category.category == 'Male Managers':
-            male_m_percentage = category.percentage
-            label_for_avg_male = 'Male - Managers: ' + str(male_m_percentage) + '%'
-
-
-
-
-
-
-    managers_list_of_dicts = {'tech': [],
-                        'average': [
-                                        {
-                                            "value": female_m_percentage,
-                                            "color": "#0066ff",
-                                            "highlight": "#FF5A5E",
-                                            "label": label_for_avg_female
-                                        },
-
-                                        {
-                                            "value": male_m_percentage,
-                                            "color": "#cc00cc",
-                                            "highlight": "#FF5A5E",
-                                            "label": label_for_avg_male
-                                        }
-                                    ]}
-
-
-    for category in categories_for_company:
-
-        if category.category == 'Female Managers':
-            company_female_m = category.percentage
-            label_for_m_female = 'Female - Managers: ' + str(company_female_m) + '%'
-            managers_list_of_dicts['tech'].append({
-                                            "value": company_female_m,
-                                            "color": "#ffff00",
-                                            "highlight": "#FF5A5E",
-                                            "label": label_for_m_female
-                                        })
-
-        if category.category == 'Male Managers':
-            company_male_m = category.percentage
-            label_for_m_male = 'Male - Managers: ' + str(company_male_m) + '%'
-            managers_list_of_dicts['tech'].append({
-                                            "value": company_male_m,
-                                            "color": "#009933",
-                                            "highlight": "#FF5A5E",
-                                            "label": label_for_m_male
-                                        })
-
-
-
-    return managers_list_of_dicts
-
 
 
 
@@ -317,10 +337,10 @@ def generate_ethnicity_tech_dict(company_id):
                         "datasets": [
                                 {
                                     "label": "Company - Tech Roles",
-                                    "fillColor": "rgba(221, 72, 20, 0.8)",
-                                    "strokeColor": "rgba(221, 72, 20, 0.8)",
-                                    "highlightFill": "rgba(218,165,117,0.75)",
-                                    "highlightStroke": "rgba(218,165,117,1)",
+                                    "fillColor": "rgba(173, 73, 182,0.9)",
+                                    "strokeColor": "rgba(173, 73, 182,0.9)",
+                                    "highlightFill": "rgba(173, 73, 182,0.75)",
+                                    "highlightStroke": "rgba(173, 73, 182,1)",
                                     "data": []
                                 },
                                 {
@@ -419,10 +439,10 @@ def generate_ethnicity_info(company_id):
                         "datasets": [
                                 {
                                     "label": "Company",
-                                    "fillColor": "rgba(221, 72, 20, 0.8)",
-                                    "strokeColor": "rgba(221, 72, 20, 0.8)",
-                                    "highlightFill": "rgba(218,165,117,0.75)",
-                                    "highlightStroke": "rgba(218,165,117,1)",
+                                    "fillColor": "rgba(173, 73, 182, 0.9)",
+                                    "strokeColor": "rgba(173, 73, 182, 0.9)",
+                                    "highlightFill": "rgba(173, 73, 182,0.75)",
+                                    "highlightStroke": "rgba(173, 73, 182,1)",
                                     "data": []
                                 },
                                 {

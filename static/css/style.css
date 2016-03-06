@@ -5,6 +5,18 @@
     border-color: #E7E7E7;
 }
 
+.btn-primary {
+    color: #ffffff;
+    background-color: #18cec2;
+    border-color: #18cec2;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #ffffff;
+    background-color: #15b7ac;
+    border-color: #13a096;
+}
+
 .center-block {
   display: block;
   margin-left: auto;
@@ -113,30 +125,32 @@ hr {
 
 /*d3 components*/
 
+#chartDiv {                                                          /* NEW */
+       height: 360px;                                                  /* NEW */
+       position: relative;                                             /* NEW */
+       width: 360px;                                                   /* NEW */
+     }                                                                 /* NEW */
+.tooltip {                                                        /* NEW */
+ background: #6e675e;                                               /* NEW */
+ box-shadow: 0 0 5px #999999;                                    /* NEW */
+ color: #333;                                                    /* NEW */
+ display: none;                                                  /* NEW */
+ font-size: 12px;                                                /* NEW */
+ left: 130px;                                                    /* NEW */
+ padding: 10px;                                                  /* NEW */
+ position:  absolute;                                             /* NEW */
+ text-align: center;                                             /* NEW */
+ top: 95px;                                                      /* NEW */
+ width: 80px;                                                    /* NEW */
+ z-index: 10;                                                    /* NEW */
+}                                                                 /* NEW */
 .legend {
-  font-size: 12px;
+ font-size: 12px;
 }
 rect {
-  stroke-width: 2;
+ stroke-width: 2;
 }
 
-/*#chart {
-height: 360px;
-position: relative;
-width: 360px;
-}*/
-
-.tooltip {
-background: #eee;
-box-shadow: 0 0 5px #999999;
-color: #333;
-display: none;
-font-size: 12px;
-left: 130px;
-padding: 10px;
-position: absolute;
-text-align: center;
-top: 95px;
-width: 80px;
-z-index: 10;
+text {
+    font: 10px sans-serif;
 }

@@ -1,6 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<style>
+#chartDiv {                                                          /* NEW */
+  height: 360px;                                                  /* NEW */
+  position: relative;                                             /* NEW */
+  width: 360px;                                                   /* NEW */
+}
+
+#chartDiv2 {                                                          /* NEW */
+  height: 360px;                                                  /* NEW */
+  position: relative;                                             /* NEW */
+  width: 360px;                                                   /* NEW */
+}                                                                        /* NEW */
+.tooltip {                                                        /* NEW */
+  background: #eee;                                               /* NEW */
+  box-shadow: 0 0 5px #999999;                                    /* NEW */
+  color: #333;                                                    /* NEW */
+  display: none;                                                  /* NEW */
+  font-size: 12px;                                                /* NEW */
+  left: 130px;                                                    /* NEW */
+  padding: 10px;                                                  /* NEW */
+  position: absolute;                                             /* NEW */
+  text-align: center;                                             /* NEW */
+  top: 95px;                                                      /* NEW */
+  width: 80px;                                                    /* NEW */
+  z-index: 10;                                                    /* NEW */
+}                                                                 /* NEW */
+.legend {
+  font-size: 12px;
+}
+rect {
+  stroke-width: 2;
+}
+</style>
 
 
     <p align="center" style="background:#FFFFFF;font-size:1.3em;color:#dd4814">
@@ -67,7 +100,39 @@
         <div class="tab-pane fade in active" id="tab1">
           <!-- <h3>This is tab 1</h3> -->
           <h3>Diversity Details</h3>
-    <div class="container">
+
+<!-- ////// d3 Chart////// -->
+          <div class="container">
+
+
+              <div class="row" id="choices">
+                  <!-- <input type="radio" name="radData" id="rad1" value="data1" checked="checked" onclick='change1(data1); change2(data3);' />
+                  <label for="rad1">Data1</label>
+
+                  <input type="radio" name="radData" id="rad2" value="data2" onclick='change1(data2); change2(data4);' />
+                  <label for="rad2">Data2</label> -->
+                  <!-- </br> -->
+
+
+              </div>
+              <div class="row-fluid">
+                <div class="col-xs-6 col-md-6">
+                <div id='chartDiv'></div>
+              </div>
+              <div class="col-xs-6 col-md-6">
+
+                  <div id='chartDiv2'></div>
+              </div>
+            </div>
+          </div>
+
+
+
+<!--
+//// Chart.js chart /// -->
+
+
+    <!-- <div class="container">
         <div class="row">
             <div class="col-xs-6 col-md-6">
                 <div class="gender-chart1">
@@ -90,16 +155,19 @@
 
                 </div>
             </div>
-        </div>
+        </div> -->
+
+    <!-- </div> -->
+
+    <div class="row">
+      <div class="ethnic-bar-graph">
+          <h4 id="heading"></h4>
+          <canvas id="barGraph1"></canvas>
+          <div id="barLegend" class="chart-legend"></div>
+    </div>
 
     </div>
 
-
-    <div class="ethnic-bar-graph">
-        <h4 id="heading"></h4>
-        <canvas id="barGraph1"></canvas>
-        <div id="barLegend" class="chart-legend"></div>
-    </div>
 
     <div class="overall-button">
     </div>
@@ -110,6 +178,7 @@
 
 
         </div>
+
     <div class="tab-pane fade in" id="tab2">
           <!-- <h3>This is tab 2</h3> -->
 
@@ -238,6 +307,9 @@
     <br>
 
 
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 
 $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
@@ -245,7 +317,303 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
     $('#glassdoor-rating').html("Overall Rating - " + data.overallRating)
  });
 
-  // Set options for chart.js
+//////////////************************ d3 DONUT CHARTS **************************//////////////////////////
+
+ var data1 = [{
+   "label": "Female",
+   "count": {{ data1 }} },
+
+   {"label": "Male",
+   "count": {{ data2 }} }
+ ];
+ //company tech
+
+ if ({{ data3 }} != 0) {
+ var data2 = [{
+   "label": "Female",
+   "count": {{ data3 }} },
+
+   {"label": "Male",
+   "count": {{ data4 }} }
+ ]
+
+ var data5 =[{
+ "label": "Female",
+ "count": {{ data9 }} },
+
+ {"label": "Male",
+ "count": {{ data10 }}
+ }]
+
+ ;
+ $('#choices').html("<button type='button' class='btn btn-primary-outline' id='rad1' value='data1' onclick='change1(data1); change2(data3);'>Overall</button><br><button type='button' class='btn btn-primary-outline' name='radData' id='rad2' value='data2' onclick='change1(data2); change2(data4);'>Tech</button><button type='button' class='btn btn-primary-outline' name='radData' id='rad2' value='data5' onclick='change1(data5); change2(data6);'>Management</button>")
+ }
+
+
+// "<button type='button' class='btn btn-primary'><input type='radio' name='radData' id='rad1' value='data1' checked='checked' onclick='change1(data1); change2(data3);' /><label for='rad1'>Overall</label><input type='radio' name='radData' id='rad2' value='data2' onclick='change1(data2); change2(data4);'/><label for='rad2'>Tech</label>/button>"
+
+
+
+ // average overall
+ var data3 = [{
+
+ "label": "Female",
+ "count": {{ data5 }} },
+
+ {"label": "Male",
+ "count": {{ data6 }} }
+ ]
+ ;
+
+ if ({{ data3 }} != 0) {
+ // average tech
+ var data4 = [{
+
+ "label": "Female",
+ "count": {{ data7 }} },
+
+ {"label": "Male",
+ "count": {{ data8 }} }]
+ ;
+
+ var data6 =[{
+ "label": "Female",
+ "count": {{ data11 }} },
+{"label": "Male",
+ "count": {{ data12 }}
+ }];
+
+
+ }
+ // function chart1() {
+     ////
+
+     /////
+
+     console.log(data1, data2, data3, data4)
+
+
+     var width = 500,
+     height = 250,
+     radius = Math.min(width, height) / 2;
+     var legendRectSize = 18;                                  // NEW
+     var legendSpacing = 4;                                    // NEW
+
+     var color = d3.scale.ordinal()
+     .range(["#ad49b6", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+     var color2 = d3.scale.ordinal()
+     .range(["#be6dc5", "#a9a8bd"]);
+
+     var arc = d3.svg.arc()
+     .outerRadius(radius - 10)
+     .innerRadius(radius - 50);
+
+     var pie = d3.layout.pie()
+     .sort(null)
+     .value(function(d) {
+     return d.count;
+     });
+
+     var pie2 = d3.layout.pie()
+     .sort(null)
+     .value(function(d) {
+     return d.count;
+     });
+
+     var tooltip = d3.select('#chartDiv')                               // NEW
+     .append('div')                                                // NEW
+     .attr('class', 'tooltip');
+
+     tooltip.append('div')                                           // NEW
+     .attr('class', 'label');                                      // NEW
+
+     tooltip.append('div')                                           // NEW
+     .attr('class', 'count');                                      // NEW
+
+     tooltip.append('div')
+     .attr('class', 'percent');                                         // NEW
+
+     var tooltip2 = d3.select('#chartDiv2')                               // NEW
+     .append('div')                                                // NEW
+     .attr('class', 'tooltip');
+
+                                    // NEW
+
+     tooltip2.append('div')                                           // NEW
+     .attr('class', 'label');                                      // NEW
+
+     tooltip2.append('div')                                           // NEW
+     .attr('class', 'count');                                      // NEW
+
+     tooltip2.append('div')                                           // NEW
+     .attr('class', 'percent');
+
+
+     var svg = d3.select("#chartDiv").append("svg")
+     .attr("width", width)
+     .attr("height", height)
+     .append("g")
+     .attr("id", "pieChart")
+     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+ ///// Begin
+     var svg2 = d3.select("#chartDiv2").append("svg")
+     .attr("width", width)
+     .attr("height", height)
+     .append("g")
+     .attr("id", "pieChart")
+     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+ //////////// End
+     var path = svg.selectAll("path")
+     .data(pie(data1))
+     .enter()
+     .append("path");
+
+     path.transition()
+     .duration(500)
+     .attr("fill", function(d, i) {
+     return color(d.data.label);
+     })
+     .attr("d", arc)
+     .each(function(d) {
+     this._current = d;
+     }); // store the initial angles
+
+     path.on('mouseover', function(d) {                            // NEW
+     var total = d3.sum(data1.map(function(d) {                // NEW
+     return d.count;                                           // NEW
+     }));                                                        // NEW
+     var percent = Math.round(1000 * d.data.count / total) / 10; // NEW
+     tooltip.select('.label').html(d.data.label);                // NEW
+     // tooltip.select('.count').html(d.data.count);                // NEW
+     tooltip.select('.percent').html(percent + '%');             // NEW
+     tooltip.style('display', 'block');                          // NEW
+     });                                                           // NEW
+
+     path.on('mouseout', function() {                              // NEW
+     tooltip.style('display', 'none');                           // NEW
+     });
+   //// Begin
+   var path2 = svg2.selectAll("path")
+   .data(pie2(data3))
+   .enter()
+   .append("path");
+   /////////// End
+
+
+
+
+     path2.transition()
+     .duration(500)
+     .attr("fill", function(d, i) {
+     return color2(d.data.label);
+     })
+     .attr("d", arc)
+     .each(function(d) {
+     this._current = d;
+     }); // store the initial angles
+
+     path2.on('mouseover', function(d) {                            // NEW
+     var total = d3.sum(data3.map(function(d) {                // NEW
+     return d.count;                                           // NEW
+     }));                                                        // NEW
+     var percent = Math.round(1000 * d.data.count / total) / 10; // NEW
+     tooltip2.select('.label').html(d.data.label);                // NEW
+     // tooltip.select('.count').html(d.data.count);                // NEW
+     tooltip2.select('.percent').html(percent + '%');             // NEW
+     tooltip2.style('display', 'block');                          // NEW
+     });                      // NEW
+
+     path2.on('mouseout', function() {                              // NEW
+     tooltip2.style('display', 'none');                           // NEW
+     });
+
+     var legend = svg.selectAll('.legend')                     // NEW
+     .data(color.domain())                                   // NEW
+     .enter()                                                // NEW
+     .append('g')                                            // NEW
+     .attr('class', 'legend')                                // NEW
+     .attr('transform', function(d, i) {                     // NEW
+     var height = legendRectSize + legendSpacing;          // NEW
+     var offset =  height * color.domain().length / 2;     // NEW
+     var horz = -2 * legendRectSize;                       // NEW
+     var vert = i * height - offset;                       // NEW
+     return 'translate(' + horz + ',' + vert + ')';        // NEW
+     });
+
+     legend.append('rect')                                     // NEW
+     .attr('width', legendRectSize)                          // NEW
+     .attr('height', legendRectSize)                         // NEW
+     .style('fill', color)                                   // NEW
+     .style('stroke', color);                                // NEW
+
+     legend.append('text')                                     // NEW
+     .attr('x', legendRectSize + legendSpacing)              // NEW
+     .attr('y', legendRectSize - legendSpacing)              // NEW
+     .text(function(d) { return d; });
+    //  .text(function(d) { return d.count; });
+                          // NEW
+
+     var legend2 = svg2.selectAll('.legend')                     // NEW
+     .data(color2.domain())                                   // NEW
+     .enter()                                                // NEW
+     .append('g')                                            // NEW
+     .attr('class', 'legend')                                // NEW
+     .attr('transform', function(d, i) {                     // NEW
+     var height = legendRectSize + legendSpacing;          // NEW
+     var offset =  height * color2.domain().length / 2;     // NEW
+     var horz = -2 * legendRectSize;                       // NEW
+     var vert = i * height - offset;                       // NEW
+     return 'translate(' + horz + ',' + vert + ')';        // NEW
+     });                                                     // NEW
+                                                // NEW
+
+     legend2.append('rect')                                     // NEW
+     .attr('width', legendRectSize)                          // NEW
+     .attr('height', legendRectSize)                         // NEW
+     .style('fill', color2)                                   // NEW
+     .style('stroke', color2);                                // NEW
+
+     legend2.append('text')                                     // NEW
+     .attr('x', legendRectSize + legendSpacing)              // NEW
+     .attr('y', legendRectSize - legendSpacing)              // NEW
+     .text(function(d) { return d; });                       // NEW                                    // NEW
+
+
+     function change1(data) {
+     path.data(pie(data));
+     path.transition().duration(750).attrTween("d", arcTween); // redraw the arcs
+     };
+
+     function change2(data) {
+     path2.data(pie(data));
+     path2.transition().duration(750).attrTween("d", arcTween2); // redraw the arcs
+     };
+
+
+     // Store the displayed angles in _current.
+     // Then, interpolate from _current to the new angles.
+     // During the transition, _current is updated in-place by d3.interpolate.
+
+ function arcTween(a) {
+ var i = d3.interpolate(this._current, a);
+ this._current = i(0);
+ return function(t) {
+ return arc(i(t));
+ };
+ };
+
+
+ function arcTween2(a) {
+ var i = d3.interpolate(this._current, a);
+ this._current = i(0);
+ return function(t) {
+ return arc(i(t));
+ };
+
+ };
+///////////*********************** CHART.JS DONUT CHARTS*******************/////////////////////////////////
+  // // Set options for chart.js
     var options = { responsive: true,
                     tooltipTemplate: "<%= value %>%",
                     multiTooltipTemplate: "<%= value %>%",
@@ -253,82 +621,82 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
                     animationEasing: "easeOutCubic",
                     showScale: true,
                 };
-
-
-    // Make donut chart of percent of men and women OVERALL
-    var ctx_donut_gender = $("#donutChart3").get(0).getContext("2d");
-    $("#gender-heading").html("Company Gender - Overall");
-    $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
-        var myDonutChart3 = new Chart(ctx_donut_gender).Doughnut(data.company, options);
-        $('#donutLegend3').html(myDonutChart3.generateLegend());
-    });
-
-
-    // Make donut chart of average percent of men and women
-    var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
-    $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
-        var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.average, options);
-        $("#heading-gender-tech").html("Average Gender for Tech Companies - Overall");
-        $('#donutLegend4').html(myDonutChart4.generateLegend());
-    });
-
-
-    function generateOverallDonutChart(evt) {
-        var ctx_donut_gender = $("#donutChart3").get(0).getContext("2d");
-        $("#gender-heading").html("Company Gender - Overall");
-        $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
-            var myDonutChart3 = new Chart(ctx_donut_gender).Doughnut(data.company, options);
-            $('#donutLegend3').html(myDonutChart3.generateLegend());
-        });
-
-        var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
-
-        $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
-            var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.average, options);
-            $("#heading-gender-tech").html("Average Gender for Tech Companies - Overall");
-            $('#donutLegend4').html(myDonutChart4.generateLegend());
-        });
-    };
-
-    function generateTechDonutChart(evt) {
-        var ctx_donut_gender_tech = $("#donutChart3").get(0).getContext("2d");
-        $("#gender-heading").html("Company Gender - Tech");
-        $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
-            var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
-            $('#donutLegend3').html(myDonutChart5.generateLegend());
-        });
-
-        var ctx_donut_gender_average_tech = $('#donutChart4').get(0).getContext("2d");
-
-        $("#heading-gender-tech").html("Average Gender for Companies - Tech");
-        $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
-            var myDonutChart6 = new Chart(ctx_donut_gender_average_tech).Doughnut(data.average,options);
-            $('#donutLegend4').html(myDonutChart6.generateLegend());
-        }
-
-        )};
-
-    // Make donut chart of percent of men and women in TECH roles
-   $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
-        if (data == "False") {
-            $(".gender-chart3").remove();
-            console.log("NO DATA!");
-        } else {
-
-            $(".tech-gender-button").append("<button id='tech-gender-button' type='button'>Gender Tech</button>");
-            $(".overall-gender-button").append("<button id='overall-gender-button' type='button'>Gender Overall</button>");
-
-            $('#tech-gender-button').click(generateTechDonutChart);
-            $('#overall-gender-button').click(generateOverallDonutChart);
-
-
-            // var ctx_donut_gender_tech = $("#donutChart5").get(0).getContext("2d");
-
-            // var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
-            // $('#donutLegend5').html(myDonutChart5.generateLegend());
-        }
-    });
-
+  //
+  //
+  //   // Make donut chart of percent of men and women OVERALL
+  //   var ctx_donut_gender = $("#donutChart3").get(0).getContext("2d");
+  //   $("#gender-heading").html("Company Gender - Overall");
+  //   $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
+  //       var myDonutChart3 = new Chart(ctx_donut_gender).Doughnut(data.company, options);
+  //       $('#donutLegend3').html(myDonutChart3.generateLegend());
+  //   });
+  //
+  //
+  //   // Make donut chart of average percent of men and women
+  //   var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
+  //   $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
+  //       var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.average, options);
+  //       $("#heading-gender-tech").html("Average Gender for Tech Companies - Overall");
+  //       $('#donutLegend4').html(myDonutChart4.generateLegend());
+  //   });
+  //
+  //
+  //   function generateOverallDonutChart(evt) {
+  //       var ctx_donut_gender = $("#donutChart3").get(0).getContext("2d");
+  //       $("#gender-heading").html("Company Gender - Overall");
+  //       $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
+  //           var myDonutChart3 = new Chart(ctx_donut_gender).Doughnut(data.company, options);
+  //           $('#donutLegend3').html(myDonutChart3.generateLegend());
+  //       });
+  //
+  //       var ctx_donut_gender_us = $("#donutChart4").get(0).getContext("2d");
+  //
+  //       $.get("/company-gender/{{ display_company.company_id }}.json", function (data) {
+  //           var myDonutChart4 = new Chart(ctx_donut_gender_us).Doughnut(data.average, options);
+  //           $("#heading-gender-tech").html("Average Gender for Tech Companies - Overall");
+  //           $('#donutLegend4').html(myDonutChart4.generateLegend());
+  //       });
+  //   };
+  //
+  //   function generateTechDonutChart(evt) {
+  //       var ctx_donut_gender_tech = $("#donutChart3").get(0).getContext("2d");
+  //       $("#gender-heading").html("Company Gender - Tech");
+  //       $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
+  //           var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
+  //           $('#donutLegend3').html(myDonutChart5.generateLegend());
+  //       });
+  //
+  //       var ctx_donut_gender_average_tech = $('#donutChart4').get(0).getContext("2d");
+  //
+  //       $("#heading-gender-tech").html("Average Gender for Companies - Tech");
+  //       $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
+  //           var myDonutChart6 = new Chart(ctx_donut_gender_average_tech).Doughnut(data.average,options);
+  //           $('#donutLegend4').html(myDonutChart6.generateLegend());
+  //       }
+  //
+  //       )};
+  //
+  //   // Make donut chart of percent of men and women in TECH roles
+  //  $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
+  //       if (data == "False") {
+  //           $(".gender-chart3").remove();
+  //           console.log("NO DATA!");
+  //       } else {
+  //
+  //           $(".tech-gender-button").append("<button id='tech-gender-button' type='button'>Gender Tech</button>");
+  //           $(".overall-gender-button").append("<button id='overall-gender-button' type='button'>Gender Overall</button>");
+  //
+  //           $('#tech-gender-button').click(generateTechDonutChart);
+  //           $('#overall-gender-button').click(generateOverallDonutChart);
+  //
+  //
+  //           // var ctx_donut_gender_tech = $("#donutChart5").get(0).getContext("2d");
+  //
+  //           // var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
+  //           // $('#donutLegend5').html(myDonutChart5.generateLegend());
+  //       }
+  //   });
+  //
 
     // Make bar chart of average percent of men and women in Company, Average and US
 

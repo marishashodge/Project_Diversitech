@@ -120,8 +120,60 @@ def show_company(company_id):
 
     overall_rating = get_company_overall_rating(company_id)
 
+    company_list = get_gender_company_percentages(company_id)
+    average_list = get_gender_avg_percentages()
+
+    # company females
+    data1 = company_list[0]
+    # company males
+    data2 = company_list[1]
+    # average females
+    data5 = average_list[0]
+    # average males
+    data6 = average_list[1]
+
+    if len(company_list) > 2:
+        # company tech females
+        data3 = company_list[2]
+        # company tech males
+        data4 = company_list[3]
+        # average tech females
+        data7 = average_list[2]
+        # average tech males
+        data8 = average_list[3]
+        # company manager females
+        data9 = company_list[4]
+        # company manager males
+        data10 = company_list[5]
+        # average manager females
+        data11 = average_list[4]
+        # average manager males
+        data12 = average_list[5]
+
+
+    else:
+        # company tech females
+        data3 = 0
+        # company tech males
+        data4 = 0
+        # average tech females
+        data7 = 0
+        # average tech males
+        data8 = 0
+        # company manager females
+        data9 = 0
+        # company manager males
+        data10 = 0
+        # average manager females
+        data11 = 0
+        # average manager males
+        data12 = 0
+
+
     return render_template("company-page.html", display_company=company, categories=categories_for_company,
-                                                reviews=reviews, overallRating=overall_rating)
+                                                reviews=reviews, overallRating=overall_rating, data1=data1,
+                                                data2=data2, data3=data3, data4=data4, data5=data5,
+                                                data6=data6, data7=data7, data8=data8, data9=data9, data10=data10, data11=data11, data12=data12)
 
 
 ################################### JSON ROUTES #######################################################
