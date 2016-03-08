@@ -5,16 +5,35 @@
     border-color: #E7E7E7;
 }
 
+#search-button {
+  background-color: #262626;
+  color: #ffffff;
+  border: #262626;
+}
+
+
+.form-control {
+  background-color: #262626;
+  border: #262626;
+  color: #ffffff;
+}
+
+#home-search {
+  background-color: #ffffff;
+  border: #ffffff;
+  color: #000000;
+}
+
 .btn-primary {
     color: #ffffff;
-    background-color: #18cec2;
-    border-color: #18cec2;
+    /*background-color: #18cec2;*/
+    /*border-color: #18cec2;*/
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: #ffffff;
-    background-color: #15b7ac;
-    border-color: #13a096;
+    /*background-color: #15b7ac;*/
+    /*border-color: #13a096;*/
 }
 
 .center-block {
@@ -122,20 +141,45 @@ hr {
 
 
 }
+.chart-header {
+  text-align: center;
+}
+
+.chart-buttons {
+  text-align: center;
+}
+
 
 /*d3 components*/
 
+#chart-div {
+
+    max-width: 1000px;
+    margin: auto;
+}
+
 #chartDiv {                                                          /* NEW */
-       height: 360px;                                                  /* NEW */
+       height: 250px;                                                  /* NEW */
        position: relative;                                             /* NEW */
        width: 360px;                                                   /* NEW */
-     }                                                                 /* NEW */
+}
+
+.label {
+   font-size: 95%;
+   color: #333;
+}
+
+a {
+    font-size: 16px;
+    text-decoration: none;
+}                                  /* NEW */
+
 .tooltip {                                                        /* NEW */
- background: #6e675e;                                               /* NEW */
+ background: #eee;                                               /* NEW */
  box-shadow: 0 0 5px #999999;                                    /* NEW */
  color: #333;                                                    /* NEW */
  display: none;                                                  /* NEW */
- font-size: 12px;                                                /* NEW */
+ font-size: 13px;                                                /* NEW */
  left: 130px;                                                    /* NEW */
  padding: 10px;                                                  /* NEW */
  position:  absolute;                                             /* NEW */
@@ -143,6 +187,7 @@ hr {
  top: 95px;                                                      /* NEW */
  width: 80px;                                                    /* NEW */
  z-index: 10;                                                    /* NEW */
+ opacity: 3;
 }                                                                 /* NEW */
 .legend {
  font-size: 12px;
@@ -152,5 +197,43 @@ rect {
 }
 
 text {
-    font: 10px sans-serif;
+    font: 12px sans-serif;
+}
+
+.rank-number {
+    font: 25px "Ubuntu";
+    padding-right: 10px;
+}
+
+.rank-row {
+  padding: 10px;
+  display: block;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+#home-search-bar {
+  width: 700px;
+  align: center;
+}
+
+#ranking-column1 {
+  background-color: #f5f5f5;
+  border-radius: 25px;
+  margin-right: 30px;
+  margin-left: 70px;
+}
+
+#ranking-column2 {
+  background-color: #f5f5f5;
+  border-radius: 25px;
+  margin-right: 70px;
+  margin-left:45px;
+}
+
+#rankings-title {
+  font-size: 38px;
 }

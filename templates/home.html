@@ -12,32 +12,86 @@
         <br>
         <br>
         <br>
-
-          <h1 style="color: white;">Tech Company Diversity Data and Reviews</h1>
+      <div class="row search">
+        <div class="col-sm-9 col-sm-offset-2">
+          <p style="color: white;">Tech Company Diversity Data and Reviews</p>
           <br>
-        <div class="search-box">
-          <form action="/search" method='POST'>
+        </div>
+        <div class="col-sm-9 col-sm-offset-2">
+          <form id="home-search-bar" action="/search" method='POST'>
             <div id="imaginary_container">
                 <div class="input-group stylish-input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Search for a company...">
-                                        <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
+                    <input type="text" id="home-search" name="search" class="form-control" placeholder="Search for a company...">
+                        <span class="input-group-addon">
+                          <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                          </button>
                     </span>
                 </div>
             </div>
           </form>
         </div>
+      </div>
+    </div>
 
     </div>
     </div>
 
-  <div class="container">
-    <div class = "row">
-      <div class="col-md-6">
+<br>
+<br>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <!-- <div class="col-md-9 col-md-offset-2"> -->
+      <h2 id="rankings-title">Tech Company Diversity Rankings*</h2>
+      <br>
+      <p style="text-align: center; color: #aea79f;">*These rankings are calculated by comparing tech company gender and ethnicity data to the current diversity data for the U.S. population <a style="font-size: 14px;" href="https://www.cia.gov">The CIA World Factbook</a>.</p>
+      <br>
+    <!-- </div> -->
+  </div>
+    <div class = "row-fluid">
+      <div id="ranking-column1" class="col-md-5">
         <h2>Top 5 for Gender Diversity</h2>
-        <ol>
+        <table style="width:100%">
+        <tr class="rank-row">
+          <td class="rank-number">1.</td>
+          <td id="logo1"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" class="rank-list" href="/company/{{ g1 }}">
+          {{ gn1 }}
+          </a>
+        </td>
+      </tr>
+        <tr class="rank-row">
+          <td class="rank-number">2.</td>
+          <td id="logo2"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" class="rank-list" href="/company/{{ g2 }}">
+          {{ gn2 }}
+          </a>
+        </tr>
+        <tr class="rank-row">
+          <td class="rank-number">3.</td>
+          <td id="logo3"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" href="/company/{{ g3 }}">
+          {{ gn3 }}
+          </a>
+        </tr>
+        <tr class="rank-row">
+          <td class="rank-number">4.</td>
+          <td id="logo4"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" href="/company/{{ g4 }}">
+          {{ gn4 }}
+          </a>
+        </tr>
+        <tr class="rank-row">
+          <td class="rank-number">5.</td>
+          <td id="logo5"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" href="/company/{{ g5 }}">
+          {{ gn5 }}
+          </a>
+        </tr>
+
+    </table>
+  </div>
+        <!-- <ol>
             {% for company in genderTop5 %}
                 <li>
                     <a href="/company/{{ company.company_id }}">
@@ -45,11 +99,55 @@
                     </a>
                 </li>
             {% endfor %}
-        </ol>
-      </div>
-      <div class="col-md-6">
+        </ol> -->
+      <div id="ranking-column2" class="col-md-5">
         <h2>Top 5 for Ethnic Diversity</h2>
-        <ol>
+        <table style="width:100%">
+        <tr class="rank-row">
+          <td class="rank-number">1.</td>
+          <td id="logo6"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" href="/company/{{ e1 }}">
+          {{ en1 }}
+          </a>
+        </td>
+      </tr>
+        <tr class="rank-row">
+          <td class="rank-number">2.</td>
+          <td id="logo7"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" href="/company/{{ e2 }}">
+          {{ en2 }}
+          </a>
+        </tr>
+        <tr class="rank-row">
+          <td class="rank-number">3.</td>
+          <td id="logo8"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" href="/company/{{ e3 }}">
+          {{ en3 }}
+          </a>
+        </tr>
+        <tr class="rank-row">
+          <td class="rank-number">4.</td>
+          <td id="logo9"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" href="/company/{{ e4 }}">
+          {{ en4 }}
+          </a>
+        </tr>
+        <tr class="rank-row">
+          <td class="rank-number">5.</td>
+          <td id="logo10"></td>
+          <td><a style="font-size: 25px; font-variant: small-caps;" href="/company/{{ e5 }}">
+          {{ en5 }}
+          </a>
+        </tr>
+
+    </table>
+
+
+
+
+
+
+        <!-- <ol>
             {% for company in ethnicTop5 %}
                 <li>
                     <a href="/company/{{ company.company_id }}">
@@ -57,11 +155,53 @@
                     </a>
                 </li>
             {% endfor %}
-        </ol>
+        </ol> -->
       </div>
       </div>
     </div>
   </div>
+
+<script>
+
+  $.get("/glassdoor-results/{{ g1 }}.json", function(data) {
+      $('#logo1').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+   });
+
+  $.get("/glassdoor-results/{{ g2 }}.json", function(data) {
+     $('#logo2').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+  });
+
+  $.get("/glassdoor-results/{{ g3 }}.json", function(data) {
+      $('#logo3').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+   });
+
+ $.get("/glassdoor-results/{{ g4 }}.json", function(data) {
+     $('#logo4').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+  });
+  $.get("/glassdoor-results/{{ g5 }}.json", function(data) {
+      $('#logo5').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+   });
+
+   $.get("/glassdoor-results/{{ e1 }}.json", function(data) {
+       $('#logo6').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+    });
+
+  $.get("/glassdoor-results/{{ e2 }}.json", function(data) {
+      $('#logo7').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+   });
+
+   $.get("/glassdoor-results/{{ e3 }}.json", function(data) {
+       $('#logo8').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+    });
+
+  $.get("/glassdoor-results/{{ e4 }}.json", function(data) {
+      $('#logo9').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+   });
+   $.get("/glassdoor-results/{{ e5 }}.json", function(data) {
+       $('#logo10').html("<img src=" + data.squareLogo + " alt='some_text' width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'>");
+    });
+
+</script>
 
 
 {% endblock %}

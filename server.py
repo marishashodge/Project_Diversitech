@@ -15,25 +15,6 @@ app.secret_key = "54312"
 # StructUndefined allows for Jinja2 to raise an error when there is an undefined variable
 app.jinja_env.undefined = StrictUndefined
 
-@app.route('/test_chart.json')
-def test_chart():
-
-   datos = {
-               {"female": 4},
-               {"male": 2}
-           }
-
-   return jsonify(data=datos)
-
-@app.route('/test_chart2.json')
-def test_chart2():
-
-   datos = {
-               "female": 5,
-               "male": 1
-           }
-
-   return jsonify(data=datos)
 
 @app.route('/d3Chart/<int:company_id>')
 def chart(company_id):
@@ -77,17 +58,43 @@ def chart(company_id):
 
 
 
-
-
 @app.route('/')
 def index():
     """Homepage."""
 
     genderTop5 = get_gender_top5()
 
-    ethnicTop5 = get_ethnic_top5()
+    g_1 = genderTop5[0].company_id
+    g_n1 = genderTop5[0].name
+    g_2 = genderTop5[1].company_id
+    g_n2 = genderTop5[1].name
+    g_3 = genderTop5[2].company_id
+    g_n3 = genderTop5[2].name
+    g_4 = genderTop5[3].company_id
+    g_n4 = genderTop5[3].name
+    g_5 = genderTop5[4].company_id
+    g_n5 = genderTop5[4].name
 
-    return render_template("home.html", genderTop5=genderTop5, ethnicTop5=ethnicTop5)
+    ethnicTop5 = get_ethnic_top5()
+    e_1 = ethnicTop5[0].company_id
+    e_n1 = ethnicTop5[0].name
+    e_2 = ethnicTop5[1].company_id
+    e_n2 = ethnicTop5[1].name
+    e_3 = ethnicTop5[2].company_id
+    e_n3 = ethnicTop5[2].name
+    e_4 = ethnicTop5[3].company_id
+    e_n4 = ethnicTop5[3].name
+    e_5 = ethnicTop5[4].company_id
+    e_n5 = ethnicTop5[4].name
+
+    # print ethnicTop5
+    # print g_1, g_2, g_3
+
+    return render_template("home.html", genderTop5=genderTop5, ethnicTop5=ethnicTop5,
+                                        g1=g_1, g2=g_2, g3=g_3, g4=g_4, g5=g_5,
+                                        gn1=g_n1, gn2=g_n2, gn3=g_n3, gn4=g_n4, gn5=g_n5,
+                                        e1=e_1, e2=e_2, e3=e_3, e4=e_4, e5=e_5,
+                                        en1=e_n1, en2=e_n2, en3=e_n3, en4 = e_n4, en5=e_n5)
 
 
 
@@ -315,9 +322,31 @@ def return_glassdoor_results(company_id):
     company_glassdoor["reviewCons"] = featured_review_cons
     company_glassdoor["reviewRating"] = featured_review_rating
 
-    company_glassdoor["squareLogo"] = square_logo
+    if company_name == "HP":
+        company_glassdoor["squareLogo"] = "http://fixstream.com/wp-content/uploads/2015/08/hp-logo-square.jpg"
+    else:
+        company_glassdoor["squareLogo"] = square_logo
 
     return jsonify(company_glassdoor)
+
+# @app.route("/logo/<int:company_id>.json")
+#     """Returns a company logo from Glassdoor API."""
+#
+#     company = Company.query.get(company_id)
+#     company_name = company.name
+#
+#     url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=55828&t.k=fhcJ0ZT1E89&action=employers&q=" + str(company_name)
+#
+#     # Need to set the User-Agent in the header of http request to be able to access Glassdoor API
+#     resp = requests.get(url, headers={'User-Agent': 'curl/7.30.0'})
+#     results = resp.json()
+#     company_glassdoor = {}
+#
+#     square_logo = results["response"]["employers"][0]["squareLogo"]
+#
+#     company_glassdoor["squareLogo"] = square_logo
+#
+#     return jsonify(company_glassdoor)
 
 
 @app.route("/submitted/<int:company_id>", methods=["POST"])

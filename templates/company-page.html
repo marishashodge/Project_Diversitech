@@ -1,50 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-#chartDiv {                                                          /* NEW */
-  height: 360px;                                                  /* NEW */
-  position: relative;                                             /* NEW */
-  width: 360px;                                                   /* NEW */
-}
+<p align="center" style="background:#FFFFFF;font-size:1.3em;color:#dd4814">
+  <br>
 
-#chartDiv2 {                                                          /* NEW */
-  height: 360px;                                                  /* NEW */
-  position: relative;                                             /* NEW */
-  width: 360px;                                                   /* NEW */
-}                                                                        /* NEW */
-.tooltip {                                                        /* NEW */
-  background: #eee;                                               /* NEW */
-  box-shadow: 0 0 5px #999999;                                    /* NEW */
-  color: #333;                                                    /* NEW */
-  display: none;                                                  /* NEW */
-  font-size: 12px;                                                /* NEW */
-  left: 130px;                                                    /* NEW */
-  padding: 10px;                                                  /* NEW */
-  position: absolute;                                             /* NEW */
-  text-align: center;                                             /* NEW */
-  top: 95px;                                                      /* NEW */
-  width: 80px;                                                    /* NEW */
-  z-index: 10;                                                    /* NEW */
-}                                                                 /* NEW */
-.legend {
-  font-size: 12px;
-}
-rect {
-  stroke-width: 2;
-}
-</style>
+    {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}
 
-
-    <p align="center" style="background:#FFFFFF;font-size:1.3em;color:#dd4814">
-      <br>
-
-
-        {% for message in get_flashed_messages() %}
-            {{ message }}
-        {% endfor %}
-
-    </p>
+</p>
 
 
 <div class="container">
@@ -59,22 +23,6 @@ rect {
         </span>
     </p>
   </div>
-
-
-  <!-- <div class="container-fluid">
-    <div class="row inline-block-row">
-      <div class="col-md-4">
-        <span id="company-logo"></span>
-      </div>
-      <div class="col-md-4">
-        <span style="vertical-align: bottom">{{ display_company.name }}</span>
-      </div>
-    </div>
-  </div> -->
-
-
-    <!-- <div id=company-logo></div> -->
-    <!-- <img id="company-logo" src="url" alt="some_text"> -->
 
   <div class ="row">
    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
@@ -95,36 +43,36 @@ rect {
         </div>
     </div>
 
-        <div class="well">
-      <div class="tab-content">
-        <div class="tab-pane fade in active" id="tab1">
+<div class="well">
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="tab1">
           <!-- <h3>This is tab 1</h3> -->
-          <h3>Diversity Details</h3>
+          <h3 class="review-title">Diversity Details</h3>
 
-<!-- ////// d3 Chart////// -->
-          <div class="container">
+<!-- ////// d3 Donut Charts////// -->
+          <div class="container" id="chart-div">
+              <div class="row">
 
-
-              <div class="row" id="choices">
-                  <!-- <input type="radio" name="radData" id="rad1" value="data1" checked="checked" onclick='change1(data1); change2(data3);' />
-                  <label for="rad1">Data1</label>
-
-                  <input type="radio" name="radData" id="rad2" value="data2" onclick='change1(data2); change2(data4);' />
-                  <label for="rad2">Data2</label> -->
-                  <!-- </br> -->
-
-
-              </div>
-              <div class="row-fluid">
                 <div class="col-xs-6 col-md-6">
-                <div id='chartDiv'></div>
+                    <h4 class="chart-header" id="chart-header1"></h4>
+                    <div id='chartDiv'></div>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                    <h4 class="chart-header" id="chart-header2"></h4>
+                    <div id='chartDiv2'></div>
+                </div>
               </div>
-              <div class="col-xs-6 col-md-6">
+              <div class='wrapper text-center'>
+                <div class='btn-group' role='group' aria-label='...'>
+                  <span id="donut-overall-button"></span>
+                  <span id="donut-tech-button"></span>
+                  <span id="donut-management-button"></span>
+                </div>
+              </div>
+              </div>
 
-                  <div id='chartDiv2'></div>
-              </div>
-            </div>
-          </div>
+
+
 
 
 
@@ -159,25 +107,23 @@ rect {
 
     <!-- </div> -->
 
+    <br>
+    <br>
+    <br>
     <div class="row">
       <div class="ethnic-bar-graph">
-          <h4 id="heading"></h4>
+          <h4 id="heading" class="chart-header"></h4>
           <canvas id="barGraph1"></canvas>
           <div id="barLegend" class="chart-legend"></div>
+     </div>
     </div>
-
+    <div class='wrapper text-center'>
+      <div class='btn-group' role='group' aria-label='...'>
+        <span id="overall-button"></span>
+        <span id="tech-button"></span>
+      </div>
     </div>
-
-
-    <div class="overall-button">
-    </div>
-
-    <div class="tech-button">
-    </div>
-
-
-
-        </div>
+</div>
 
     <div class="tab-pane fade in" id="tab2">
           <!-- <h3>This is tab 2</h3> -->
@@ -292,7 +238,7 @@ rect {
         <div class="tab-pane fade in" id="tab3">
           <!-- <h3>This is tab 3</h3> -->
           <div id="news">
-              <h1>News</h1>
+              <h3 class="review-title">News</h1>
               <p id="newsResults">Loading...</p>
 
 
@@ -346,7 +292,9 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
  }]
 
  ;
- $('#choices').html("<button type='button' class='btn btn-primary-outline' id='rad1' value='data1' onclick='change1(data1); change2(data3);'>Overall</button><br><button type='button' class='btn btn-primary-outline' name='radData' id='rad2' value='data2' onclick='change1(data2); change2(data4);'>Tech</button><button type='button' class='btn btn-primary-outline' name='radData' id='rad2' value='data5' onclick='change1(data5); change2(data6);'>Management</button>")
+ $('#donut-overall-button').append("<button type='button' class='btn' id='rad1' value='data1' onclick='change1(data1); change2(data3);'>Overall</button>")
+ $('#donut-tech-button').append("<button type='button' class='btn btn-primary-outline' name='radData' id='rad2' value='data2' onclick='change1(data2); change2(data4);'>Tech</button>")
+ $('#donut-management-button').append("<button type='button' class='btn btn-primary-outline' name='radData' id='rad3' value='data5' onclick='change1(data5); change2(data6);'>Management</button>")
  }
 
 
@@ -393,7 +341,7 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
      console.log(data1, data2, data3, data4)
 
 
-     var width = 500,
+     var width = 450,
      height = 250,
      radius = Math.min(width, height) / 2;
      var legendRectSize = 18;                                  // NEW
@@ -493,6 +441,11 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
      path.on('mouseout', function() {                              // NEW
      tooltip.style('display', 'none');                           // NEW
      });
+
+     path.on('mousemove', function(d) {
+     tooltip.style('top', (d3.event.layerY + 10) + 'px')
+     .style('left', (d3.event.layerX + 10) + 'px');
+     });
    //// Begin
    var path2 = svg2.selectAll("path")
    .data(pie2(data3))
@@ -528,31 +481,35 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
      tooltip2.style('display', 'none');                           // NEW
      });
 
-     var legend = svg.selectAll('.legend')                     // NEW
-     .data(color.domain())                                   // NEW
-     .enter()                                                // NEW
-     .append('g')                                            // NEW
-     .attr('class', 'legend')                                // NEW
-     .attr('transform', function(d, i) {                     // NEW
-     var height = legendRectSize + legendSpacing;          // NEW
-     var offset =  height * color.domain().length / 2;     // NEW
-     var horz = -2 * legendRectSize;                       // NEW
-     var vert = i * height - offset;                       // NEW
-     return 'translate(' + horz + ',' + vert + ')';        // NEW
+     path2.on('mousemove', function(d) {
+     tooltip2.style('top', (d3.event.layerY + 10) + 'px')
+     .style('left', (d3.event.layerX + 10) + 'px');
      });
 
-     legend.append('rect')                                     // NEW
-     .attr('width', legendRectSize)                          // NEW
-     .attr('height', legendRectSize)                         // NEW
-     .style('fill', color)                                   // NEW
-     .style('stroke', color);                                // NEW
+     var legend = svg.selectAll('.legend')
+     .data(color.domain())
+     .enter()
+     .append('g')
+     .attr('class', 'legend')
+     .attr('transform', function(d, i) {
+     var height = legendRectSize + legendSpacing;
+     var offset =  height * color.domain().length / 2;
+     var horz = -2 * legendRectSize;
+     var vert = i * height - offset;
+     return 'translate(' + horz + ',' + vert + ')';
+     });
 
-     legend.append('text')                                     // NEW
-     .attr('x', legendRectSize + legendSpacing)              // NEW
-     .attr('y', legendRectSize - legendSpacing)              // NEW
-     .text(function(d) { return d; });
-    //  .text(function(d) { return d.count; });
-                          // NEW
+     legend.append('rect')
+     .attr('width', legendRectSize)
+     .attr('height', legendRectSize)
+     .style('fill', color)
+     .style('stroke', color);
+
+     legend.append('text')
+     .attr('x', legendRectSize + legendSpacing)
+     .attr('y', legendRectSize - legendSpacing)
+     .text(function(d) { return d });
+
 
      var legend2 = svg2.selectAll('.legend')                     // NEW
      .data(color2.domain())                                   // NEW
@@ -612,6 +569,33 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
  };
 
  };
+
+// Change the headers depending on the donut charts that are being displayed
+$("#chart-header1").html("Company Gender - Overall");
+$("#chart-header2").html("Average Gender - Overall");
+
+ function generateOverallDonutHeaders(evt) {
+     $("#chart-header1").html("Company Gender - Overall");
+     $("#chart-header2").html("Average Gender - Overall");
+   };
+
+ function generateTechDonutHeaders(evt) {
+   $("#chart-header1").html("Company Gender - Tech");
+   $("#chart-header2").html("Average Gender - Tech");
+ };
+
+ function generateManagementDonutHeaders(evt) {
+   $("#chart-header1").html("Company Gender - Management");
+   $("#chart-header2").html("Average Gender - Management");
+ };
+
+ $("#rad1").click(generateOverallDonutHeaders);
+ $("#rad2").click(generateTechDonutHeaders);
+ $("#rad3").click(generateManagementDonutHeaders);
+
+
+
+
 ///////////*********************** CHART.JS DONUT CHARTS*******************/////////////////////////////////
   // // Set options for chart.js
     var options = { responsive: true,
@@ -698,6 +682,7 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
   //   });
   //
 
+///////////*********************** CHART.JS BAR CHART *******************/////////////////////////////////
     // Make bar chart of average percent of men and women in Company, Average and US
 
     var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
@@ -732,8 +717,8 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
             console.log("NO DATA!");
         } else {
 
-            $(".tech-button").append("<button id='tech-button' type='button'>Ethnicity Tech</button>");
-            $(".overall-button").append("<button id='overall-button' type='button'>Ethnicity Overall</button>");
+            $("#tech-button").append("<button id='tech-button' class='btn' type='button'>Tech</button>");
+            $("#overall-button").append("<button id='overall-button' class='btn' type='button'>Overall</button>");
 
             $('#tech-button').click(generateTechBarGraph);
             $('#overall-button').click(generateOverallBarGraph);
@@ -783,7 +768,7 @@ function generateGoogleNews(evt) {
       for (var i = 0; i < 4; i++) {
 
 
-        $("#newsResults").append("<a href=" + data.results[i].unescapedUrl + " target='_blank'>" + data.results[i].title + "</a><p class='newsPubNameDate'>" + data.results[i].publisher + ": " + data.results[i].publishedDate + "</p><p class='newsContent'>" + data.results[i].content + "</p")
+        $("#newsResults").append("<a href=" + data.results[i].unescapedUrl + " target='_blank'>" + data.results[i].title + "</a><p class='newsPubNameDate'><strong>" + data.results[i].publisher + "</strong>: " + data.results[i].publishedDate + "</p><p class='newsContent'>" + data.results[i].content + "</p")
 
     }
 
