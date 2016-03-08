@@ -106,7 +106,7 @@ def load_reviews():
     titles_list = ["""Great Company!""", """Diversity has become a priority""", """I love the culture here!""", """Management does not seem to care about
     diversity!""", """Working here is the best decision I ever made!"""]
 
-    for i in range(2, 32):
+    for i in range(2, 31):
         for x in range(5):
 
             company_id = i

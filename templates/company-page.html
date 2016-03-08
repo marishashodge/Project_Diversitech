@@ -48,21 +48,30 @@
       <div class="tab-pane fade in active" id="tab1">
           <!-- <h3>This is tab 1</h3> -->
           <h3 class="review-title">Diversity Details</h3>
+          <br>
 
 <!-- ////// d3 Donut Charts////// -->
           <div class="container" id="chart-div">
               <div class="row">
-
+                <h1 style="text-align: center;">Gender Data</h1>
+                <br>
+              </div>
+              <div class="row">
                 <div class="col-xs-6 col-md-6">
+                    <h4 style= "color:#dd4814;" class="chart-header"> Company</h4>
                     <h4 class="chart-header" id="chart-header1"></h4>
+                    <br>
                     <div id='chartDiv'></div>
                 </div>
                 <div class="col-xs-6 col-md-6">
+                    <h4 style= "color:#dd4814;" class="chart-header"> Average for Tech Companies</h4>
                     <h4 class="chart-header" id="chart-header2"></h4>
+                    <br>
                     <div id='chartDiv2'></div>
                 </div>
               </div>
               <div class='wrapper text-center'>
+                <br>
                 <div class='btn-group' role='group' aria-label='...'>
                   <span id="donut-overall-button"></span>
                   <span id="donut-tech-button"></span>
@@ -110,9 +119,16 @@
     <br>
     <br>
     <br>
+    <hr>
+    <div class="row">
+      <h1 style="text-align: center;">Ethnicity Data</h1>
+      <br>
+    </div>
     <div class="row">
       <div class="ethnic-bar-graph">
+          <h4 class="chart-header" style= "color:#dd4814;">Company</h4>
           <h4 id="heading" class="chart-header"></h4>
+          <br>
           <canvas id="barGraph1"></canvas>
           <div id="barLegend" class="chart-legend"></div>
      </div>
@@ -571,22 +587,22 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
  };
 
 // Change the headers depending on the donut charts that are being displayed
-$("#chart-header1").html("Company Gender - Overall");
-$("#chart-header2").html("Average Gender - Overall");
+$("#chart-header1").html("OVERALL");
+$("#chart-header2").html("OVERALL");
 
  function generateOverallDonutHeaders(evt) {
-     $("#chart-header1").html("Company Gender - Overall");
-     $("#chart-header2").html("Average Gender - Overall");
+     $("#chart-header1").html("OVERALL");
+     $("#chart-header2").html("OVERALL");
    };
 
  function generateTechDonutHeaders(evt) {
-   $("#chart-header1").html("Company Gender - Tech");
-   $("#chart-header2").html("Average Gender - Tech");
+   $("#chart-header1").html("TECH");
+   $("#chart-header2").html("TECH");
  };
 
  function generateManagementDonutHeaders(evt) {
-   $("#chart-header1").html("Company Gender - Management");
-   $("#chart-header2").html("Average Gender - Management");
+   $("#chart-header1").html("MANAGEMENT");
+   $("#chart-header2").html("MANAGEMENT");
  };
 
  $("#rad1").click(generateOverallDonutHeaders);
@@ -686,7 +702,7 @@ $("#chart-header2").html("Average Gender - Overall");
     // Make bar chart of average percent of men and women in Company, Average and US
 
     var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
-    $("#heading").html("Company Ethnicity - Overall");
+    $("#heading").html("OVERALL");
 
     $.get("/company-ethnicity/{{ display_company.company_id }}.json", function (data) {
         var myBarChart = new Chart(ctx_bar_ethnic).Bar(data, options);
@@ -697,7 +713,7 @@ $("#chart-header2").html("Average Gender - Overall");
     function generateTechBarGraph(evt) {
         console.log("function here")
         var ctx_bar_ethnic_tech = $("#barGraph1").get(0).getContext("2d");
-        $("#heading").html("Company Ethnicity - Tech");
+        $("#heading").html("TECH");
         $.get("/company-ethnicity-tech/{{ display_company.company_id }}.json", function (data) {
             var myBarChart2 = new Chart(ctx_bar_ethnic_tech).Bar(data, options);
             $('#barLegend').html(myBarChart2.generateLegend());
@@ -705,7 +721,7 @@ $("#chart-header2").html("Average Gender - Overall");
 
     function generateOverallBarGraph(evt) {
         var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
-        $("#heading").html("Company Ethnicity - Overall");
+        $("#heading").html("OVERALL");
         $.get("/company-ethnicity/{{ display_company.company_id }}.json", function (data) {
             var myBarChart = new Chart(ctx_bar_ethnic).Bar(data, options);
             $('#barLegend').html(myBarChart.generateLegend());

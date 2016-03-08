@@ -166,26 +166,7 @@ def show_company(company_id):
     # average males
     data6 = average_list[1]
 
-    if len(company_list) > 2:
-        # company tech females
-        data3 = company_list[2]
-        # company tech males
-        data4 = company_list[3]
-        # average tech females
-        data7 = average_list[2]
-        # average tech males
-        data8 = average_list[3]
-        # company manager females
-        data9 = company_list[4]
-        # company manager males
-        data10 = company_list[5]
-        # average manager females
-        data11 = average_list[4]
-        # average manager males
-        data12 = average_list[5]
-
-
-    else:
+    if company.name == "Amazon":
         # company tech females
         data3 = 0
         # company tech males
@@ -195,13 +176,52 @@ def show_company(company_id):
         # average tech males
         data8 = 0
         # company manager females
-        data9 = 0
+        data9 = company_list[2]
         # company manager males
-        data10 = 0
+        data10 = company_list[3]
         # average manager females
-        data11 = 0
+        data11 = average_list[2]
         # average manager males
-        data12 = 0
+        data12 = average_list[3]
+
+    else:
+
+        if len(company_list) > 2:
+            # company tech females
+            data3 = company_list[2]
+            # company tech males
+            data4 = company_list[3]
+            # average tech females
+            data7 = average_list[2]
+            # average tech males
+            data8 = average_list[3]
+            # company manager females
+            data9 = company_list[4]
+            # company manager males
+            data10 = company_list[5]
+            # average manager females
+            data11 = average_list[4]
+            # average manager males
+            data12 = average_list[5]
+
+
+        else:
+            # company tech females
+            data3 = 0
+            # company tech males
+            data4 = 0
+            # average tech females
+            data7 = 0
+            # average tech males
+            data8 = 0
+            # company manager females
+            data9 = 0
+            # company manager males
+            data10 = 0
+            # average manager females
+            data11 = 0
+            # average manager males
+            data12 = 0
 
 
     return render_template("company-page.html", display_company=company, categories=categories_for_company,
