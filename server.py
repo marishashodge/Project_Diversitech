@@ -62,39 +62,66 @@ def chart(company_id):
 def index():
     """Homepage."""
 
-    genderTop5 = get_gender_top5()
+    genderTop10 = get_gender_top10()
 
-    g_1 = genderTop5[0].company_id
-    g_n1 = genderTop5[0].name
-    g_2 = genderTop5[1].company_id
-    g_n2 = genderTop5[1].name
-    g_3 = genderTop5[2].company_id
-    g_n3 = genderTop5[2].name
-    g_4 = genderTop5[3].company_id
-    g_n4 = genderTop5[3].name
-    g_5 = genderTop5[4].company_id
-    g_n5 = genderTop5[4].name
 
-    ethnicTop5 = get_ethnic_top5()
-    e_1 = ethnicTop5[0].company_id
-    e_n1 = ethnicTop5[0].name
-    e_2 = ethnicTop5[1].company_id
-    e_n2 = ethnicTop5[1].name
-    e_3 = ethnicTop5[2].company_id
-    e_n3 = ethnicTop5[2].name
-    e_4 = ethnicTop5[3].company_id
-    e_n4 = ethnicTop5[3].name
-    e_5 = ethnicTop5[4].company_id
-    e_n5 = ethnicTop5[4].name
+    g_1 = genderTop10[0].company_id
+    g_n1 = genderTop10[0].name
+    g_2 = genderTop10[1].company_id
+    g_n2 = genderTop10[1].name
+    g_3 = genderTop10[2].company_id
+    g_n3 = genderTop10[2].name
+    g_4 = genderTop10[3].company_id
+    g_n4 = genderTop10[3].name
+    g_5 = genderTop10[4].company_id
+    g_n5 = genderTop10[4].name
+    g_6 = genderTop10[5].company_id
+    g_n6 = genderTop10[5].name
+    g_7 = genderTop10[6].company_id
+    g_n7 = genderTop10[6].name
+    g_8 = genderTop10[7].company_id
+    g_n8 = genderTop10[7].name
+    g_9 = genderTop10[8].company_id
+    g_n9 = genderTop10[8].name
+    g_10 = genderTop10[9].company_id
+    g_n10 = genderTop10[9].name
 
-    # print ethnicTop5
-    # print g_1, g_2, g_3
+    ethnicTop10 = get_ethnic_top10()
 
-    return render_template("home.html", genderTop5=genderTop5, ethnicTop5=ethnicTop5,
-                                        g1=g_1, g2=g_2, g3=g_3, g4=g_4, g5=g_5,
+    e_1 = ethnicTop10[0].company_id
+    e_n1 = ethnicTop10[0].name
+    e_2 = ethnicTop10[1].company_id
+    e_n2 = ethnicTop10[1].name
+    e_3 = ethnicTop10[2].company_id
+    e_n3 = ethnicTop10[2].name
+    e_4 = ethnicTop10[3].company_id
+    e_n4 = ethnicTop10[3].name
+    e_5 = ethnicTop10[4].company_id
+    e_n5 = ethnicTop10[4].name
+    e_6 = ethnicTop10[5].company_id
+    e_n6 = ethnicTop10[5].name
+    e_7 = ethnicTop10[6].company_id
+    e_n7 = ethnicTop10[6].name
+    e_8 = ethnicTop10[7].company_id
+    e_n8 = ethnicTop10[7].name
+    e_9 = ethnicTop10[8].company_id
+    e_n9 = ethnicTop10[8].name
+    e_10 = ethnicTop10[9].company_id
+    e_n10 = ethnicTop10[9].name
+
+    # print ethnicTop10
+    # print genderTop10
+
+
+    return render_template("home.html", g1=g_1, g2=g_2, g3=g_3, g4=g_4, g5=g_5,
                                         gn1=g_n1, gn2=g_n2, gn3=g_n3, gn4=g_n4, gn5=g_n5,
+                                        g6=g_6, g7=g_7, g8=g_8, g9=g_9, g10=g_10,
+                                        gn6=g_n6, gn7=g_n7, gn8=g_n8, gn9=g_n9, gn10=g_n10,
                                         e1=e_1, e2=e_2, e3=e_3, e4=e_4, e5=e_5,
-                                        en1=e_n1, en2=e_n2, en3=e_n3, en4 = e_n4, en5=e_n5)
+                                        en1=e_n1, en2=e_n2, en3=e_n3, en4 = e_n4, en5=e_n5,
+                                        e6=e_6, e7=e_7, e8=e_8, e9=e_9, e10=e_10,
+                                        en6=e_n6, en7=e_n7, en8=e_n8, en9=e_n9, en10=e_n10
+                                        )
 
 
 

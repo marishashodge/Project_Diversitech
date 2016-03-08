@@ -15,7 +15,7 @@ def get_us_ethnic_percentages():
     return us_numbers
 
 
-def get_gender_top5():
+def get_gender_top10():
     """Return a list of the top 5 companies in gender diversity."""
     gender_rating_dict = {}
 
@@ -38,15 +38,15 @@ def get_gender_top5():
             gender_rating_dict[company.company_id] = f_diff_from_us
 
     # Calculate top 5 companies in gender diversity
-    gender_top_5 = sorted(gender_rating_dict, key=gender_rating_dict.get)[:5]
+    gender_top_10 = sorted(gender_rating_dict, key=gender_rating_dict.get)[:10]
 
-    genderTop5 = []
+    genderTop10 = []
 
-    for x in gender_top_5:
+    for x in gender_top_10:
         company = Company.query.filter(Company.company_id == x).first()
-        genderTop5.append(company)
+        genderTop10.append(company)
 
-    return genderTop5
+    return genderTop10
 
 
 def get_ethnic_count():
@@ -87,23 +87,23 @@ def get_ethnic_dict_sorted():
 
     ethnic_rating_dict = get_ethnic_count()
     # Calculate top 5 companies in ethnic diversity
-    ethnic_top_5 = sorted(ethnic_rating_dict, key=ethnic_rating_dict.get)[:5]
+    ethnic_top_5 = sorted(ethnic_rating_dict, key=ethnic_rating_dict.get)[:10]
 
     return ethnic_top_5
 
 
-def get_ethnic_top5():
+def get_ethnic_top10():
     """Return a list of the top 5 companies."""
 
-    ethnic_top_5 = get_ethnic_dict_sorted()
+    ethnic_top_10 = get_ethnic_dict_sorted()
 
-    ethnicTop5 = []
+    ethnicTop10 = []
 
-    for y in ethnic_top_5:
+    for y in ethnic_top_10:
         company = Company.query.filter(Company.company_id == y).first()
-        ethnicTop5.append(company)
+        ethnicTop10.append(company)
 
-    return ethnicTop5
+    return ethnicTop10
 
 def get_gender_company_percentages(company_id):
 
