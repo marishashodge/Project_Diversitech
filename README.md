@@ -1,6 +1,6 @@
 # Diversitech 
 
-![Diversitech Logo](/Documents/Diversitech-Logo.png)
+![diversitechlogo](/Documents/Diversitech-Logo.jpg)
 
 ## Author
 Diversitech was created by Marisha Schumacher-Hodge during her time as a Software Engineering Student at Hackbright Academy (San Francisco, Ca) in Winter 2016. You can learn more about Marisha on [LinkedIn](https://www.linkedin.com/in/marishaschumacherhodge>) and contact her directly at <marisha.schumacher.hodge@gmail.com>.
@@ -34,7 +34,8 @@ Search for a company
 
 ![navhome](/Documents/Home-page.png)
 
-See the Top Companies for Gender and Ethnicity 
+See the Top Companies for Gender and Ethnicity
+
 ![rankings](/Documents/Top10.png)
 
 #### Diversity Data
@@ -42,7 +43,9 @@ See the Top Companies for Gender and Ethnicity
 ![navhome](/Documents/Diversity-charts.png)
 
 #### Reviews
+
 Interact with the diversity charts to see the data for different roles within the company (i.e. Overall, Tech, Management)
+
 ![navhome](/Documents/Diversity-charts.png)
 
 #### News
