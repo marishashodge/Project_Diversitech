@@ -500,12 +500,23 @@ def get_company_reviews(company_id):
     reviews = Review.query.filter(Review.company_id == company_id).order_by(Review.review_id).all()
 
     # Only show the most recent two reviews and reverse them so the newest one is first
-    two_recent_reviews = reviews[-2:]
+    two_recent_reviews = reviews[-3:]
 
     two_recent_reviews.reverse()
 
     return two_recent_reviews
 
+def generate_report_date(company_id):
+
+    company = Company.query.get(company_id)
+
+    report_date = company.report_date
+
+    if report_date == "-":
+
+        report_date = "False"
+
+    return report_date
 
 
 if __name__ == "__main__":

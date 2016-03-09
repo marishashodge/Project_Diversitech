@@ -1,5 +1,5 @@
 Company,Parent Company if no data ,last report issued,Female,Male,Female Tech,Male Tech,Female Managers,Male Managers,White,White Tech,Asian,Asian Tech,Latino,Latino Tech,Black,Black Tech,Two+ races,Two+races Tech,Other,Other Tech,Source,Link,Employees
-U.S. Population,,,51.00,49.00,-,-,-,-,64,-,4,-,16,-,12,-,1,-,3,-,"Prison Bars, CIA World Factbook, UNFPA",https://www.cia.gov/library/publications/the-world-factbook/geos/us.html,321368864
+U.S. Population,,-,51.00,49.00,-,-,-,-,64,-,4,-,16,-,12,-,1,-,3,-,"Prison Bars, CIA World Factbook, UNFPA",https://www.cia.gov/library/publications/the-world-factbook/geos/us.html,321368864
 Facebook,,2015,32,68,16,84,23,77,55,51,36,43,4,3,2,1,3,2,0,0,Facebook,https://newsroom.fb.com/news/2015/06/driving-diversity-at-facebook/,10082
 Instagram,Facebook,-,31,69,-,-,-,-,57,-,34,-,4,-,2,-,3,-,0,-,Facebook,http://newsroom.fb.com/news/2014/06/building-a-more-diverse-facebook/,9
 Google+,Google,2015,30,70,-,-,-,-,60,-,31,-,3,-,2,-,3,-,1,-,Google,https://plus.google.com/+google/posts/1VbnjxYQ5dv?pid=6155519933294674402&oid=116899029375914044550,
@@ -8,22 +8,22 @@ LinkedIn,,2015,42,58,18,82,30,70,56,34,37,61,4,3,2,1,1,1,1,1,LinkedIn,http://www
 Pinterest,,-,40,60,21,79,19,81,50,-,42,-,2,-,1,-,0,-,5,-,Pinterest,http://engineering.pinterest.com/post/92753543099/diversity-and-inclusion-at-pinterest,300
 Tumblr,Yahoo!,-,37,63,-,-,-,-,50,-,39,-,4,-,2,-,2,-,3,-,Yahoo!,http://yahoo.tumblr.com/post/89085398949/workforce-diversity-at-yahoo,298
 Flickr,Yahoo!,-,37,63,-,-,-,-,50,-,39,-,4,-,2,-,2,-,3,-,Yahoo!,http://yahoo.tumblr.com/post/89085398949/workforce-diversity-at-yahoo,
-Twitter,,July 2014,30,70,50,50,21,79,59,58,29,34,3,3,2,1,3,2,4,2,Twitter,https://blog.twitter.com/2014/building-a-twitter-we-can-be-proud-of,3600
-Slack,,February 2016,43,57,28,72,43,57,63,65,23,17,5,6,4,7,0,-,5,5,,http://slackhq.com/post/138617283075/diversity-and-inclusion-updates,290
-Yahoo!,,June 2014,37,63,15,85,23,77,50,-,39,-,4,-,2,-,2,-,3,-,Yahoo!,http://yahoo.tumblr.com/post/89085398949/workforce-diversity-at-yahoo,12300
+Twitter,,2014,30,70,50,50,21,79,59,58,29,34,3,3,2,1,3,2,4,2,Twitter,https://blog.twitter.com/2014/building-a-twitter-we-can-be-proud-of,3600
+Slack,,2016,43,57,28,72,43,57,63,65,23,17,5,6,4,7,0,-,5,5,,http://slackhq.com/post/138617283075/diversity-and-inclusion-updates,290
+Yahoo!,,2014,37,63,15,85,23,77,50,-,39,-,4,-,2,-,2,-,3,-,Yahoo!,http://yahoo.tumblr.com/post/89085398949/workforce-diversity-at-yahoo,12300
 Google,,2015,30,70,18,82,22,78,60,59,31,35,3,2,2,1,3,3,1,1,Google,http://www.google.co.uk/diversity/,55419
-Apple,,June 2014,30,70,21,79,28,72,59,56,20,26,12,8,9,7,2,2,1,1,Apple,http://www.apple.com/diversity/,
+Apple,,2014,30,70,21,79,28,72,59,56,20,26,12,8,9,7,2,2,1,1,Apple,http://www.apple.com/diversity/,
 eBay,,2015,43,57,24,76,29,71,60,39,25,56,5,2,8,2,1,1,1,1,eBay,https://separation.ebayinc.com/2015/04/building-diverse-ebay-paypal/,34600
-HP,,July 2014,33,67,-,-,-,-,72,-,6,-,14,-,7,-,1,-,1,-,HP,http://h20195.www2.hp.com/V2/GetPDF.aspx/c03742922.pdf,317500
-Indiegogo,,August 2014,45,55,33,67,43,57,64,59,23,29,8,6,2,-,0,-,6,6,Indiegogo,http://go.indiegogo.com/blog/2014/08/diversity-matters-always.html,100
+HP,,2014,33,67,-,-,-,-,72,-,6,-,14,-,7,-,1,-,1,-,HP,http://h20195.www2.hp.com/V2/GetPDF.aspx/c03742922.pdf,317500
+Indiegogo,,2014,45,55,33,67,43,57,64,59,23,29,8,6,2,-,0,-,6,6,Indiegogo,http://go.indiegogo.com/blog/2014/08/diversity-matters-always.html,100
 Nvidia,,2014,16,84,-,-,-,-,38,-,44,-,3,-,1,-,14,-,1,-,Nvidia,http://www.nvidia.com/object/fy14-gcr-workforce-performance.html,8800
 Dell,,2011,30,70,-,-,-,-,69,-,9,-,11,-,10,-,0,-,1,-,CNNMoney,http://money.cnn.com/interactive/technology/tech-diversity-data/,111300
 Intel,,2015,25,75,20,-,80,-,53,-,33,-,8,-,4,-,1,-,1,-,CNNMoney,http://money.cnn.com/interactive/technology/tech-diversity-data/,107600
-Groupon,,Sept 2014,47,53,18,82,12,88,71,47,15,38,5,6,4,2,0,-,4,7,Groupon,https://www.groupon.com/blog/cities/groupon-releases-diversity-data,10000
+Groupon,,2014,47,53,18,82,12,88,71,47,15,38,5,6,4,2,0,-,4,7,Groupon,https://www.groupon.com/blog/cities/groupon-releases-diversity-data,10000
 Amazon,,2014,39,61,-,-,24,76,50,-,11,-,13,-,21,-,0,-,5,-,Amazon,http://www.amazon.com/b/ref=tb_surl_diversity/?node=10080092011,88400
-Etsy,,July 2014,51,49,31,69,37,63,79,76,11,14,4,3,3,2,3,5,0,0,Etsy,https://blog.etsy.com/news/2014/diversity-at-etsy-more-than-just-numbers/,804
-Salesforce,,August 2015,29,71,23,77,19,81,67,-,22,-,4,-,2,-,2,-,3,-,Salesforce,http://www.salesforce.com/company/careers/diversity-numbers.jsp,
-Pandora,,August 2015,49,51,-,-,-,-,71,-,12,-,7,-,3,-,6,-,1,-,Pandora,http://www.pandora.com/careers/#diversity,
+Etsy,,2014,51,49,31,69,37,63,79,76,11,14,4,3,3,2,3,5,0,0,Etsy,https://blog.etsy.com/news/2014/diversity-at-etsy-more-than-just-numbers/,804
+Salesforce,,2015,29,71,23,77,19,81,67,-,22,-,4,-,2,-,2,-,3,-,Salesforce,http://www.salesforce.com/company/careers/diversity-numbers.jsp,
+Pandora,,2015,49,51,-,-,-,-,71,-,12,-,7,-,3,-,6,-,1,-,Pandora,http://www.pandora.com/careers/#diversity,
 Microsoft,,2015,28,72,-,-,-,-,59,-,29,-,5,-,4,-,1,-,1,-,Microsoft,http://www.microsoft.com/en-us/diversity/inside-microsoft/default.aspx#fbid=ZWJBwYZJM6G?epgDivFocusArea,128000
 Sendgrid,,2014,22,78,9,91,19,81,83,-,10,-,4,-,1,-,1,-,1,-,Sendgrid,https://sendgrid.com/blog/diversity-sendgrid/,
 Yelp,,2014,47,53,10,90,48,52,71,57,12,31,7,7,4,1,6,2,1,1,Yelp,http://officialblog.yelp.com/2014/08/workforce-diversity-at-yelp.html,

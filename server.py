@@ -143,16 +143,26 @@ def search_companies():
 
 
 @app.route('/company/<int:company_id>')
-def show_company(company_id):
+def company_info(company_id):
     """Company page with diversity details."""
 
+    print "I'm in!"
+
     company = Company.query.get(company_id)
+    print company
 
     categories_for_company = company.categories
+    print categories_for_company
 
     reviews = get_company_reviews(company_id)
+    print reviews
 
     overall_rating = get_company_overall_rating(company_id)
+    print overall_rating
+
+    report_date = generate_report_date(company_id)
+    print report_date
+
 
     company_list = get_gender_company_percentages(company_id)
     average_list = get_gender_avg_percentages()
@@ -223,14 +233,21 @@ def show_company(company_id):
             # average manager males
             data12 = 0
 
+    # print report_date
+
+    print report_date
+    print reviews
+    print "I made it!"
 
     return render_template("company-page.html", display_company=company, categories=categories_for_company,
-                                                reviews=reviews, overallRating=overall_rating, data1=data1,
+                                                reviews=reviews, overallRating=overall_rating, reportDate=report_date, data1=data1,
                                                 data2=data2, data3=data3, data4=data4, data5=data5,
                                                 data6=data6, data7=data7, data8=data8, data9=data9, data10=data10, data11=data11, data12=data12)
 
 
 ################################### JSON ROUTES #######################################################
+
+
 
 @app.route("/company-gender/<int:company_id>.json")
 def get_gender_info(company_id):
@@ -430,7 +447,7 @@ def add_user_comment(company_id):
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    app.debug = True
+    app.debug = False
 
     connect_to_db(app)
 
