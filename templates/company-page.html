@@ -161,7 +161,7 @@
         <button type="button" id="write-review" class="btn btn-default" onclick="location.href = '/review/{{ display_company.company_id }}';">
           Write a review
       </button>
-        <h4 style="font-size: 18px">Overall review rating: {{ overallRating }}<h4>
+        <h4 style="font-size: 18px">Overall rating: {{ overallRating }}<h4>
       </div>
     </div>
 
@@ -229,7 +229,7 @@
 
             <tr>
             <h4>"{{ review.review_title }}""</h4>
-            <p> <strong>Review: </strong>{{ review.rating }}</p>
+            <p> <strong>Rating: </strong>{{ review.rating }}</p>
             <p> <strong>Recommended: </strong>{{ review.recommended }}</p>
             <p> <strong>Anonymous:</strong> {{ review.employee_status }}</p>
             <p><strong>Gender: </strong>{{ review.gender }}</p>
@@ -244,7 +244,7 @@
 
             </tr>
             <tr>
-                <td>{{ review.pros }}</td>
+                <td class="table-padding">{{ review.pros }}</td>
             </tr>
 
             <tr>
