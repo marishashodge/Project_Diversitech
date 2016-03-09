@@ -1,6 +1,6 @@
 # Diversitech 
 
-![Diversitech Logo](/Documents/Diversitech-logo.png)
+![Diversitech Logo](/Documents/Diversitech-Logo.png)
 
 ## Author
 Diversitech was created by Marisha Schumacher-Hodge during her time as a Software Engineering Student at Hackbright Academy (San Francisco, Ca) in Winter 2016. You can learn more about Marisha on [LinkedIn](https://www.linkedin.com/in/marishaschumacherhodge>) and contact her directly at <marisha.schumacher.hodge@gmail.com>.
@@ -32,24 +32,24 @@ Future features for this app will include:
 #### Homepage
 Search for a company
 
-![navhome](/documents/Home-page.png)
+![navhome](/Documents/Home-page.png)
 
 See the Top Companies for Gender and Ethnicity 
-![rankings](/documents/Top10.png)
+![rankings](/Documents/Top10.png)
 
 #### Diversity Data
 
-![navhome](/documents/Home-page.png)
+![navhome](/Documents/Diversity-charts.png)
 
 #### Reviews
 Interact with the diversity charts to see the data for different roles within the company (i.e. Overall, Tech, Management)
-![navhome](/documents/Diversity-charts.png)
+![navhome](/Documents/Diversity-charts.png)
 
 #### News
 
 See the most recent news stories for a company related to their diversity efforts
 
-![navhome](/documents/News.png)
+![navhome](/Documents/News.png)
 
 ### Run this app locally 
 
