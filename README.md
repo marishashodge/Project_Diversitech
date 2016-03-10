@@ -4,7 +4,7 @@
 Diversitech was created by Marisha Schumacher-Hodge during her time as a Software Engineering Student at Hackbright Academy in Winter 2016. You can learn more about Marisha on her [LinkedIn profile](https://www.linkedin.com/in/marishaschumacherhodge>) and contact her directly at <marisha.schumacher.hodge@gmail.com>.
 
 ## Overview
-Diversitech is considered to be "The Glassdoor for Diversity in Tech Companies". Created for job-seekers who are researching companies to work for and advocates of diversity and inclusion, this app analyzes tech companies' publically-reported gender and ethnicity diversity data, allows current and former employees to write anonymous reviews on companies, and provides the most recent news on diversity efforts within that company. Users can search for a particular company to get a visualization of all of the diversity details and overall ratings for that company. Diversitech is unique in that it compares the diversity data for all of the tech companies in order to rank the top companies for gender and ethnic diversity.
+Created for job-seekers who are researching companies to work for and advocates of diversity and inclusion, Diversitech analyzes tech companies' publically-reported gender and ethnicity diversity data, allows current and former employees to write anonymous reviews on companies, and provides the most recent news on diversity efforts within that company. Users can search for a particular company to get a visualization of all of the diversity details and overall ratings for that company. Diversitech is unique in that it compares the diversity data for all of the tech companies in order to rank the top companies for gender and ethnic diversity.
 
 Future features for this app will include:
 - Ability for users to log-in and write private messages to other users who have written reviews.
@@ -16,7 +16,7 @@ Future features for this app will include:
 
 **Database**: SQL, Postgres, SQLAlchemy
 
-**Algorithms**: Custom Algorithms using Python 
+**Algorithms**: Custom Algorithms using Python
 
 **Frontend**: Javascript, JQuery, AJAX/JSON, Bootstrap, d3, ChartsJS, HTML5
 
@@ -57,7 +57,7 @@ Future features for this app will include:
 
 ![navhome](/Documents/News.png)
 
-## Run this app locally 
+## Run this app locally
 
 #### Create a virtualenv locally
 
@@ -84,4 +84,3 @@ $ python seed.py
 ```sh
 $ python server.py
 ```
-
