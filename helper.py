@@ -326,6 +326,7 @@ def generate_ethnicity_tech_dict(company_id):
     categories_for_average = average.categories
     us_population = Company.query.filter(Company.name == 'U.S. Population').one()
     categories_for_us_population = us_population.categories
+    company = Company.query.get(company_id)
 
     tech_dicts = {      "data1": [],
                         "data2": []
@@ -336,7 +337,7 @@ def generate_ethnicity_tech_dict(company_id):
                         "labels": ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other'],
                         "datasets": [
                                 {
-                                    "label": "Company - Tech Roles",
+                                    "label": company.name + "- Tech Roles",
                                     "fillColor": "rgba(173, 73, 182,0.9)",
                                     "strokeColor": "rgba(173, 73, 182,0.9)",
                                     "highlightFill": "rgba(173, 73, 182,0.75)",
@@ -438,7 +439,7 @@ def generate_ethnicity_info(company_id):
                         "labels": [],
                         "datasets": [
                                 {
-                                    "label": "Company",
+                                    "label": company.name,
                                     "fillColor": "rgba(173, 73, 182, 0.9)",
                                     "strokeColor": "rgba(173, 73, 182, 0.9)",
                                     "highlightFill": "rgba(173, 73, 182,0.75)",
@@ -514,7 +515,7 @@ def generate_report_date(company_id):
 
     if report_date == "-":
 
-        report_date = "False"
+        report_date = 0
 
     return report_date
 

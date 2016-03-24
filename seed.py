@@ -106,14 +106,14 @@ def load_reviews():
     titles_list = ["""Great Company!""", """Diversity has become a priority""", """I love the culture here!""", """Management does not seem to care about
     diversity!""", """Working here is the best decision I ever made!"""]
 
-    for i in range(2, 31):
+    for i in range(2, 32):
         for x in range(5):
 
             company_id = i
 
             rating = random.randint(1, 5)
 
-            gender = random.choice(['male', 'female'])
+            gender = random.choice(['Male', 'Female'])
 
             ethnicity = random.choice(['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other'])
 
@@ -125,7 +125,7 @@ def load_reviews():
 
             cons = random.choice(reviews_list)
 
-            recommended = random.choice(['yes', 'no'])
+            recommended = random.choice(['Yes', 'No'])
 
             review = Review(company_id=company_id,
                                           rating=rating,
