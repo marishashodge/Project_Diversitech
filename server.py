@@ -131,14 +131,16 @@ def search_companies():
 
     company_searched = request.form.get("search")
 
-    company = Company.query.filter(Company.name == company_searched).first()
+    company_verified = company_searched[0].capitalize() + company_searched[1:].lower()
+
+    company = Company.query.filter(Company.name == company_verified).first()
 
     if company:
         id_of_company = company.company_id
         return redirect("/company/" + str(id_of_company))
 
     else:
-        return render_template("company-not-found.html", company=company_searched)
+        return render_template("company-not-found.html", company=company_verified)
 
 
 
