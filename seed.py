@@ -5,10 +5,11 @@ from model import Company
 from model import Category
 from model import Review
 import random
+import os
 
 from model import connect_to_db, db
 
-from server import app
+from application import app
 import pandas as pd
 
 
@@ -147,7 +148,7 @@ if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
     # you in a state of being able to work with the database directly.
 
-    connect_to_db(app)
+    connect_to_db(app, os.environ.get("DATABASE_URL"))
     db.create_all()
     print "Connected to DB."
 

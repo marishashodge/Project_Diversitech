@@ -129,11 +129,11 @@ def example_data_categories():
 # Helper functions
 
 
-def connect_to_db(app, db_uri):
+def connect_to_db(app, db_url=None):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URL'] = db_uri or "postgresql:///diversity"
+    app.config['SQLALCHEMY_DATABASE_URL'] = db_url or "postgresql:///diversity"
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)
