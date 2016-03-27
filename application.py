@@ -11,7 +11,7 @@ import requests
 
 app = Flask(__name__)
 
-SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "ABCDEF")
+app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", "ABCDEF")
 
 # StructUndefined allows for Jinja2 to raise an error when there is an undefined variable
 app.jinja_env.undefined = StrictUndefined
