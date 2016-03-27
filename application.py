@@ -11,7 +11,7 @@ import requests
 
 app = Flask(__name__)
 
-app.secret_key = "54312"
+SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "ABCDEF")
 
 # StructUndefined allows for Jinja2 to raise an error when there is an undefined variable
 app.jinja_env.undefined = StrictUndefined
@@ -450,9 +450,9 @@ def add_user_comment(company_id):
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    app.debug = False
+    DEBUG = "NO_DEBUG" not in os.environ
 
-    connect_to_db(app)
+    connect_to_db(app, os.environ.get("DATABASE_URL"))
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)
