@@ -453,6 +453,7 @@ if __name__ == "__main__":
     DEBUG = "NO_DEBUG" not in os.environ
 
     connect_to_db(app, os.environ.get("DATABASE_URL"))
+    db.create_all(app=app)
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)

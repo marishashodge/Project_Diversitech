@@ -149,7 +149,7 @@ if __name__ == "__main__":
     # you in a state of being able to work with the database directly.
 
     connect_to_db(app, os.environ.get("DATABASE_URL"))
-    db.create_all()
+    db.create_all(app=app)
     print "Connected to DB."
 
     # Import different types of data
