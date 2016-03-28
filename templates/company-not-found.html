@@ -17,13 +17,45 @@
       <br>
       <h1><span style="color: #dd4814;">{{ company }}</span> has not been found.</h1>
     </div>
-  <div class="row">
     <div class='wrapper text-center'>
-      <h1>Ask them to report their data!</h2>
+      <h1>Ask them to publicly report their diversity data.</h2>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <br>
+    <br>
+    <div class="col-sm-8 col-sm-offset-2">
+      <form name="searchForm" id="home-search-bar" action="/search" onsubmit="return validateForm()" method='POST'>
+        <div id="imaginary_container">
+            <div class="input-group stylish-input-group" style="border: #000000 1px solid; margin-left: 20px;">
+                <input type="text" id="home-search" style="font-size: 20px;height: 50px;" name="search" class="form-control" placeholder="Search for another company...">
+                    <span class="input-group-addon">
+                      <button type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                      </button>
+                    </span>
+            </div>
+        </div>
+      </form>
     </div>
   </div>
   </div>
-</div>
+
+  <script>
+
+  function validateForm() {
+      var x = document.forms["searchForm"]["search"].value;
+      if (x == null || x == "") {
+          alert("Company name must be entered");
+          return false;
+      };
+  };
+
+  </script>
+
+
 
 
 

@@ -18,9 +18,15 @@
   color: #ffffff;
 }
 
+#textBox1, #textBox2, #textBox3 {
+  background-color: #f5f5f5;
+  border: #f5f5f5;
+  color: #000;
+}
+
 #home-search {
   background-color: #ffffff;
-  border: #ffffff;
+  border: #262626;
   color: #000000;
 }
 
@@ -230,6 +236,7 @@ h2 {
   width: 700px;
   align: center;
 }
+
 
 #ranking-column1 {
   background-color: #f5f5f5;
