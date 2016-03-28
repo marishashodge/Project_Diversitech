@@ -10,10 +10,10 @@ import requests
 import random
 
 # Set up for Fixie add-on
-proxyDict = {
-              "http"  : os.environ.get('FIXIE_URL', ''),
-              "https" : os.environ.get('FIXIE_URL', '')
-            }
+# proxyDict = {
+#               "http"  : os.environ.get('FIXIE_URL', ''),
+#               "https" : os.environ.get('FIXIE_URL', '')
+#             }
 
 app = Flask(__name__)
 
@@ -344,7 +344,7 @@ def return_news_search(company_id):
     random_ip = random.choice(ip_list)
 
     url = ('https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + str(company_name) + '%20diversity&userip=' + random_ip)
-    resp = requests.get(url, proxies=proxyDict)
+    resp = requests.get(url)
     results = resp.json()
 
     all_results = results["responseData"]
