@@ -6,8 +6,13 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, Company, Category, Review
 from helper import *
 import os
-
 import requests
+
+# Set up for Fixie add-on
+proxyDict = {
+              "http"  : os.environ.get('FIXIE_URL', ''),
+              "https" : os.environ.get('FIXIE_URL', '')
+            }
 
 app = Flask(__name__)
 
@@ -327,11 +332,12 @@ def return_news_search(company_id):
 
     company_news = { "results": []}
 
-    url = ('https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + str(company_name) + '%20diversity&userip=50.148.158.131')
-    resp = requests.get(url)
+    url = ('https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + str(company_name) + '%20diversity&userip=54.173.229.200')
+    resp = requests.get(url, proxies=proxyDict)
     results = resp.json()
 
     all_results = results["responseData"]
+
     ind_results = all_results["results"]
 
     for i in range(len(ind_results)):
