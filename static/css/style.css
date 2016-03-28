@@ -56,6 +56,10 @@ h4 {
   margin-right: auto;
 }
 
+.aboutText {
+  font-size: 16px;
+}
+
 a.glassdoor-button {
     -webkit-appearance: button;
     -moz-appearance: button;
