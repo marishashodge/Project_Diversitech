@@ -13,7 +13,7 @@
 
 <div class="container">
   <div class="row">
-    <p style="background:#FFFFFF;font-size:2.5em;color:#000000;height:116px;">
+    <p style="background:#FFFFFF;font-size:3em;color:#000000;height:116px;">
 
         <span id="company-logo"></span>
 
@@ -58,7 +58,7 @@
               </div>
               <div class="row">
                 <div class="col-xs-6 col-md-6">
-                    <h4  class="chart-header"><stong>{{ display_company.name }}</strong></h4>
+                    <h4  class="chart-header" style="text-transform: uppercase"><stong>{{ display_company.name }}</strong></h4>
                     <h4 style= "color:#dd4814;" class="chart-header" id="chart-header1"></h4>
                     <br>
                     <div id='chartDiv'></div>
@@ -125,7 +125,7 @@
     </div>
     <div class="row">
       <div class="ethnic-bar-graph">
-          <h4 class="chart-header"><strong>{{ display_company.name }}</strong></h4>
+          <h4 class="chart-header" style="text-transform: uppercase;"><strong>{{ display_company.name }}</strong></h4>
           <h4 style= "color:#dd4814;" id="heading" class="chart-header"></h4>
           <br>
           <canvas id="barGraph1"></canvas>
@@ -264,7 +264,7 @@
         <div class="tab-pane fade in" id="tab3">
           <!-- <h3>This is tab 3</h3> -->
           <div id="news">
-              <h3 class="review-title">Diversity News About {{ display_company.name }}</h1>
+              <h3 class="review-title">Diversity News About <span style="text-transform: uppercase;">{{ display_company.name }}</span></h1>
               <br>
               <p id="newsResults">Loading...</p>
 
@@ -310,7 +310,7 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
 
 
 if ({{ reportDate }} != 0) {
-  $(".report-title").html("{{ display_company.name }} last reported their diversity information in {{ reportDate }}. *");
+  $(".report-title").html("<span style='text-transform: uppercase;'>{{ display_company.name }}</span> last reported their diversity information in {{ reportDate }}. *");
 
 }
 

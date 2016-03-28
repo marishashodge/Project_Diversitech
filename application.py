@@ -135,18 +135,25 @@ def index():
 def search_companies():
     """Send user to company page or 'company-not-found.html' based on search query."""
 
-    company_searched = request.form.get("search")
+    company_searched = request.form.get("search").lower()
 
-    company_verified = company_searched[0].capitalize() + company_searched[1:].lower()
+    # if company_searched.lower() == "hp":
+    #     company_verified = "HP"
+    #
+    # elif company_searched.lower() == "ebay":
+    #     company_verified = "eBay"
+    #
+    # else:
+    #     company_verified = company_searched[0].capitalize() + company_searched[1:].lower()
 
-    company = Company.query.filter(Company.name == company_verified).first()
+    company = Company.query.filter(Company.name == company_searched).first()
 
     if company:
         id_of_company = company.company_id
         return redirect("/company/" + str(id_of_company))
 
     else:
-        return render_template("company-not-found.html", company=company_verified)
+        return render_template("company-not-found.html", company=company_searched)
 
 
 @app.route('/about')
@@ -378,6 +385,7 @@ def return_glassdoor_results(company_id):
     company = Company.query.get(company_id)
     company_name = company.name
 
+
     url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=55828&t.k=fhcJ0ZT1E89&action=employers&q=" + str(company_name)
 
     # Need to set the User-Agent in the header of http request to be able to access Glassdoor API
@@ -392,7 +400,10 @@ def return_glassdoor_results(company_id):
     featured_review_cons = results["response"]["employers"][0]["featuredReview"]["cons"]
     featured_review_rating = results["response"]["employers"][0]["featuredReview"]["overall"]
 
-    square_logo = results["response"]["employers"][0]["squareLogo"]
+    if company_name == "hp":
+        square_logo = "http://fixstream.com/wp-content/uploads/2015/08/hp-logo-square.jpg"
+    else:
+        square_logo = results["response"]["employers"][0]["squareLogo"]
 
     company_glassdoor["overallRating"] = overall_rating
     company_glassdoor["reviewsURL"] = reviews_url

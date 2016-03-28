@@ -19,16 +19,17 @@ def load_companies():
     data = pd.read_csv("Diversitech-Table.csv")
     print "Companies"
 
-    # Company.query.delete()
+    Company.query.delete()
 
     for index, row in data.iterrows():
         name = row[0]
+        name_lower = name.lower()
         # number_of_employees = row[28]
         report_date = row[2]
         female_overall = row[3]
         male_overall = row[4]
 
-        company = Company(name=name,
+        company = Company(name=name_lower,
                           # number_of_employees=number_of_employees,
                           report_date=report_date,
                           female_overall=female_overall,
@@ -56,7 +57,9 @@ def load_categories():
 
                 category = categories[i + 5]
                 percentage = row[i + 5]
-                company = Company.query.filter(Company.name == row[0]).first()
+                name = row[0]
+                name_lower = name.lower()
+                company = Company.query.filter(Company.name == name_lower).first()
                 id_of_company = company.company_id
                 detail = Category(category=category,
                                   percentage=percentage,

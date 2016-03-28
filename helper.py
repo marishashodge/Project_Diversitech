@@ -1,10 +1,10 @@
 from model import connect_to_db, db, Company, Category, Review
 
 def get_us_ethnic_percentages():
-    """Return a dictionary of percentages for each ethnic category in the U.S. Population."""
+    """Return a dictionary of percentages for each ethnic category in the u.s. population."""
 
     #for each company get the diversity numbers
-    us_population = Company.query.filter(Company.name == 'U.S. Population').one()
+    us_population = Company.query.filter(Company.name == 'u.s. population').one()
     categories_for_us_population = us_population.categories
 
     us_numbers = {}
@@ -19,7 +19,7 @@ def get_gender_top10():
     """Return a list of the top 5 companies in gender diversity."""
     gender_rating_dict = {}
 
-    us_population = Company.query.filter(Company.name == 'U.S. Population').one()
+    us_population = Company.query.filter(Company.name == 'u.s. population').one()
 
     f_us = us_population.female_overall
     m_us = us_population.male_overall
@@ -28,7 +28,7 @@ def get_gender_top10():
 
     for company in companies:
 
-        if company.name == 'U.S. Population' or company.name == 'average from our sample':
+        if company.name == 'u.s. population' or company.name == 'average from our sample':
             continue
 
         else:
@@ -60,7 +60,7 @@ def get_ethnic_count():
 
     for company in companies:
 
-        if company.name == 'U.S. Population' or company.name == 'average from our sample':
+        if company.name == 'u.s. population' or company.name == 'average from our sample':
             continue
 
         else:
@@ -324,7 +324,7 @@ def generate_ethnicity_tech_dict(company_id):
     categories_for_company = Category.query.filter(Category.company_id == company_id)
     average = Company.query.filter(Company.name == 'average from our sample').one()
     categories_for_average = average.categories
-    us_population = Company.query.filter(Company.name == 'U.S. Population').one()
+    us_population = Company.query.filter(Company.name == 'u.s. population').one()
     categories_for_us_population = us_population.categories
     company = Company.query.get(company_id)
 
@@ -431,7 +431,7 @@ def generate_ethnicity_info(company_id):
     categories_for_company = Category.query.filter(Category.company_id == company_id)
     average = Company.query.filter(Company.name == 'average from our sample').one()
     categories_for_average = average.categories
-    us_population = Company.query.filter(Company.name == 'U.S. Population').one()
+    us_population = Company.query.filter(Company.name == 'u.s. population').one()
     categories_for_us_population = us_population.categories
 
     #Initialize dictionary for basic ethnicity data
