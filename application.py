@@ -340,10 +340,10 @@ def return_news_search(company_id):
 
     company_news = { "results": []}
 
-    ip_list = ["54.175.230.252", "54.173.229.200"]
-    random_ip = random.choice(ip_list)
+    # ip_list = ["54.175.230.252", "54.173.229.200"]
+    # random_ip = random.choice(ip_list)
 
-    url = ('https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + str(company_name) + '%20diversity&userip=' + random_ip)
+    url = ('https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + str(company_name) + '%20diversity&userip=' + request.environ['REMOTE_ADDR'])
     resp = requests.get(url)
     results = resp.json()
 
