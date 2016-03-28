@@ -144,6 +144,12 @@ def search_companies():
         return render_template("company-not-found.html", company=company_verified)
 
 
+@app.route('/about')
+def about():
+    """About page."""
+
+    return render_template("about.html")
+
 
 @app.route('/company/<int:company_id>')
 def company_info(company_id):
