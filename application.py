@@ -7,6 +7,7 @@ from model import connect_to_db, db, Company, Category, Review
 from helper import *
 import os
 import requests
+import random
 
 # Set up for Fixie add-on
 proxyDict = {
@@ -339,7 +340,10 @@ def return_news_search(company_id):
 
     company_news = { "results": []}
 
-    url = ('https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + str(company_name) + '%20diversity&userip=54.173.229.200')
+    ip_list = ["54.175.230.252", "54.173.229.200"]
+    random_ip = random.choice(ip_list)
+
+    url = ('https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=' + str(company_name) + '%20diversity&userip=' + random_ip)
     resp = requests.get(url, proxies=proxyDict)
     results = resp.json()
 
