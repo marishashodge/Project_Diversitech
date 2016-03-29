@@ -266,12 +266,14 @@
           <div id="news">
               <h3 class="review-title">Diversity News About <span style="text-transform: uppercase;">{{ display_company.name }}</span></h1>
               <br>
-              <p id="newsResults">Loading...</p>
-
-
+              <span id="newsResults">Loading...</span>
+              <br>
+              <div id="branding"  style="float: left;"></div>
+              <br>
           </div>
         </div>
         </div>
+      </div>
       </div>
 </div>
 </div>
@@ -834,94 +836,65 @@ $("#reviews").click(generateGlassdoorDetails);
 
 // Google News Feed - From JSON
 
-function generateGoogleNews(evt) {
+// function genderateGoogleNews(evt) {
+//
+//
+//     $.get("/news/{{ display_company.company_id }}.json", function(data) {
+//
+//       $("#newsResults").html("")
+//       for (var i = 0; i < 4; i++) {
+//
+//
+//         $("#newsResults").append("<a href=" + data.results[i].unescapedUrl + " target='_blank'>" + data.results[i].title + "</a><p class='newsPubNameDate'><strong>" + data.results[i].publisher + "</strong>: " + data.results[i].publishedDate + "</p><p class='newsContent'>" + data.results[i].content + "</p")
+//
+//     }
+//
+//   } );
+//
+// }
+//
 
-
-    $.get("/news/{{ display_company.company_id }}.json", function(data) {
-
-      $("#newsResults").html("")
-      for (var i = 0; i < 4; i++) {
-
-
-        $("#newsResults").append("<a href=" + data.results[i].unescapedUrl + " target='_blank'>" + data.results[i].title + "</a><p class='newsPubNameDate'><strong>" + data.results[i].publisher + "</strong>: " + data.results[i].publishedDate + "</p><p class='newsContent'>" + data.results[i].content + "</p")
-
-    }
-
-  } );
-
-}
-
-$("#news").click(generateGoogleNews);
 
 // Google News Feed - Javascript Load
 
- // google.load("search", "1");
- //
- //    var newsSearch;
- //
- //      function searchComplete() {
- //
- //        // Check that we got results
-        // document.getElementById('content').innerHTML = '';
- //        if (newsSearch.results && newsSearch.results.length > 0) {
- //          for (var i = 0; i < newsSearch.results.length; i++) {
- //
- //            // Create HTML elements for search results
- //            var p = document.createElement('p');
- //            p.classList.add("news-title");
- //            var a = document.createElement('a');
- //            var publNameDate = document.createElement('p');
- //            publNameDate.classList.add("publ-name-date");
- //            var content = document.createElement('p');
- //            content.classList.add("news-para");
- //
- //
- //
- //            a.href= newsSearch.results[i].unescapedUrl;
- //            a.target = "_blank";
- //            a.innerHTML = newsSearch.results[i].title;
- //            publDate = newsSearch.results[i].publishedDate;
- //            publDate2 = publDate.slice(0,25);
- //            publName = newsSearch.results[i].publisher + ": ";
- //            publNameDate.innerHTML = publName.concat(publDate2);
- //            content.innerHTML = newsSearch.results[i].content;
- //
- //
- //            // Append search results to the HTML nodes
- //            p.appendChild(a);
- //            p.appendChild(publNameDate);
- //            p.appendChild(content);
- //
- //
- //            document.body.appendChild(p);
- //
- //          }
- //        }
- //      }
- //
- //      function onLoad() {
+
+
+ google.load("search", "1");
+
+    var newsSearch;
+
+      function searchComplete() {
+
+        $("#newsResults").html("")
+             for (var i = 0; i < 4; i++) {
+
+
+               $("#newsResults").append("<a href=" + newsSearch.results[i].unescapedUrl + " target='_blank'>" + newsSearch.results[i].title + "</a><p class='newsPubNameDate'><strong>" + newsSearch.results[i].publisher + "</strong>: " + newsSearch.results[i].publishedDate + "</p><p class='newsContent'>" + newsSearch.results[i].content + "</p")
+
+           }
+};
+
+      function onLoad() {
  //
  //        // Create a News Search instance.
- //        newsSearch = new google.search.NewsSearch();
+        newsSearch = new google.search.NewsSearch();
  //
  //
  //        // Set searchComplete as the callback function when a search is
  //        // complete.  The newsSearch object will have results in it.
- //        newsSearch.setSearchCompleteCallback(this, searchComplete, null);
- //
- //
- //
+        newsSearch.setSearchCompleteCallback(this, searchComplete, null);
+
  //        // Specify search quer(ies)
- //        newsSearch.execute('{{ display_company.name }} tech diversity');
- //
- //
- //        // Include the required Google branding
- //        google.search.Search.getBranding('branding');
- //
- //      }
- //
- //      // Set a callback to call your code when the page loads
- //      google.setOnLoadCallback(onLoad);
+        newsSearch.execute('{{ display_company.name }} tech diversity');
+
+         // Include the required Google branding
+        google.search.Search.getBranding('branding');
+
+      };
+
+
+
+$("#news").click(onLoad);
 
     $(document).ready(function() {
     $(".btn-pref .btn").click(function () {
@@ -934,8 +907,6 @@ $("#news").click(generateGoogleNews);
 
     </script>
 
-
-   <!--  <div id="branding"  style="float: left;"></div><br/> -->
 
 
 {% endblock %}
