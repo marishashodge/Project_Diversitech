@@ -218,7 +218,7 @@ def company_info(company_id):
 
     else:
 
-        if len(company_list) > 2:
+        if len(company_list) > 4:
             # company tech females
             data3 = company_list[2]
             # company tech males
@@ -265,6 +265,24 @@ def company_info(company_id):
                                                 reviews=reviews, overallRating=overall_rating, reportDate=report_date, data1=data1,
                                                 data2=data2, data3=data3, data4=data4, data5=data5,
                                                 data6=data6, data7=data7, data8=data8, data9=data9, data10=data10, data11=data11, data12=data12)
+
+@app.route('/discover')
+def full_company_list():
+    """Discover page listing all of companies in database."""
+
+    companies = Company.query.order_by(Company.name).all()
+
+    full_list = []
+
+    for company in companies:
+        if company.name == "u.s. population" or company.name == "average from our sample" or company.name == "google+":
+            continue
+        else:
+            full_list.append(company)
+
+
+    return render_template("discover.html", companies=full_list)
+
 
 
 ################################### JSON ROUTES #######################################################
