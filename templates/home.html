@@ -21,7 +21,7 @@
           <form style="max-width: 100%;" name="searchForm" id="home-search-bar" action="/search" onsubmit="return validateForm()" method='POST'>
             <div id="imaginary_container">
                 <div class="input-group stylish-input-group">
-                    <input type="text" id="home-search" style="font-size: 20px;height: 50px;" name="search" class="form-control" placeholder="Search for a company...">
+                    <input type="text" id="home-search" style="font-size: 1.3em;height: 50px;" name="search" class="form-control" placeholder="Search for a company...">
                         <span class="input-group-addon">
                           <button type="submit">
                         <span class="glyphicon glyphicon-search"></span>
@@ -56,14 +56,14 @@
     <!-- </div> -->
   </div>
     <div class = "row-fluid">
-      <div class="col-md-1"></div>
-      <div id="ranking-column1" class="col-md-4">
+      <div class="col-md-1 hidden-sm"></div>
+      <div id="ranking-column1" class="col-xs-10 col-xs-offset-0 col-md-4">
         <h2>Top 10 - Gender Diversity</h2>
         <table style="width:100%">
         <tr class="rank-row">
           <td class="rank-number">1.</td>
           <td id="logo1"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" class="rank-list" href="/company/{{ g1 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" class="rank-list" href="/company/{{ g1 }}">
           {{ gn1 }}
           </a>
         </td>
@@ -71,35 +71,35 @@
         <tr class="rank-row">
           <td class="rank-number">2.</td>
           <td id="logo2"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" class="rank-list" href="/company/{{ g2 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" class="rank-list" href="/company/{{ g2 }}">
           {{ gn2 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">3.</td>
           <td id="logo3"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ g3 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ g3 }}">
           {{ gn3 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">4.</td>
           <td id="logo4"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ g4 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ g4 }}">
           {{ gn4 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">5.</td>
           <td id="logo5"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ g5 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ g5 }}">
           {{ gn5 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">6.</td>
           <td id="logo11"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" class="rank-list" href="/company/{{ g6 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" class="rank-list" href="/company/{{ g6 }}">
           {{ gn6 }}
           </a>
         </td>
@@ -107,7 +107,7 @@
       <tr class="rank-row">
         <td class="rank-number">7.</td>
         <td id="logo12"></td>
-        <td><a style="font-size: 20px; text-transform: uppercase;" class="rank-list" href="/company/{{ g7 }}">
+        <td><a style="font-size: 1.3em; text-transform: uppercase;" class="rank-list" href="/company/{{ g7 }}">
         {{ gn7 }}
         </a>
       </td>
@@ -115,7 +115,7 @@
     <tr class="rank-row">
       <td class="rank-number">8.</td>
       <td id="logo13"></td>
-      <td><a style="font-size: 20px; text-transform: uppercase;" class="rank-list" href="/company/{{ g8 }}">
+      <td><a style="font-size: 1.3em; text-transform: uppercase;" class="rank-list" href="/company/{{ g8 }}">
       {{ gn8 }}
       </a>
     </td>
@@ -123,7 +123,7 @@
   <tr class="rank-row">
     <td class="rank-number">9.</td>
     <td id="logo14"></td>
-    <td><a style="font-size: 20px; text-transform: uppercase;" class="rank-list" href="/company/{{ g9 }}">
+    <td><a style="font-size: 1.3em; text-transform: uppercase;" class="rank-list" href="/company/{{ g9 }}">
     {{ gn9 }}
     </a>
   </td>
@@ -131,7 +131,7 @@
 <tr class="rank-row">
   <td class="rank-number">10.</td>
   <td id="logo15"></td>
-  <td><a style="font-size: 20px; text-transform: uppercase;" class="rank-list" href="/company/{{ g10 }}">
+  <td><a style="font-size: 1.3em; text-transform: uppercase;" class="rank-list" href="/company/{{ g10 }}">
   {{ gn10 }}
   </a>
 </td>
@@ -139,13 +139,13 @@
 
     </table>
   </div>
-      <div id="ranking-column2" class="col-md-4">
+      <div id="ranking-column2" class="col-xs-10 col-md-4">
         <h2>Top 10 - Ethnic Diversity</h2>
         <table style="width:100%">
         <tr class="rank-row">
           <td class="rank-number">1.</td>
           <td id="logo6"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e1 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e1 }}">
           {{ en1 }}
           </a>
         </td>
@@ -153,35 +153,35 @@
         <tr class="rank-row">
           <td class="rank-number">2.</td>
           <td id="logo7"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e2 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e2 }}">
           {{ en2 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">3.</td>
           <td id="logo8"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e3 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e3 }}">
           {{ en3 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">4.</td>
           <td id="logo9"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e4 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e4 }}">
           {{ en4 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">5.</td>
           <td id="logo10"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e5 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e5 }}">
           {{ en5 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">6.</td>
           <td id="logo16"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e6 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e6 }}">
           {{ en6 }}
           </a>
         </td>
@@ -189,28 +189,28 @@
         <tr class="rank-row">
           <td class="rank-number">7.</td>
           <td id="logo17"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e7 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e7 }}">
           {{ en7 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">8.</td>
           <td id="logo18"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e8 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e8 }}">
           {{ en8 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">9.</td>
           <td id="logo19"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e9 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e9 }}">
           {{ en9 }}
           </a>
         </tr>
         <tr class="rank-row">
           <td class="rank-number">10.</td>
           <td id="logo20"></td>
-          <td><a style="font-size: 20px; text-transform: uppercase;" href="/company/{{ e10 }}">
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" href="/company/{{ e10 }}">
           {{ en10 }}
           </a>
         </tr>
