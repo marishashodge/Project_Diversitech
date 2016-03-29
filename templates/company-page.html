@@ -165,38 +165,40 @@
     <br>
 
       <div class="row">
-        <div class = "container">
+        <div class="container">
+          <div id="no-reviews"></div>
+        </div>
+        <div class = "container" id="noReviews">
 
 
+          {% for review in reviews %}
+          <div id="review-block" class = "col-m-12">
+          <table style="width:100%">
 
-            {% for review in reviews %}
-            <div id="review-block" class = "col-m-12">
-            <table style="width:100%">
-
-            <tr>
-            <h4>"{{ review.review_title }}""</h4>
-            <p> <strong>Rating: </strong>{{ review.rating }}/5</p>
-            <p> <strong>Recommended: </strong>{{ review.recommended }}</p>
-            <p> <strong>Employee Status:</strong> {{ review.employee_status }}</p>
-            <p><strong>Gender: </strong>{{ review.gender }}</p>
-            <p><strong>Ethnicity: </strong>{{ review.ethnicity }}</p>
-            </tr>
           <tr>
-                <th class="table-padding">Pros</th>
+          <h4>"{{ review.review_title }}""</h4>
+          <p> <strong>Rating: </strong>{{ review.rating }}/5</p>
+          <p> <strong>Recommended: </strong>{{ review.recommended }}</p>
+          <p> <strong>Employee Status:</strong> {{ review.employee_status }}</p>
+          <p><strong>Gender: </strong>{{ review.gender }}</p>
+          <p><strong>Ethnicity: </strong>{{ review.ethnicity }}</p>
+          </tr>
+          <tr>
+              <th class="table-padding">Pros</th>
+          </tr>
+          <tr>
+              <td class="table-padding">{{ review.pros }}</td>
+          </tr>
+          <tr>
+                <th class="table-padding">Cons</th>
             </tr>
             <tr>
-                <td class="table-padding">{{ review.pros }}</td>
+                <td>{{ review.cons }}</td>
             </tr>
-            <tr>
-                  <th class="table-padding">Cons</th>
-              </tr>
-              <tr>
-                  <td>{{ review.cons }}</td>
-              </tr>
-        </table>
-      </div>
-        <hr>
-        {% endfor %}
+          </table>
+          </div>
+          <hr>
+          {% endfor %}
       </div>
 
       </div>
@@ -786,6 +788,17 @@ $("#chart-header2").html("OVERALL");
 
 
 
+// Generate Reviews
+
+function generateReviews() {
+
+  if ({{ reviews }}.length == 0) {
+    $('#no-reviews').html("<br><br><p style='font-size: 25px;'>Be the first to <a style='font-size:25px;' href ='/review/{{ display_company.company_id }}'>write a review</a>!</p><br><br>");
+  };
+
+
+}
+
 
 // Glassdoor Reviews
 
@@ -831,7 +844,7 @@ function generateGlassdoorDetails(evt) {
 
 }
 
-$("#reviews").click(generateGlassdoorDetails);
+$("#reviews").click(generateGlassdoorDetails, generateReviews);
 
 
 // Google News Feed - From JSON

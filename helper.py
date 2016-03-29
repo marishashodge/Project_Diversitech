@@ -1,4 +1,5 @@
 from model import connect_to_db, db, Company, Category, Review
+import os
 
 def get_us_ethnic_percentages():
     """Return a dictionary of percentages for each ethnic category in the u.s. population."""
@@ -327,6 +328,7 @@ def generate_ethnicity_tech_dict(company_id):
     us_population = Company.query.filter(Company.name == 'u.s. population').one()
     categories_for_us_population = us_population.categories
     company = Company.query.get(company_id)
+    company_name = company.name.upper()
 
     tech_dicts = {      "data1": [],
                         "data2": []
@@ -337,7 +339,7 @@ def generate_ethnicity_tech_dict(company_id):
                         "labels": ['White', 'Asian', 'Latino', 'Black', 'Two+ races', 'Other'],
                         "datasets": [
                                 {
-                                    "label": company.name + "- Tech Roles",
+                                    "label": company_name + "- Tech Roles",
                                     "fillColor": "rgba(173, 73, 182,0.9)",
                                     "strokeColor": "rgba(173, 73, 182,0.9)",
                                     "highlightFill": "rgba(173, 73, 182,0.75)",
@@ -433,13 +435,14 @@ def generate_ethnicity_info(company_id):
     categories_for_average = average.categories
     us_population = Company.query.filter(Company.name == 'u.s. population').one()
     categories_for_us_population = us_population.categories
+    company_name = company.name.upper()
 
     #Initialize dictionary for basic ethnicity data
     ethnic_list_of_dicts = {
                         "labels": [],
                         "datasets": [
                                 {
-                                    "label": company.name,
+                                    "label": company_name,
                                     "fillColor": "rgba(173, 73, 182, 0.9)",
                                     "strokeColor": "rgba(173, 73, 182, 0.9)",
                                     "highlightFill": "rgba(173, 73, 182,0.75)",
@@ -486,12 +489,18 @@ def get_company_overall_rating(company_id):
 
     reviews = Review.query.filter(Review.company_id == company_id).all()
 
-    count = 0
+    if len(reviews) == 0:
 
-    for review in reviews:
-        count += review.rating
+        overall_rating = 0
 
-    overall_rating = average = count / len(reviews)
+    else:
+
+        count = 0
+
+        for review in reviews:
+            count += review.rating
+
+        overall_rating = average = count / len(reviews)
 
     return overall_rating
 
@@ -500,12 +509,9 @@ def get_company_reviews(company_id):
 
     reviews = Review.query.filter(Review.company_id == company_id).order_by(Review.review_id).all()
 
-    # Only show the most recent two reviews and reverse them so the newest one is first
-    two_recent_reviews = reviews[-3:]
+    reviews.reverse()
 
-    two_recent_reviews.reverse()
-
-    return two_recent_reviews
+    return reviews
 
 def generate_report_date(company_id):
 
