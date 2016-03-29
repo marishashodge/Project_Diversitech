@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  <br>
+  <br>
+    <div class="row">
+      <div class="col-md-10">
+      <h3 id="discover-title">Discover All Tech Companies*</h3>
+      <br>
+      <p style="color: #aea79f">*The tech companies listed below are in the Diversitech database. See the <a style="font-size: 14px;" href="/about">About</a> page for more information.</p>
+      <br>
+    </div>
+  </div>
+    <div class = "row">
+      <div class="col-md-10">
+        <table style="width:100%">
+        {% for company in companies %}
+        <tr class="discover-row">
+          <!-- <td class="rank-number">1.</td> -->
+          <!-- <td id="logo1"></td> -->
+          <td><a style="font-size: 20px; text-transform: uppercase;" class="rank-list" href="/company/{{ company.company_id }}">
+          {{ company.name }}
+          </a>
+        </td>
+      </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  </div>
+  <br>
+  <br>
+
+
+
+{% endblock %}
