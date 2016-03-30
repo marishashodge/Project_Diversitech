@@ -320,7 +320,7 @@ def return_news_search(company_id):
 
     d = feedparser.parse('https://news.google.com/news?q=' + str(company_name) + '+diversity&output=rss')
 
-    for post in d.entries:
+    for post in d.entries[0:5]:
         news_url = post.link
         news_title = post.title
 
@@ -495,7 +495,7 @@ def add_user_comment(company_id):
 
     flash("Your review has been received!")
     return redirect("/company/" + str(id_of_company))
-    
+
 
 ##################################### D3 CHART EXAMPLE ###############################################
 
