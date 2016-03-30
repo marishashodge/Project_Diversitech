@@ -177,6 +177,7 @@ def company_info(company_id):
     print categories_for_company
 
     reviews = get_company_reviews(company_id)
+    review_length = len(reviews)
     print reviews
 
     overall_rating = get_company_overall_rating(company_id)
@@ -262,7 +263,7 @@ def company_info(company_id):
     print "I made it!"
 
     return render_template("company-page.html", display_company=company, categories=categories_for_company,
-                                                reviews=reviews, overallRating=overall_rating, reportDate=report_date, data1=data1,
+                                                reviews=reviews, reviewLength=review_length, overallRating=overall_rating, reportDate=report_date, data1=data1,
                                                 data2=data2, data3=data3, data4=data4, data5=data5,
                                                 data6=data6, data7=data7, data8=data8, data9=data9, data10=data10, data11=data11, data12=data12)
 

@@ -176,7 +176,7 @@
           <table style="width:100%">
 
           <tr>
-          <h4>"{{ review.review_title }}""</h4>
+          <h4 style="color: #dd4814">"{{ review.review_title }}"</h4>
           <p> <strong>Rating: </strong>{{ review.rating }}/5</p>
           <p> <strong>Recommended: </strong>{{ review.recommended }}</p>
           <p> <strong>Employee Status:</strong> {{ review.employee_status }}</p>
@@ -311,7 +311,16 @@ $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data)
 
  });
 
+ // Generate Reviews
 
+ function generateReviews() {
+
+   if ({{ reviewLength }} == 0) {
+     $('#no-reviews').html("<br><br><p style='font-size: 25px;'>Be the first to <a style='font-size:25px;' href ='/review/{{ display_company.company_id }}'>write a review</a>!</p><br><br>");
+   };
+
+
+ }
 
 if ({{ reportDate }} != 0) {
   $(".report-title").html("<span style='text-transform: uppercase;'>{{ display_company.name }}</span> last reported their diversity information in {{ reportDate }}. *");
@@ -788,16 +797,7 @@ $("#chart-header2").html("OVERALL");
 
 
 
-// Generate Reviews
 
-function generateReviews() {
-
-  if ({{ reviews }}.length == 0) {
-    $('#no-reviews').html("<br><br><p style='font-size: 25px;'>Be the first to <a style='font-size:25px;' href ='/review/{{ display_company.company_id }}'>write a review</a>!</p><br><br>");
-  };
-
-
-}
 
 
 // Glassdoor Reviews

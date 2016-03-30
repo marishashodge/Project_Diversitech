@@ -489,11 +489,7 @@ def get_company_overall_rating(company_id):
 
     reviews = Review.query.filter(Review.company_id == company_id).all()
 
-    if len(reviews) == 0:
-
-        overall_rating = 0
-
-    else:
+    if len(reviews) > 0:
 
         count = 0
 
@@ -501,6 +497,10 @@ def get_company_overall_rating(company_id):
             count += review.rating
 
         overall_rating = average = count / len(reviews)
+
+    else:
+            overall_rating = 0
+
 
     return overall_rating
 

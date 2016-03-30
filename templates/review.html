@@ -12,125 +12,169 @@
   <div class="form-group row">
     <label for="inputCompany" style="font-size: 16px;" class="col-sm-2 form-control-label">Company</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" id="textBox1" name="company" value="{{ company.name }}">
+      <input style="text-transform: uppercase;" type="text" class="form-control" id="textBox1" name="company" value="{{ company.name }}" required>
     </div>
   </div>
-
+  <br>
   <div class="form-group row">
     <label class="col-sm-2" style="font-size: 16px;">Rating</label>
     <div class="col-sm-10">
       <div class="radio">
         <label>
-          <input type="radio" name="rating" value="1" required>  1
+          <input type="radio" name="rating" value="1"><img style='width: 134px; height: 28px;' src='/static/img/1.jpg' >
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="rating" value="2" required>  2
+          <input type="radio" name="rating" value="2"><img style='width: 134px; height: 28px;' src='/static/img/2.jpg'>
         </label>
       </div>
       <div class="radio disabled">
         <label>
-          <input type="radio" name="rating" value="3" required>  3
+          <input type="radio" name="rating" value="3"><img style='width: 134px; height: 28px;' src='/static/img/3.jpg'>
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="rating" value="4" required>  4
+          <input type="radio" name="rating" value="4"><img style='width: 134px; height: 28px; vertical-align: middle;' src='/static/img/4.jpg'>
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="rating" value="5" required>  5
+          <input type="radio" name="rating" value="5" required><img style='width: 134px; height: 28px;' src='/static/img/5.jpg' required>
         </label>
       </div>
     </div>
   </div>
+  <br>
+  <div class="form-group row">
+    <label class="col-sm-2" style="font-size: 16px;">Do you recommend this company?</label>
+    <div class="col-sm-10">
+      <div class="radio">
+        <label>
+          <input type="radio" name="recommend" value="Yes" required> Yes
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="recommend" value="No" required> No
+        </label>
+      </div>
+    </div>
+  </div>
+  <br>
   <div class="form-group row">
     <label class="col-sm-2" style="font-size: 16px;">Gender</label>
     <div class="col-sm-10">
       <div class="radio">
         <label>
-          <input type="radio" name="gender" value="male">  Male
+          <input type="radio" name="gender" value="Male" >  Male
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="gender" value="female">  Female
+          <input type="radio" name="gender" value="Female">  Female
         </label>
       </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="gender" value="nodisclosure">  Do not wish to disclose
+        </label>
+      </div>
+      <label>
+        Other:  <input type="text" name="gender">
+      </label>
     </div>
   </div>
-
+  <br>
   <div class="form-group row">
     <label class="col-sm-2" style="font-size: 16px;">Ethnicity</label>
     <div class="col-sm-10">
       <div class="radio">
         <label>
-          <input type="radio" name="ethnicity" value="white">  White
+          <input type="radio" name="ethnicity" value="White">  White
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="ethnicity" value="asian">  Asian
+          <input type="radio" name="ethnicity" value="Asian">  Asian
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="ethnicity" value="latino">  Latino
+          <input type="radio" name="ethnicity" value="Latino">  Latino
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="ethnicity" value="black">  Black
+          <input type="radio" name="ethnicity" value="Black">  Black
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="ethnicity" value="two+ races">  Two+ Races
+          <input type="radio" name="ethnicity" value="Two+ races">  Two+ Races
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="ethnicity" value="other">  Other
+          <input type="radio" name="ethnicity" value="Do not wish to disclose">  Do not wish to disclose
         </label>
       </div>
+      <!-- <div class="radio"> -->
+        <label>
+          Other:  <input type="text" name="ethnicity">
+        </label>
+      <!-- </div> -->
+
     </div>
   </div>
-
+  <br>
   <div class="form-group row">
     <label class="col-sm-2" style="font-size: 16px;">Employee Status</label>
     <div class="col-sm-10">
       <div class="radio">
         <label>
-          <input type="radio" name="employee_status" value="current" required>Current Employee
+          <input type="radio" name="employee_status" value="Current">Current Employee
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="employee_status" value="former" required>Former Employee
+          <input type="radio" name="employee_status" value="Former">Former Employee
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="employee_status" value="Do not wish to disclose" required>  Do not wish to disclose
         </label>
       </div>
     </div>
   </div>
-
+  <br>
+  <div class="form-group row">
+    <label for="inputTitle" style="font-size: 16px;" class="col-sm-2 form-control-label">Review Title</label>
+    <div class="col-sm-6">
+      <input type="text" name="title" id="textBox1" class="form-control" required>
+      </textarea>
+    </div>
+  </div>
+  <br>
   <div class="form-group row">
     <label for="inputPros" style="font-size: 16px;" class="col-sm-2 form-control-label">Pros</label>
     <div class="col-sm-6">
-      <textarea rows="4" cols="50" name="pros" id="textBox2" class="form-control">
+      <input type="text" rows="4" cols="50" name="pros" id="textBox2" class="form-control" required>
       </textarea>
     </div>
   </div>
-
+  <br>
   <div class="form-group row">
     <label for="inputCons" style="font-size: 16px;" class="col-sm-2 form-control-label">Cons</label>
     <div class="col-sm-6">
-      <textarea rows="4" cols="50" name="cons" id="textBox3" class="form-control">
+      <input type="text" rows="4" cols="50" name="cons" id="textBox3" class="form-control" required>
       </textarea>
     </div>
   </div>
 
-
+  <br>
   <div class="form-group row">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-secondary">Submit</button>
