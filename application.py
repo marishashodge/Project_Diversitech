@@ -8,6 +8,7 @@ from helper import *
 import os
 import requests
 import random
+import feedparser
 
 # Set up for Fixie add-on
 # proxyDict = {
@@ -21,48 +22,6 @@ app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", "ABCDEF")
 
 # StructUndefined allows for Jinja2 to raise an error when there is an undefined variable
 app.jinja_env.undefined = StrictUndefined
-
-
-@app.route('/d3Chart/<int:company_id>')
-def chart(company_id):
-
-    company_list = get_gender_company_percentages(company_id)
-    average_list = get_gender_avg_percentages()
-
-    # company females
-    data1 = company_list[0]
-    # company males
-    data2 = company_list[1]
-
-    # average females
-    data5 = average_list[0]
-    # average males
-    data6 = average_list[1]
-
-    if len(company_list) > 2:
-
-        data3 = company_list[2]
-        # company tech males
-        data4 = company_list[3]
-
-        # average tech females
-        data7 = average_list[2]
-        # average tech males
-        data8 = average_list[3]
-
-    else:
-
-        data3 = 0
-        # company tech males
-        data4 = 0
-        # average tech females
-        data7 = 0
-        # average tech males
-        data8 = 0
-
-
-    return render_template("d3-3.html", data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, data7=data7, data8=data8)
-
 
 
 @app.route('/')
@@ -350,6 +309,51 @@ def return_ethnicity_tech_info(company_id):
 
 ############################################# NEWS #####################################################
 
+@app.route("/news/<int:company_id>.json")
+def return_news_search(company_id):
+    """Returns Google news search for company news in diversity."""
+
+    company = Company.query.get(company_id)
+    company_name = company.name
+
+    company_news = { "results": []}
+
+    d = feedparser.parse('https://news.google.com/news?q=' + str(company_name) + '+diversity&output=rss')
+
+    for post in d.entries:
+        news_url = post.link
+        news_title = post.title
+
+        news_publisher_list = []
+
+        for char in reversed(news_title):
+
+
+            if char == "-":
+                break
+            else:
+                news_publisher_list.append(char)
+
+        news_publisher_list.reverse()
+        publisher_str = ""
+        for char in news_publisher_list:
+            publisher_str += char
+
+        cut_news_title = news_title[:-(len(publisher_str) + 2)]
+        news_title = post.title
+        news_publ_date = post.published
+
+        one_result = {}
+
+        one_result["unescapedUrl"] = news_url
+        one_result["publisher"] = publisher_str
+        one_result["title"] = cut_news_title
+        one_result["publishedDate"] = news_publ_date
+
+        company_news["results"].append(one_result)
+
+    return jsonify(company_news)
+
 # @app.route("/news/<int:company_id>.json")
 # def return_news_search(company_id):
 #     """Returns Google news search for company news in diversity."""
@@ -461,6 +465,7 @@ def return_glassdoor_results(company_id):
 #
 #     return jsonify(company_glassdoor)
 
+############################### SUBMITTED REVIEWS #########################################
 
 @app.route("/submitted/<int:company_id>", methods=["POST"])
 def add_user_comment(company_id):
@@ -490,7 +495,50 @@ def add_user_comment(company_id):
 
     flash("Your review has been received!")
     return redirect("/company/" + str(id_of_company))
+    
 
+##################################### D3 CHART EXAMPLE ###############################################
+
+ # @app.route('/d3Chart/<int:company_id>')
+ # def chart(company_id):
+ #
+ #     company_list = get_gender_company_percentages(company_id)
+ #     average_list = get_gender_avg_percentages()
+ #
+ #     # company females
+ #     data1 = company_list[0]
+ #     # company males
+ #     data2 = company_list[1]
+ #
+ #     # average females
+ #     data5 = average_list[0]
+ #     # average males
+ #     data6 = average_list[1]
+ #
+ #     if len(company_list) > 2:
+ #
+ #         data3 = company_list[2]
+ #         # company tech males
+ #         data4 = company_list[3]
+ #
+ #         # average tech females
+ #         data7 = average_list[2]
+ #         # average tech males
+ #         data8 = average_list[3]
+ #
+ #     else:
+ #
+ #         data3 = 0
+ #         # company tech males
+ #         data4 = 0
+ #         # average tech females
+ #         data7 = 0
+ #         # average tech males
+ #         data8 = 0
+ #
+ #
+ #     return render_template("d3-3.html", data1=data1, data2=data2, data3=data3, data4=data4, data5=data5, data6=data6, data7=data7, data8=data8)
+ #
 
 
 if __name__ == "__main__":

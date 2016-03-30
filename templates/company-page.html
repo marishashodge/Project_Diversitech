@@ -268,8 +268,7 @@
           <div id="news">
               <h3 class="review-title">Diversity News About <span style="text-transform: uppercase;">{{ display_company.name }}</span></h1>
               <br>
-              <h4> Coming soon!</h4>
-              <!-- <span id="newsResults">Loading...</span> -->
+              <span id="newsResults">Loading...</span>
               <br>
               <div id="branding"  style="float: left;"></div>
               <br>
@@ -802,71 +801,72 @@ $("#chart-header2").html("OVERALL");
 
 
 // Glassdoor Reviews
-
-function generateGlassdoorDetails(evt) {
-
-    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
-        // $('#rating').html(data.reviewRating);
-        if (data.reviewRating == 1) {
-          $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/1.jpg'>");
-        }
-        else if (data.reviewRating == 2) {
-          $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/2.jpg'>");
-        }
-        else if (data.reviewRating == 3) {
-          $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/3.jpg'>");
-        }
-        else if (data.reviewRating == 5) {
-          $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/4.jpg'>");
-        }
-        else if (data.reviewRating == 5) {
-          $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/5.jpg'>");
-        }
-    });
-
-    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
-        $('#headline').html("'" + data.reviewHeadline);
-     });
-
-    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
-        $('#pros').html(data.reviewPros);
-
-     });
-
-    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
-        $('#cons').html(data.reviewCons);
-
-     });
-
-    $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
-        $('#glassdoor-button').attr("href", data.reviewsURL);
-
-     });
-
-}
-
-$("#reviews").click(generateGlassdoorDetails, generateReviews);
+//
+// function generateGlassdoorDetails(evt) {
+//
+//     $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+//         // $('#rating').html(data.reviewRating);
+//         if (data.reviewRating == 1) {
+//           $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/1.jpg'>");
+//         }
+//         else if (data.reviewRating == 2) {
+//           $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/2.jpg'>");
+//         }
+//         else if (data.reviewRating == 3) {
+//           $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/3.jpg'>");
+//         }
+//         else if (data.reviewRating == 5) {
+//           $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/4.jpg'>");
+//         }
+//         else if (data.reviewRating == 5) {
+//           $('#rating').html("<img style='width: 191px; height: 40px;' src='/static/img/5.jpg'>");
+//         }
+//     });
+//
+//     $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+//         $('#headline').html("'" + data.reviewHeadline);
+//      });
+//
+//     $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+//         $('#pros').html(data.reviewPros);
+//
+//      });
+//
+//     $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+//         $('#cons').html(data.reviewCons);
+//
+//      });
+//
+//     $.get("/glassdoor-results/{{ display_company.company_id }}.json", function(data) {
+//         $('#glassdoor-button').attr("href", data.reviewsURL);
+//
+//      });
+//
+// }
+//
+// $("#reviews").click(generateGlassdoorDetails, generateReviews);
 
 
 // Google News Feed - From JSON
 
-// function genderateGoogleNews(evt) {
-//
-//
-//     $.get("/news/{{ display_company.company_id }}.json", function(data) {
-//
-//       $("#newsResults").html("")
-//       for (var i = 0; i < 4; i++) {
-//
-//
-//         $("#newsResults").append("<a href=" + data.results[i].unescapedUrl + " target='_blank'>" + data.results[i].title + "</a><p class='newsPubNameDate'><strong>" + data.results[i].publisher + "</strong>: " + data.results[i].publishedDate + "</p><p class='newsContent'>" + data.results[i].content + "</p")
-//
-//     }
-//
-//   } );
-//
-// }
-//
+function genderateGoogleNews(evt) {
+
+
+    $.get("/news/{{ display_company.company_id }}.json", function(data) {
+
+      $("#newsResults").html("")
+      for (var i = 0; i < 4; i++) {
+
+
+        $("#newsResults").append("<a style='font-size: 16px;' href=" + data.results[i].unescapedUrl + " target='_blank'>" + data.results[i].title + "</a><p style='font-size: 16px;' class='newsPubNameDate'><strong>" + data.results[i].publisher + "</strong>  " + data.results[i].publishedDate + "</p><br>")
+
+    }
+
+  } );
+
+}
+
+$("#news").click(genderateGoogleNews);
 
 
 // Google News Feed - Javascript Load
