@@ -97,14 +97,8 @@ def search_companies():
 
     company_searched = request.form.get("search").lower()
 
-    # if company_searched.lower() == "hp":
-    #     company_verified = "HP"
-    #
-    # elif company_searched.lower() == "ebay":
-    #     company_verified = "eBay"
-    #
-    # else:
-    #     company_verified = company_searched[0].capitalize() + company_searched[1:].lower()
+    if company_searched == "yahoo":
+        company_searched += "!"
 
     company = Company.query.filter(Company.name == company_searched).first()
 
