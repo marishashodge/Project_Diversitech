@@ -857,7 +857,7 @@ function genderateGoogleNews(evt) {
     $.get("/news/{{ display_company.company_id }}.json", function(data) {
 
       $("#newsResults").html("")
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < 8; i++) {
 
 
         $("#newsResults").append("<a style='font-size: 16px;' href=" + data.results[i].unescapedUrl + " target='_blank'>" + data.results[i].title + "</a><p style='font-size: 16px;' class='newsPubNameDate'><strong>" + data.results[i].publisher + "</strong>  " + data.results[i].publishedDate + "</p><br>")
