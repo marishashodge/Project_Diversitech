@@ -320,7 +320,7 @@ def return_news_search(company_id):
 
     d = feedparser.parse('https://news.google.com/news?q=' + str(company_name) + '+diversity&output=rss')
 
-    for post in d.entries[0:5]:
+    for post in d.entries:
         news_url = post.link
         news_title = post.title
 
