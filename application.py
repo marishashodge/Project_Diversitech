@@ -131,7 +131,7 @@ def company_info(company_id):
     overall_rating = get_company_overall_rating(company_id)
 
     report_date = generate_report_date(company_id)
-    
+
     company_list = get_gender_company_percentages(company_id)
     average_list = get_gender_avg_percentages()
 
@@ -315,33 +315,35 @@ def return_news_search(company_id):
         news_url = post.link
         news_title = post.title
 
-        news_publisher_list = []
+        if company_name in news_title.lower():
 
-        for char in reversed(news_title):
+            news_publisher_list = []
+
+            for char in reversed(news_title):
 
 
-            if char == "-":
-                break
-            else:
-                news_publisher_list.append(char)
+                if char == "-":
+                    break
+                else:
+                    news_publisher_list.append(char)
 
-        news_publisher_list.reverse()
-        publisher_str = ""
-        for char in news_publisher_list:
-            publisher_str += char
+            news_publisher_list.reverse()
+            publisher_str = ""
+            for char in news_publisher_list:
+                publisher_str += char
 
-        cut_news_title = news_title[:-(len(publisher_str) + 2)]
-        news_title = post.title
-        news_publ_date = post.published
+            cut_news_title = news_title[:-(len(publisher_str) + 2)]
+            news_title = post.title
+            news_publ_date = post.published
 
-        one_result = {}
+            one_result = {}
 
-        one_result["unescapedUrl"] = news_url
-        one_result["publisher"] = publisher_str
-        one_result["title"] = cut_news_title
-        one_result["publishedDate"] = news_publ_date
+            one_result["unescapedUrl"] = news_url
+            one_result["publisher"] = publisher_str
+            one_result["title"] = cut_news_title
+            one_result["publishedDate"] = news_publ_date
 
-        company_news["results"].append(one_result)
+            company_news["results"].append(one_result)
 
     return jsonify(company_news)
 
