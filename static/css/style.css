@@ -273,15 +273,15 @@ h5 {
 
 #rad1, #rad2, #rad3{
   background-color: #aea79f;
-  margin-left: 3px;
-  margin-right: 3px;
+  /*margin-left: 3px;*/
+  /*margin-right: 3px;*/
   border-color: #000;
 }
 
 #overall-b-button, #tech-b-button {
   background-color: #aea79f;
-  margin-left: 3px;
-  margin-right: 3px;
+  /*margin-left: 1px;*/
+  /*margin-right: 3px;*/
   border-color: #000;
 }
 
