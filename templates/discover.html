@@ -15,16 +15,16 @@
     <div class = "row">
       <div class="col-md-10">
         <table style="width:100%">
-        {% for company in companies %}
+        {% for logo in logos %}
         <tr class="discover-row">
-          <!-- <td class="rank-number">1.</td> -->
-          <!-- <td id="logo1"></td> -->
-          <td><a style="font-size: 1.3em; text-transform: uppercase;" class="rank-list" href="/company/{{ company.company_id }}">
-          {{ company.name }}
+          <td><img src={{ logo.logo }} alt={{ logo.company.name }} width='60' height='60' style='margin-right:10px; vertical-align: bottom; border-style: solid; border-width: 7px; border-color: #ffffff'></td>
+          <td><a style="font-size: 1.3em; text-transform: uppercase;" class="rank-list" href="/company/{{ logo.company.name }}">
+            {{ logo.company.name }}
           </a>
         </td>
       </tr>
-        {% endfor %}
+      {% endfor %}
+
       </table>
     </div>
   </div>
@@ -41,6 +41,7 @@
 
   ga('create', 'UA-75816678-1', 'auto');
   ga('send', 'pageview');
+
 
 </script>
 

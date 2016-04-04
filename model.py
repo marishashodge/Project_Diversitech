@@ -69,6 +69,24 @@ class Review(db.Model):
     company = db.relationship('Company', backref=db.backref("review", order_by=review_id))
 
 
+
+class Logo(db.Model):
+
+    __tablename__ = "logos"
+
+    logo_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    company_id = db.Column(db.Integer, db.ForeignKey('companies.company_id'), nullable=False)
+    logo = db.Column(db.String(150))
+
+    def __repr(self):
+        """Show info about company logo."""
+
+        return "<Logo company_id=%s logo=%s" % (self.company_id, self.logo)
+
+    company = db.relationship('Company', backref=db.backref("logo", order_by=company_id))
+
+
+
 def example_data_companies():
     """Create some sample data."""
 

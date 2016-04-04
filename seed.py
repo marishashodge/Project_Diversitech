@@ -4,8 +4,10 @@ from sqlalchemy import func
 from model import Company
 from model import Category
 from model import Review
+from model import Logo
 import random
 import os
+import requests
 
 from model import connect_to_db, db
 
@@ -40,6 +42,42 @@ def load_companies():
     db.session.commit()
 
 
+def load_company_logos():
+
+    companies = Company.query.all()
+
+    for company in companies:
+        company_name = company.name
+        company_id = company.company_id
+
+        if company_name == "u.s. population" or company_name == "average from our sample":
+            continue
+
+        else:
+
+            url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=55828&t.k=fhcJ0ZT1E89&action=employers&q=" + str(company_name)
+
+            resp = requests.get(url, headers={'User-Agent': 'curl/7.30.0'})
+            results = resp.json()
+
+            if company_name == "hp":
+                square_logo = "http://fixstream.com/wp-content/uploads/2015/08/hp-logo-square.jpg"
+
+            elif company_name == "instagram":
+                square_logo = "http://cdn.wccftech.com/wp-content/uploads/2015/08/Instagram-logo.png"
+
+            else:
+                square_logo = results["response"]["employers"][0]["squareLogo"]
+
+            logo = Logo(company_id=company_id,
+                        logo=square_logo)
+
+            db.session.add(logo)
+
+    db.session.commit()
+
+
+
 def load_categories():
     """Load categories into categories table."""
     data = pd.read_csv("Diversitech-Table.csv")
@@ -68,6 +106,7 @@ def load_categories():
                 db.session.add(detail)
 
     db.session.commit()
+
 
 
 # def load_reviews():
@@ -158,4 +197,5 @@ if __name__ == "__main__":
     # Import different types of data
     load_companies()
     load_categories()
+    load_company_logos()
     # load_reviews()

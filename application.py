@@ -3,7 +3,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, db, Company, Category, Review
+from model import connect_to_db, db, Company, Category, Review, Logo
 from helper import *
 import os
 import requests
@@ -121,25 +121,17 @@ def about():
 def company_info(company_id):
     """Company page with diversity details."""
 
-    print "I'm in!"
-
     company = Company.query.get(company_id)
-    print company
 
     categories_for_company = company.categories
-    print categories_for_company
 
     reviews = get_company_reviews(company_id)
     review_length = len(reviews)
-    print reviews
 
     overall_rating = get_company_overall_rating(company_id)
-    print overall_rating
 
     report_date = generate_report_date(company_id)
-    print report_date
-
-
+    
     company_list = get_gender_company_percentages(company_id)
     average_list = get_gender_avg_percentages()
 
@@ -226,16 +218,21 @@ def full_company_list():
 
     companies = Company.query.order_by(Company.name).all()
 
-    full_list = []
+    # full_list = []
+    logos_list = []
 
     for company in companies:
-        if company.name == "u.s. population" or company.name == "average from our sample" or company.name == "google+":
+        company_name = company.name
+        if company_name == "u.s. population" or company_name == "average from our sample" or company_name == "google+":
             continue
         else:
-            full_list.append(company)
+
+            company_logo = Logo.query.filter(Logo.company_id == company.company_id).one()
+
+            logos_list.append(company_logo)
 
 
-    return render_template("discover.html", companies=full_list)
+    return render_template("discover.html", logos=logos_list)
 
 
 
@@ -348,6 +345,8 @@ def return_news_search(company_id):
 
     return jsonify(company_news)
 
+
+
 # @app.route("/news/<int:company_id>.json")
 # def return_news_search(company_id):
 #     """Returns Google news search for company news in diversity."""
@@ -413,6 +412,7 @@ def return_glassdoor_results(company_id):
     resp = requests.get(url, headers={'User-Agent': 'curl/7.30.0'})
     results = resp.json()
     company_glassdoor = {}
+
 
     reviews_url = results["response"]["attributionURL"]
     overall_rating = results["response"]["employers"][0]["overallRating"]
