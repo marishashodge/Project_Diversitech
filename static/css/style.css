@@ -179,11 +179,6 @@ hr {
     margin: auto;
 }
 
-#chartDiv {                                                          /* NEW */
-       height: 250px;                                                  /* NEW */
-       position: relative;                                             /* NEW */
-       width: 360px;                                                   /* NEW */
-}
 
 .label {
    font-size: 95%;
@@ -250,16 +245,16 @@ h2 {
 #ranking-column1 {
   background-color: #f5f5f5;
   border-radius: 25px;
-  margin-right: 30px;
-  margin-left: 70px;
+  /*margin-right: 30px;
+  margin-left: 70px;*/
   margin-bottom: 50px;
 }
 
 #ranking-column2 {
   background-color: #f5f5f5;
   border-radius: 25px;
-  margin-right: 70px;
-  margin-left:45px;
+  /*margin-right: 70px;
+  margin-left:45px;*/
   margin-bottom: 50px;
 }
 
@@ -274,6 +269,24 @@ h5 {
 .table-padding {
   padding-bottom: 15px;
 }
+
+
+#rad1, #rad2, #rad3{
+  background-color: #aea79f;
+  margin-left: 3px;
+  margin-right: 3px;
+  border-color: #000;
+}
+
+#overall-b-button, #tech-b-button {
+  background-color: #aea79f;
+  margin-left: 3px;
+  margin-right: 3px;
+  border-color: #000;
+}
+
+
+
 
 /* Sticky footer styles
 -------------------------------------------------- */

@@ -201,11 +201,6 @@ def company_info(company_id):
             # average manager males
             data12 = 0
 
-    # print report_date
-
-    print report_date
-    print reviews
-    print "I made it!"
 
     return render_template("company-page.html", display_company=company, categories=categories_for_company,
                                                 reviews=reviews, reviewLength=review_length, overallRating=overall_rating, reportDate=report_date, data1=data1,

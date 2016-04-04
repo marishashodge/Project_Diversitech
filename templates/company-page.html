@@ -57,18 +57,21 @@
                 <br>
               </div>
               <div class="row">
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-12 col-md-5">
                     <h4  class="chart-header" style="text-transform: uppercase"><stong>{{ display_company.name }}</strong></h4>
                     <h4 style= "color:#dd4814;" class="chart-header" id="chart-header1"></h4>
                     <br>
-                    <div id='chartDiv' ></div>
+                    <div id='chartDiv' style="text-align: center;"></div>
                 </div>
-                <div class="col-xs-12 col-md-6">
-                    <h4  class="chart-header"><strong>Average for Tech Companies</strong></h4>
+                <!-- <div class="col-xs-1"></div> -->
+                <div class="col-xs-12 col-md-5" style="padding-top: 20px;">
+                    <h4 class="chart-header"><strong>Average for Tech Companies</strong></h4>
                     <h4 style= "color:#dd4814;"  class="chart-header" id="chart-header2"></h4>
                     <br>
-                    <div id='chartDiv2'></div>
+                    <div id='chartDiv2' style="text-align: center;"></div>
                 </div>
+
               </div>
               <div class='wrapper text-center'>
                 <br>
@@ -422,7 +425,7 @@ if ({{ reportDate }} != 0) {
      console.log(data1, data2, data3, data4)
 
 
-     var width = 450,
+     var width = 250,
      height = 250,
      radius = Math.min(width, height) / 2;
      var legendRectSize = 18;                                  // NEW
@@ -798,11 +801,11 @@ $("#chart-header2").html("OVERALL");
             console.log("NO DATA!");
         } else {
 
-            $("#tech-button").append("<button id='tech-button' class='btn' type='button'>Tech</button>");
-            $("#overall-button").append("<button id='overall-button' class='btn' type='button'>Overall</button>");
+            $("#tech-button").append("<button id='tech-b-button' class='btn' type='button'>Tech</button>");
+            $("#overall-button").append("<button id='overall-b-button' class='btn' type='button'>Overall</button>");
 
-            $('#tech-button').click(generateTechBarGraph);
-            $('#overall-button').click(generateOverallBarGraph);
+            $('#tech-b-button').click(generateTechBarGraph);
+            $('#overall-b-button').click(generateOverallBarGraph);
         }
     });
 
@@ -862,7 +865,7 @@ $("#reviews").click(generateReviews);
 
 // Google News Feed - From JSON
 
-function genderateGoogleNews(evt) {
+function generateGoogleNews(evt) {
 
 
     $.get("/news/{{ display_company.company_id }}.json", function(data) {
@@ -879,7 +882,7 @@ function genderateGoogleNews(evt) {
 
 }
 
-$("#news").click(genderateGoogleNews);
+$("#news").click(generateGoogleNews);
 
 
 // Google News Feed - Javascript Load
