@@ -13,19 +13,22 @@ from model import connect_to_db, db
 
 from application import app
 import pandas as pd
+import numpy as np
 
 
 
 def load_companies():
     """Load companies into Companies table."""
     data = pd.read_csv("Diversitech-Table.csv")
+
     print "Companies"
 
     Company.query.delete()
 
     for index, row in data.iterrows():
         name = row[0]
-        name_lower = name.lower()
+        if type(name) == str:
+            name_lower = name.lower()
         # number_of_employees = row[28]
         report_date = row[2]
         female_overall = row[3]

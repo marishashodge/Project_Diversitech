@@ -1,5 +1,5 @@
 Company,Parent Company if no data ,last report issued,Female,Male,Female Tech,Male Tech,Female Managers,Male Managers,White,White Tech,Asian,Asian Tech,Latino,Latino Tech,Black,Black Tech,Two+ races,Two+races Tech,Other,Other Tech,Source,Link,Employees
-U.S. Population,,-,51.00,49.00,-,-,-,-,64,-,4,-,16,-,12,-,1,-,3,-,"Prison Bars, CIA World Factbook, UNFPA",https://www.cia.gov/library/publications/the-world-factbook/geos/us.html,321368864
+U.S. Population,,-,51,49,-,-,-,-,64,-,4,-,16,-,12,-,1,-,3,-,"Prison Bars, CIA World Factbook, UNFPA",https://www.cia.gov/library/publications/the-world-factbook/geos/us.html,321368864
 Facebook,,2015,32,68,16,84,23,77,55,51,36,43,4,3,2,1,3,2,0,0,Facebook,https://newsroom.fb.com/news/2015/06/driving-diversity-at-facebook/,10082
 Instagram,Facebook,-,31,69,-,-,-,-,57,-,34,-,4,-,2,-,3,-,0,-,Facebook,http://newsroom.fb.com/news/2014/06/building-a-more-diverse-facebook/,9
 Google+,Google,2015,30,70,-,-,-,-,60,-,31,-,3,-,2,-,3,-,1,-,Google,https://plus.google.com/+google/posts/1VbnjxYQ5dv?pid=6155519933294674402&oid=116899029375914044550,
@@ -29,6 +29,6 @@ Sendgrid,,2014,22,78,9,91,19,81,83,-,10,-,4,-,1,-,1,-,1,-,Sendgrid,https://sendg
 Yelp,,2014,47,53,10,90,48,52,71,57,12,31,7,7,4,1,6,2,1,1,Yelp,http://officialblog.yelp.com/2014/08/workforce-diversity-at-yelp.html,
 BuzzFeed,,2014,48,52,-,-,-,-,75,-,11,-,6,-,4,-,3,-,1,-,BuzzFeed,http://www.buzzfeed.com/bensmith/what-were-doing-to-keep-building-a-diverse-editorial-operati#.ixg28gLpj,
 New Relic,,2015,27,73,16,84,21,79,76,-,13,-,5,-,2,-,2,-,1,-,New Reic,https://blog.newrelic.com/2015/12/18/diversity-inclusion/,
-Airbnb,,2015,46,54,-,-,-,-,63,-,22,-,7,-,3,-,4,-,1,-,Airbnb,http://blog.airbnb.com/creating-a-world-where-everyone-can-belong/,
+Airbnb,,2016,43,57,22,78,30,70,57,44,30,49,6,3,3,1,3,2,1,1,Airbnb,http://blog.airbnb.com/creating-a-world-where-everyone-can-belong/,
 Adobe,,2016,28,72,19,81,26,74,69,-,24,-,4,-,2,-,1,-,0,-,Adobe,http://www.adobe.com/diversity.html,
-average from our sample,,-,36,64,22,78,27,73,62,55,25,35,6,4,4,3,2,2,2,2,,,
+average from our sample,,-,35,65,22,78,27,73,62,54,25,36,6,4,4,2,2,2,2,2,,,
