@@ -61,6 +61,24 @@
 
         )};
 
+      function generateManagerDonutChart(evt) {
+          var ctx_donut_gender_managers = $("#donutChart3").get(0).getContext("2d");
+          $("#gender-heading").html("Company Gender - Tech");
+          $.get("/company-gender-managers/{{ display_company.company_id }}.json", function (data) {
+              var myDonutChart7 = new Chart(ctx_donut_gender_managers).Doughnut(data.tech, options);
+              $('#donutLegend3').html(myDonutChart7.generateLegend());
+          });
+
+          var ctx_donut_gender_average_managers = $('#donutChart4').get(0).getContext("2d");
+
+          $("#heading-gender-tech").html("Average Gender for Companies - Tech");
+          $.get("/company-gender-managers/{{ display_company.company_id }}.json", function (data) {
+              var myDonutChart8 = new Chart(ctx_donut_gender_average_managers).Doughnut(data.average,options);
+              $('#donutLegend4').html(myDonutChart8.generateLegend());
+          }
+
+          )};
+
     // Make donut chart of percent of men and women in TECH roles
    $.get("/company-gender-tech/{{ display_company.company_id }}.json", function (data) {
         if (data == "False") {
@@ -76,7 +94,28 @@
 
 
             // var ctx_donut_gender_tech = $("#donutChart5").get(0).getContext("2d");
-    
+
+            // var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
+            // $('#donutLegend5').html(myDonutChart5.generateLegend());
+        }
+    });
+
+    // Make donut chart of percent of men and women in MANAGER roles
+   $.get("/company-gender-managers/{{ display_company.company_id }}.json", function (data) {
+        if (data == "False") {
+            $(".gender-chart3").remove();
+            console.log("NO DATA!");
+        } else {
+
+            $(".manager-gender-button").append("<button id='manager-gender-button' type='button'>Gender Tech</button>");
+            $(".overall-gender-button").append("<button id='overall-gender-button' type='button'>Gender Overall</button>");
+
+            $('#manager-gender-button').click(generateManagerDonutChart);
+            $('#overall-gender-button').click(generateOverallDonutChart);
+
+
+            // var ctx_donut_gender_tech = $("#donutChart5").get(0).getContext("2d");
+
             // var myDonutChart5 = new Chart(ctx_donut_gender_tech).Doughnut(data.tech, options);
             // $('#donutLegend5').html(myDonutChart5.generateLegend());
         }
@@ -84,7 +123,7 @@
 
 
     // Make bar chart of average percent of men and women in Company, Average and US
-    
+
     var ctx_bar_ethnic = $("#barGraph1").get(0).getContext("2d");
     $("#heading").html("Company Ethnicity - Overall");
 
@@ -94,11 +133,11 @@
     });
 
     // Make bar chart of average percent of men and women in Company tech, Average tech and US
-    function generateTechBarGraph(evt) { 
+    function generateTechBarGraph(evt) {
         console.log("function here")
         var ctx_bar_ethnic_tech = $("#barGraph1").get(0).getContext("2d");
         $("#heading").html("Company Ethnicity - Tech");
-        $.get("/company-ethnicity-tech/{{ display_company.company_id }}.json", function (data) { 
+        $.get("/company-ethnicity-tech/{{ display_company.company_id }}.json", function (data) {
             var myBarChart2 = new Chart(ctx_bar_ethnic_tech).Bar(data, options);
             $('#barLegend').html(myBarChart2.generateLegend());
         })};
@@ -122,12 +161,12 @@
 
             $('#tech-button').click(generateTechBarGraph);
             $('#overall-button').click(generateOverallBarGraph);
-        }    
+        }
     });
 
 
 
- 
+
 
 // Google News Feed
 
@@ -150,7 +189,7 @@
             publNameDate.classList.add("publ-name-date");
             var content = document.createElement('p');
             content.classList.add("news-para");
-            
+
 
 
             a.href= newsSearch.results[i].unescapedUrl;
@@ -161,14 +200,14 @@
             publName = newsSearch.results[i].publisher + ": ";
             publNameDate.innerHTML = publName.concat(publDate2);
             content.innerHTML = newsSearch.results[i].content;
-    
+
 
             // Append search results to the HTML nodes
             p.appendChild(a);
             p.appendChild(publNameDate);
             p.appendChild(content);
-            
-           
+
+
             document.body.appendChild(p);
 
           }
@@ -180,8 +219,8 @@
         // Create a News Search instance.
         newsSearch = new google.search.NewsSearch();
 
-  
-        // Set searchComplete as the callback function when a search is 
+
+        // Set searchComplete as the callback function when a search is
         // complete.  The newsSearch object will have results in it.
         newsSearch.setSearchCompleteCallback(this, searchComplete, null);
 
@@ -202,10 +241,10 @@
     $(document).ready(function() {
     $(".btn-pref .btn").click(function () {
     $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
-    // $(".tab").addClass("active"); // instead of this do the below 
-    $(this).removeClass("btn-default").addClass("btn-primary");   
+    // $(".tab").addClass("active"); // instead of this do the below
+    $(this).removeClass("btn-default").addClass("btn-primary");
     });
     });
-   
+
 
     </script>

@@ -364,33 +364,31 @@ if ({{ reportDate }} != 0) {
  ];
  //company tech
 
- if ({{ data3 }} != 0) {
- var data2 = [{
-   "label": "Female",
-   "count": {{ data3 }} },
+ if ({{ data3 }} != 0 || {{ data9 }} != 0) {
+   if ({{ data3 }} != 0) {
+     var data2 = [{
+       "label": "Female",
+       "count": {{ data3 }} },
 
-   {"label": "Male",
-   "count": {{ data4 }} }
- ]
+       {"label": "Male",
+       "count": {{ data4 }} }
+     ]
+     $('#donut-tech-button').append("<button type='button' class='btn btn-primary-outline' name='radData' id='rad2' value='data2' onclick='change1(data2); change2(data4);'>Tech</button>")
+   }
 
- var data5 =[{
- "label": "Female",
- "count": {{ data9 }} },
+   if ({{ data9 }} != 0) {
+     var data5 =[{
+     "label": "Female",
+     "count": {{ data9 }} },
 
- {"label": "Male",
- "count": {{ data10 }}
- }]
+     {"label": "Male",
+     "count": {{ data10 }}
+     }]
 
- ;
- $('#donut-overall-button').append("<button type='button' class='btn' id='rad1' value='data1' onclick='change1(data1); change2(data3);'>Overall</button>")
- $('#donut-tech-button').append("<button type='button' class='btn btn-primary-outline' name='radData' id='rad2' value='data2' onclick='change1(data2); change2(data4);'>Tech</button>")
- $('#donut-management-button').append("<button type='button' class='btn btn-primary-outline' name='radData' id='rad3' value='data5' onclick='change1(data5); change2(data6);'>Management</button>")
+     $('#donut-management-button').append("<button type='button' class='btn btn-primary-outline' name='radData' id='rad3' value='data5' onclick='change1(data5); change2(data6);'>Management</button>")
+   }
+   $('#donut-overall-button').append("<button type='button' class='btn' id='rad1' value='data1' onclick='change1(data1); change2(data3);'>Overall</button>")
  }
-
-
-// "<button type='button' class='btn btn-primary'><input type='radio' name='radData' id='rad1' value='data1' checked='checked' onclick='change1(data1); change2(data3);' /><label for='rad1'>Overall</label><input type='radio' name='radData' id='rad2' value='data2' onclick='change1(data2); change2(data4);'/><label for='rad2'>Tech</label>/button>"
-
-
 
  // average overall
  var data3 = [{
@@ -404,25 +402,28 @@ if ({{ reportDate }} != 0) {
  ;
 
  if ({{ data3 }} != 0) {
- // average tech
- var data4 = [{
+   // average tech
+   var data4 = [{
 
- "label": "Female",
- "count": {{ data7 }} },
+   "label": "Female",
+   "count": {{ data7 }} },
 
- {"label": "Male",
- "count": {{ data8 }} }]
- ;
-
- var data6 =[{
- "label": "Female",
- "count": {{ data11 }} },
-{"label": "Male",
- "count": {{ data12 }}
- }];
-
-
+   {"label": "Male",
+   "count": {{ data8 }} }]
+   ;
  }
+
+ if ({{ data11 }} != 0) {
+
+   var data6 =[{
+   "label": "Female",
+   "count": {{ data11 }} },
+  {"label": "Male",
+   "count": {{ data12 }}
+   }];
+ }
+
+
  // function chart1() {
      ////
 

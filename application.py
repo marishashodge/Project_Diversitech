@@ -132,17 +132,43 @@ def company_info(company_id):
 
     report_date = generate_report_date(company_id)
 
-    company_list = get_gender_company_percentages(company_id)
+    company_dict = get_gender_company_percentages(company_id)
+    print("*************************", company_dict)
     average_list = get_gender_avg_percentages()
 
     # company females
-    data1 = company_list[0]
+    data1 = company_dict["female_overall"]
     # company males
-    data2 = company_list[1]
+    data2 = company_dict["male_overall"]
     # average females
     data5 = average_list[0]
     # average males
     data6 = average_list[1]
+    # company tech females
+    data3 = company_dict.get("female_tech", 0)
+    # company tech males
+    data4 = company_dict.get("male_tech", 0)
+    # average tech females
+    #data7 = average_list[2]
+    data7 = 0 if (data3 == 0) else average_list[2]
+    # average tech males
+    #data8 = average_list[3]
+    data8 = 0 if (data4 == 0) else average_list[3]
+    # company manager females
+    data9 = company_dict.get("female_managers", 0)
+    # company manager males
+    data10 = company_dict.get("male_managers", 0)
+    # average manager females
+    #data11 = average_list[4]
+    data11 = 0 if (data9 == 0) else average_list[4]
+    print("********************", data11)
+    # average manager males
+    #data12 = average_list[5]
+    data12 = 0 if (data10 == 0) else average_list[5]
+    print("********************", data12)
+
+
+    """
 
     if company.name == "Amazon":
         # company tech females
@@ -200,7 +226,7 @@ def company_info(company_id):
             data11 = 0
             # average manager males
             data12 = 0
-
+    """
 
     return render_template("company-page.html", display_company=company, categories=categories_for_company,
                                                 reviews=reviews, reviewLength=review_length, overallRating=overall_rating, reportDate=report_date, data1=data1,
@@ -258,6 +284,7 @@ def return_gender_tech_json(company_id):
     """Return gender diversity in technical roles."""
 
     tech_list_of_dicts = generate_gender_tech_dict(company_id)
+    print("TECH LIST OF DICTS *****************", tech_list_of_dicts)
 
 
 
@@ -271,7 +298,7 @@ def return_gender_tech_json(company_id):
 def return_gender_managers_json(company_id):
     """Return gender diversity in management roles."""
 
-    managers_list_of_dicts = get_gender_manager_dict(company_id)
+    managers_list_of_dicts = get_gender_manager_percentages(company_id)
 
     if managers_list_of_dicts["tech"]:
 

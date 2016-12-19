@@ -110,37 +110,37 @@ def get_gender_company_percentages(company_id):
 
     categories_for_company = Category.query.filter(Category.company_id == company_id)
 
-    company_list = []
+    company_dict = {}
 
     # Add overall company numbers
     company = Company.query.get(company_id)
 
     c_f =  company.female_overall
-    company_list.append(c_f)
+    company_dict["female_overall"] = c_f
 
     c_m = company.male_overall
-    company_list.append(c_m)
+    company_dict["male_overall"] = c_m
 
     # Add tech company numbers
     for category in categories_for_company:
 
         if category.category == 'Female Tech':
             company_female_tech = category.percentage
-            company_list.append(company_female_tech)
+            company_dict["female_tech"] = company_female_tech
 
         if category.category == 'Male Tech':
             company_male_tech = category.percentage
-            company_list.append(company_male_tech)
+            company_dict["male_tech"] = company_male_tech
 
         if category.category == 'Female Managers':
             female_manager_percentage = category.percentage
-            company_list.append(female_manager_percentage)
+            company_dict["female_managers"] = female_manager_percentage
 
         if category.category == 'Male Managers':
             male_manager_percentage = category.percentage
-            company_list.append(male_manager_percentage)
+            company_dict["male_managers"] = male_manager_percentage
 
-    return company_list
+    return company_dict
 
 def get_gender_avg_percentages():
     """Return a list of average gender diversity."""
