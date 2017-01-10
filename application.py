@@ -437,8 +437,9 @@ def return_glassdoor_results(company_id):
     results = resp.json()
     company_glassdoor = {}
 
-    if company_name == "codespark":
+    if company_name == "codespark" or company_name == "CODESPARK":
         company_glassdoor["squareLogo"] = "http://i.imgur.com/yFr2Xn4.png"
+
         return jsonify(company_glassdoor)
 
     reviews_url = results["response"]["attributionURL"]
