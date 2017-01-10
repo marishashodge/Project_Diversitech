@@ -69,6 +69,9 @@ def load_company_logos():
             elif company_name == "instagram":
                 square_logo = "http://cdn.wccftech.com/wp-content/uploads/2015/08/Instagram-logo.png"
 
+            elif company_name == "codespark":
+                square_logo = "http://i.imgur.com/yFr2Xn4.png"
+
             else:
                 square_logo = results["response"]["employers"][0]["squareLogo"]
 
